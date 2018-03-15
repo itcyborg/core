@@ -8,11 +8,14 @@
 
 namespace Database\QueryBuilder;
 
-class QueryBuilder
+use Database\ConnectionBuilder\Connection;
+
+class QueryBuilder extends Connection
 {
     private static $query;
     public static function all($table,array $columns=null)
     {
+
     }
 
     public static function columns($table,array $columns)

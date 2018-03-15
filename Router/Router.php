@@ -9,6 +9,7 @@
 namespace Router;
 
 use App\Bootstrap\App;
+use Controller\Controller;
 use Exceptions\ExceptionsHandler;
 
 class Router
@@ -19,8 +20,8 @@ class Router
     ];
 
     private static $controller = [];
-
     private static $action = [];
+    private static $parameters = [];
     private static $path;
 
     //load the routes file
@@ -41,15 +42,22 @@ class Router
     {
         /**
          * example.com/about/me
-         *
+         * check if the uri is in the listed array routes
          */
         if (array_key_exists($uri, self::$routes[$requestType])) {
+            //check if the controller directory exists
             if (is_dir(App::controllerDir())) {
-
+                //create an instance of the controller
+                new Controller(
+                    (string)self::$controller[$uri],
+                    self::$action[$uri][self::$controller[$uri]]
+                );
             } else {
+                //throw an error if directory is not found
                 throw new ExceptionsHandler('Page not Found', 404);
             }
         } else {
+            //if route is not listed in routes array, throw an error
             throw new ExceptionsHandler('Page not Found', 404);
         }
     }
@@ -64,9 +72,16 @@ class Router
          * build the controller map with key being
          */
         if (strstr($controller, '@')) {
+            /**
+             * if controller has a specified action then split the action from the controller and the action
+             * i.e 'controller@action' -> controller, action
+             * create a map of controller with its keys being uri
+             * create a map of actions with its keys being uri and controller
+             * create a map of routes with its keys being request type and uri
+             */
             $tmp = explode('@', $controller);
             self::$controller[$uri] = $tmp[0];
-            self::$action[$uri][$controller] = $tmp[1];
+            self::$action[$uri][$tmp[0]] = $tmp[1];
             self::$routes['GET'][$uri] = self::$path . $tmp[0];
         } else {
             self::$controller[$uri] = $controller;
@@ -84,9 +99,16 @@ class Router
          * build the controller map with key being
          */
         if (strstr($controller, '@')) {
+            /**
+             * if controller has a specified action then split the action from the controller and the action
+             * i.e 'controller@action' -> controller, action
+             * create a map of controller with its keys being uri
+             * create a map of actions with its keys being uri and controller
+             * create a map of routes with its keys being request type and uri
+             */
             $tmp = explode('@', $controller);
             self::$controller[$uri] = $tmp[0];
-            self::$action[$uri][$controller] = $tmp[1];
+            self::$action[$uri][$tmp[0]] = $tmp[1];
             self::$routes['POST'][$uri] = self::$path . $tmp[0];
         } else {
             self::$controller[$uri] = $controller;
