@@ -9,7 +9,6 @@
 namespace Storage;
 
 use Exceptions\ExceptionsHandler;
-use Storage\FileSystem;
 
 /**
  * @property  storageRoot
@@ -40,11 +39,13 @@ class Storage extends FileSystem
         self::$root = $root;
     }
 
-    public static function store($file,$dest)
+    public static function store($path, $file)
     {
         try{
-            $destination=self::getRoot().self::$storageRoot.$dest;
-            move_uploaded_file($file,$destination);
+            if (is_dir(self::$storageRoot)) {
+                $destination = self::getRoot() . self::$storageRoot . $path;
+                move_uploaded_file($file, $destination);
+            }
         }catch (\Exception $e){
             throw new ExceptionsHandler($e->getMessage(),$e->getCode());
         }
@@ -62,27 +63,41 @@ class Storage extends FileSystem
     {
     }
 
-    public static function getSize()
+    public static function getSize($filepath)
     {
+        return filesize($filepath);
     }
 
-    public static function getMime()
+    public static function getMime($filepath)
     {
+        return mime_content_type($filepath);
     }
 
-    public static function getExt()
+    public static function getExt($filepath)
     {
+        return pathinfo($filepath, PATHINFO_EXTENSION);
     }
 
     public static function getPath()
     {
     }
 
-    public static function getName()
+    public static function getName($filepath)
     {
+        return pathinfo($filepath, PATHINFO_BASENAME);
     }
 
     private static function setName()
     {
+
+    }
+
+    public static function deleteDir($directoryPath)
+    {
+    }
+
+    public static function delete($filePath)
+    {
+
     }
 }

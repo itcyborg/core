@@ -12,7 +12,8 @@ namespace Storage;
 class FileSystem
 {
     private static $root;
-    public static function createDir()
+
+    public static function createDir($path, $directory)
     {
         
     }
