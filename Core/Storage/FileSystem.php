@@ -6,7 +6,7 @@
  * Time: 11:40 PM
  */
 
-namespace Storage;
+namespace Core\Storage;
 
 
 class FileSystem

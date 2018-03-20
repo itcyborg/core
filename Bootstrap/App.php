@@ -6,12 +6,12 @@
  * Time: 9:32 AM
  */
 
-namespace App\Bootstrap;
+namespace Core\App\Bootstrap;
 
 
-use Exceptions\ExceptionsHandler;
-use Requests\Request;
-use Router\Router;
+use Core\Exceptions\ExceptionsHandler;
+use Core\Requests\Request;
+use Core\Router\Router;
 
 class App
 {
@@ -55,11 +55,11 @@ class App
 
     public static function controllerDir()
     {
-        return self::getDocumentRoot() . '/Controllers/';
+        return self::getDocumentRoot() . '/App/Controllers/';
     }
 
     public static function viewsDir()
     {
-        return self::getDocumentRoot() . '/Views/';
+        return self::getDocumentRoot() . '/App/Views/';
     }
 }

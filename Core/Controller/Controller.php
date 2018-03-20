@@ -6,9 +6,9 @@
  * Time: 2:08 PM
  */
 
-namespace Controller;
+namespace Core\Controller;
 
-use App\Bootstrap\App;
+use Core\App\Bootstrap\App;
 
 class Controller
 {

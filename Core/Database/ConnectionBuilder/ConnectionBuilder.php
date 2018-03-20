@@ -5,11 +5,12 @@
  * Date: 3/12/2018
  * Time: 9:33 PM
  */
-namespace Database\ConnectionBuilder;
 
-use Config\Config;
+namespace Core\Database\ConnectionBuilder;
+
+use Core\Config\Config;
+use Core\Exceptions\ExceptionsHandler;
 use PDO;
-use Exceptions\ExceptionsHandler;
 
 class ConnectionBuilder
 {

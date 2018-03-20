@@ -6,7 +6,7 @@
  * Time: 9:34 PM
  */
 
-namespace Database\ConnectionBuilder;
+namespace Core\Database\ConnectionBuilder;
 
 class GetDatabaseConfig
 {

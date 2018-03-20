@@ -6,7 +6,7 @@
  * Time: 9:56 PM
  */
 
-namespace Config;
+namespace Core\Config;
 
 
 class Config

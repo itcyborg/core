@@ -6,11 +6,11 @@
  * Time: 11:25 AM
  */
 
-namespace Router;
+namespace Core\Router;
 
-use App\Bootstrap\App;
-use Controller\Controller;
-use Exceptions\ExceptionsHandler;
+use Core\App\Bootstrap\App;
+use Core\Controller\Controller;
+use Core\Exceptions\ExceptionsHandler;
 
 class Router
 {
@@ -44,6 +44,8 @@ class Router
          * example.com/about/me
          * check if the uri is in the listed array routes
          */
+//        dd(self::$parameters);
+        dd(self::$routes);
         if (array_key_exists($uri, self::$routes[$requestType])) {
             //check if the controller directory exists
             if (is_dir(App::controllerDir())) {
@@ -54,7 +56,7 @@ class Router
                 );
             } else {
                 //throw an error if directory is not found
-                throw new ExceptionsHandler('Page not Found', 404);
+                throw new ExceptionsHandler('View Directory not Found', 404);
             }
         } else {
             //if route is not listed in routes array, throw an error

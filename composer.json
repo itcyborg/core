@@ -1,0 +1,11 @@
+{
+  "autoload": {
+    "classmap": [
+      "Core/",
+      "Bootstrap/"
+    ],
+    "files": [
+      "Core/Helpers/Helpers.php"
+    ]
+  }
+}

@@ -6,7 +6,8 @@
  * Time: 9:56 AM
  */
 
-use Router\Router;
+use Core\Router\Route;
 
-Router::get('', 'aboutController');
-Router::get('hello', 'aboutController');
+Route::get('', 'AboutController@hello');
+Route::get('hello/{1}', 'AboutController@index');
+Route::get('help', 'AboutController@help');

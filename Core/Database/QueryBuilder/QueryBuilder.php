@@ -8,7 +8,7 @@
 
 namespace Database\QueryBuilder;
 
-use Database\ConnectionBuilder\Connection;
+use Core\Database\ConnectionBuilder\Connection;
 
 class QueryBuilder extends Connection
 {

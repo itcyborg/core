@@ -5,7 +5,8 @@
  * Date: 3/12/2018
  * Time: 9:31 PM
  */
-namespace Database\ConnectionBuilder;
+
+namespace Core\Database\ConnectionBuilder;
 
 class Connection extends \Database\ConnectionBuilder\ConnectionBuilder
 {

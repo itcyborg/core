@@ -6,7 +6,7 @@
  * Time: 3:59 PM
  */
 
-namespace Router;
+namespace Core\Router;
 
 
 class Route extends Router

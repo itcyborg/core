@@ -6,7 +6,7 @@
  * Time: 11:25 AM
  */
 
-namespace Requests;
+namespace Core\Requests;
 
 
 class Request
