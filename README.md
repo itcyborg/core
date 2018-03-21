@@ -4,17 +4,22 @@ core framework
 * cd to routes directory, open routes.php file
 * add routes using:
     
-    `<?php
+    
+    
+   
+    <?php
+         
+         use Core\Router\Route;
+         
+         Route::get('', 'AboutController@hello');
+         
+         Route::get('hello/', 'AboutController@index');
+         
+         Route::get('help', 'AboutController@help');
+         
+         Route::post('file', 'AboutController@file');
      
-     use Core\Router\Route;
-     
-     Route::get('', 'AboutController@hello');
-     
-     Route::get('hello/', 'AboutController@index');
-     
-     Route::get('help', 'AboutController@help');
-     
-     Route::post('file', 'AboutController@file');`
+    ?>
  
  ##Handle form data
  ### form submitted via GET/POST
