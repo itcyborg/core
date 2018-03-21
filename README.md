@@ -21,7 +21,7 @@ core framework
      
     ?>
  
- ##Handle form data
+ ## Handle form data
  ### form submitted via GET/POST
     use Core\Requests\Request;
     ...
