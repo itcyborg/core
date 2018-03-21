@@ -23,20 +23,18 @@ core framework
  
  ##Handle form data
  ### form submitted via GET/POST
- ` use Core\Requests\Request;`
- 
- `...`
- 
- `public function getData()`
-      `{`
-      
-          $request = new Request(); //create a new request
-                      
-          //get the field value
+    use Core\Requests\Request;
+    ...
+     public function getData()
+          {
           
-          $request->fieldname;
-      }
- `
+              $request = new Request(); //create a new request
+                          
+              //get the field value
+              
+              $request->fieldname;
+          }
+ 
 
  ### form with files submitted via POST
  
