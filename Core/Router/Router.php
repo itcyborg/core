@@ -45,7 +45,6 @@ class Router
          * check if the uri is in the listed array routes
          */
 //        dd(self::$parameters);
-        dd(self::$routes);
         if (array_key_exists($uri, self::$routes[$requestType])) {
             //check if the controller directory exists
             if (is_dir(App::controllerDir())) {

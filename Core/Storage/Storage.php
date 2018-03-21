@@ -17,7 +17,6 @@ class Storage implements StorageInterface
 {
     private static $root;
     private static $storageRoot='Storage/';
-    private static $errors = [];
     private static $type;
     private static $mime;
     private static $name;
@@ -55,7 +54,7 @@ class Storage implements StorageInterface
         try{
             if (is_dir(self::$storageRoot)) {
                 $destination = self::getRoot() . self::$storageRoot . $path;
-                move_uploaded_file($path, $destination);
+                move_uploaded_file(self::$tmp_file, $destination);
             }
         }catch (\Exception $e){
             throw new ExceptionsHandler($e->getMessage(),$e->getCode());

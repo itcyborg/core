@@ -11,3 +11,5 @@ use Core\Router\Route;
 Route::get('', 'AboutController@hello');
 Route::get('hello/{1}', 'AboutController@index');
 Route::get('help', 'AboutController@help');
+
+Route::post('file', 'AboutController@file');

@@ -1,5 +1,7 @@
 <?php
 
+use Core\Requests\Request;
+
 /**
  * Created by PhpStorm.
  * User: itcyborg
@@ -15,7 +17,12 @@ class AboutController
 
     public function hello()
     {
-        echo "hello";
+        echo "<form action='file' method='post' enctype='multipart/form-data'>
+<input type='text' name='file' value='hello'>
+    <input type='file' name='file'><br>
+    <input type='file' name='file1'><br>
+    <button>Submit</button>
+</form>";
     }
 
     public function index()
@@ -26,5 +33,12 @@ class AboutController
     public function help()
     {
         echo "help";
+    }
+
+    public function file()
+    {
+        $request = new Request();
+        $f = $request->files('file', 'file1');
+        dd($f->file);
     }
 }

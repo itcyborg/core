@@ -21,11 +21,12 @@ class App
     public static function boot($dir)
     {
         try {
+            $request = new Request();
             self::setDocumentRoot($dir);
             Router::load(
                 App::routesDir() . 'routes.php'
             )->direct(
-                Request::uri(), Request::method()
+                $request->uri(), $request->method()
             );
         } catch (ExceptionsHandler $e) {
             dd($e);
