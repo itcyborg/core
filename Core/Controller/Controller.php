@@ -9,15 +9,16 @@
 namespace Core\Controller;
 
 use Core\App\Bootstrap\App;
+use Core\Exceptions\ExceptionsHandler;
 
 class Controller
 {
-    public function __construct($controller, $action = null)
+    public function __construct($controller, $action = null, $params = null)
     {
-        self::loadController($controller, $action);
+        self::loadController($controller, $action, $params);
     }
 
-    private static function loadController($controller, $action = null)
+    private static function loadController($controller, $action = null, $params = null)
     {
         /**
          * check if the controller directory exists
@@ -30,16 +31,17 @@ class Controller
             if (is_readable(App::controllerDir() . $controller . '.php')) {
                 require App::controllerDir() . $controller . '.php';
                 if ($action !== null) {
-                    $controller = new $controller();
-                    return $controller->$action();
+                    call_user_func([$controller, $action], ...array_values($params));
                 } else {
-                    return new $controller();
+                    if (class_exists($controller)) {
+                        new $controller();
+                    }
                 }
             } else {
-                dd('not readable');
+                throw new ExceptionsHandler('Controller not found/Controller not readable.');
             }
         } else {
-            echo "fail";
+            throw new ExceptionsHandler('Controller Directory not found');
         }
     }
 }

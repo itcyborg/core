@@ -7,119 +7,114 @@
  */
 
 namespace Core\Storage;
-require "StorageInterface.php";
-require "../../Bootstrap/App.php";
 
 use Core\App\Bootstrap\App;
 use Core\Exceptions\ExceptionsHandler;
 
-class Storage implements StorageInterface
+class Storage
 {
     private static $root;
-    private static $storageRoot='Storage/';
-    private static $type;
-    private static $mime;
-    private static $name;
-    private static $tmp_file;
-    private static $maxSize;
-    private static $ext;
-    private static $allowedMime;
-    private static $allowedExt;
-    private static $scope;
-    private static $directory;
+    private static $storageRoot = 'Storage/';
+    private static $public = 'Public/';
 
     public function __construct()
     {
-        self::setRoot(App::getDocumentRoot());
+        self::$root = App::getDocumentRoot();
     }
 
-    /**
-     * @return mixed
+    /** Store files Publicly
+     * @param $file
+     * @return string
+     * @throws ExceptionsHandler
      */
-    public static function getRoot()
+    public static function store($file)
     {
-        return self::$root;
-    }
-
-    /**
-     * @param mixed $root
-     */
-    public static function setRoot($root)
-    {
-        self::$root = $root;
-    }
-
-    public static function store($path)
-    {
-        try{
-            if (is_dir(self::$storageRoot)) {
-                $destination = self::getRoot() . self::$storageRoot . $path;
-                move_uploaded_file(self::$tmp_file, $destination);
+        if (is_dir(self::$storageRoot)) {
+            $destination = self::$storageRoot . self::$public . self::uniqueName() . '.' . self::getExt($file);
+            if (!is_dir(self::$storageRoot . self::$public)) {
+                mkdir(self::$storageRoot . self::$public);
             }
-        }catch (\Exception $e){
-            throw new ExceptionsHandler($e->getMessage(),$e->getCode());
+            if (move_uploaded_file($file->tmp_name, $destination)) {
+                return $destination;
+            } else {
+                if ($file->error > 0) {
+                    $error = $file->error;
+                    self::generateError($error);
+                }
+                throw new ExceptionsHandler('Unknown Error Occured', 10);
+            }
         }
     }
 
-    public static function put($filename, $path)
+    public static function put($file, $destinationDir = null)
     {
-        // TODO: Implement put() method.
+        if (is_dir(self::$storageRoot)) {
+            $destination = self::$storageRoot . self::uniqueName() . '.' . self::getExt($file);
+            if ($destinationDir != null) {
+                $destination = self::$storageRoot . $destinationDir . '/' . self::uniqueName() . '.' . self::getExt($file);
+                if (!is_dir(self::$storageRoot . $destinationDir)) {
+                    mkdir(self::$storageRoot . $destinationDir);
+                    dd('dir created');
+                }
+            }
+            if (move_uploaded_file($file->tmp_name, $destination)) {
+                return $destination;
+            } else {
+                if ($file->error > 0) {
+                    $error = $file->error;
+                    self::generateError($error);
+                }
+                throw new ExceptionsHandler('Unknown Error Occured', 10);
+            }
+        }
     }
 
-    public static function get($file)
+    protected static function uniqueName()
     {
+        $idkeyspace = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz';
+        $length = 16;
+        $idstr = array();
+        $max = strlen($idkeyspace) - 1;
+        for ($i = 0; $i < $length; ++$i) {
+            $n = rand(0, $max);
+            $idstr[] = $idkeyspace[$n];
+        }
+
+        return implode($idstr);
     }
 
-    public static function download($file)
+    private static function generateError($error)
     {
+        switch ($error) {
+            case (1):
+                throw new ExceptionsHandler('The uploaded file exceeds the upload_max_filesize directive.Max allowed is ' . ini_get('upload_max_filesize'), 1);
+                break;
+            case (2):
+                throw new ExceptionsHandler('File size exceeds MAX_FILE_DIRECTIVE specified in html form.', 2);
+                break;
+            case (3):
+                throw new ExceptionsHandler('The uploaded file was only partially uploaded.', 3);
+                break;
+            case (4):
+                throw new ExceptionsHandler('No file was uploaded.', 4);
+                break;
+            case (6):
+                throw new ExceptionsHandler('Missing a temporary folder', 6);
+                break;
+            case (7):
+                throw new ExceptionsHandler('Failed to write file to disk.', 7);
+                break;
+            case (8):
+                throw new ExceptionsHandler(' A PHP extension stopped the file upload.', 8);
+                break;
+            default:
+                throw new ExceptionsHandler('Unknown Error Occurred', $error);
+                break;
+        }
     }
 
-    public static function getSize($filepath)
+    private static function getExt($file)
     {
-        return filesize($filepath);
-    }
-
-    public static function getMime($filepath)
-    {
-        return mime_content_type($filepath);
-    }
-
-    public static function getExt($filepath)
-    {
-        return pathinfo($filepath, PATHINFO_EXTENSION);
-    }
-
-    public static function getName($filepath)
-    {
-        return pathinfo($filepath, PATHINFO_BASENAME);
-    }
-
-    public static function setName($path, $name)
-    {
-
-    }
-
-
-    public static function delete($filePath)
-    {
-
-    }
-
-    public static function name($filename)
-    {
-        // TODO: Implement name() method.
-    }
-
-    public static function mime($filename)
-    {
-        // TODO: Implement mime() method.
-    }
-
-    public static function path($filename)
-    {
-        // TODO: Implement path() method.
+        return pathinfo($file->name, PATHINFO_EXTENSION);
     }
 }
-
-$upload = new Storage;
-var_dump($upload::getRoot());

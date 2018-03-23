@@ -1,6 +1,8 @@
 <?php
 
+use Core\Exceptions\ExceptionsHandler;
 use Core\Requests\Request;
+use Core\Storage\Storage;
 
 /**
  * Created by PhpStorm.
@@ -39,6 +41,11 @@ class AboutController
     {
         $request = new Request();
         $f = $request->files('file', 'file1');
-        dd($f->file);
+        try {
+            $storage = new Storage();
+            dd($storage->put($f->file));
+        } catch (ExceptionsHandler $e) {
+            dd($e);
+        }
     }
 }

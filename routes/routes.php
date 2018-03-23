@@ -9,7 +9,10 @@
 use Core\Router\Route;
 
 Route::get('', 'AboutController@hello');
-Route::get('hello/{1}', 'AboutController@index');
-Route::get('help', 'AboutController@help');
+Route::get('hello/{id}', function ($id) {
+    echo $id;
+});
+Route::get('test', 'PCon');
+Route::get('help/{id}/{page}', 'AboutController@help');
 
 Route::post('file', 'AboutController@file');
