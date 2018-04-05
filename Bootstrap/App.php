@@ -46,7 +46,11 @@ class App
      */
     public static function setDocumentRoot($document_root)
     {
-        self::$document_root = $document_root;
+        if (strstr($document_root, 'Public/..')) {
+            self::$document_root = explode('Public/../', $document_root)[0];
+        } else {
+            self::$document_root = $document_root . "/";
+        }
     }
 
     public static function routesDir()
@@ -62,5 +66,15 @@ class App
     public static function viewsDir()
     {
         return self::getDocumentRoot() . '/App/Views/';
+    }
+
+    public static function configDir()
+    {
+        return self::getDocumentRoot() . '/Config/';
+    }
+
+    public static function logDir()
+    {
+        return self::getDocumentRoot() . 'Storage/App/Logs/';
     }
 }

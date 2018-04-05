@@ -6,8 +6,8 @@
  * Time: 9:43 AM
  */
 
-require '..\vendor\autoload.php';
+require 'vendor\autoload.php';
 
 use Core\App\Bootstrap\App;
 
-App::boot(__DIR__ . "/../");
+App::boot(__DIR__);

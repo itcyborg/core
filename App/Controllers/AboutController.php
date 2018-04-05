@@ -43,7 +43,18 @@ class AboutController
         $f = $request->files('file', 'file1');
         try {
             $storage = new Storage();
-            dd($storage->put($f->file));
+            dd(toJson($storage));
+            dd($storage->store($f->file, 'private'));
+        } catch (ExceptionsHandler $e) {
+            dd($e);
+        }
+    }
+
+    public static function download()
+    {
+        $file = 'Storage/Public/mn9h85ySdY5Iki6.mp3';
+        try {
+            Storage::download($file, 'music');
         } catch (ExceptionsHandler $e) {
             dd($e);
         }

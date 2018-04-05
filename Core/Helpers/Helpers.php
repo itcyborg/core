@@ -20,3 +20,8 @@ function dump($var)
     var_dump($var);
     echo "</code></pre>";
 }
+
+function toJson($data)
+{
+    return json_encode($data);
+}

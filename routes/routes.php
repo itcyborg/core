@@ -12,7 +12,7 @@ Route::get('', 'AboutController@hello');
 Route::get('hello/{id}', function ($id) {
     echo $id;
 });
-Route::get('test', 'PCon');
+Route::get('test', 'AboutController@download');
 Route::get('help/{id}/{page}', 'AboutController@help');
 
 Route::post('file', 'AboutController@file');

@@ -79,6 +79,8 @@ class Router
                 self::$route['GET'][$regex] = $controller;
                 self::$action['GET'][$regex][$controller] = null;
             }
+        } else {
+            self::$route['GET'][$regex] = $controller;
         }
     }
 
@@ -95,6 +97,8 @@ class Router
                 self::$route['POST'][$regex] = $controller;
                 self::$action['POST'][$regex][$controller] = null;
             }
+        } else {
+            self::$route['GET'][$regex] = $controller;
         }
     }
 }

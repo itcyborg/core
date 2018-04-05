@@ -14,7 +14,7 @@ use Core\Exceptions\ExceptionsHandler;
 class Storage
 {
     private static $root;
-    private static $storageRoot = 'Storage/';
+    private static $storageRoot = '/Storage/';
     private static $public = 'Public/';
 
     public function __construct()
@@ -29,13 +29,15 @@ class Storage
      */
     public static function store($file)
     {
-        if (is_dir(self::$storageRoot)) {
-            $destination = self::$storageRoot . self::$public . self::uniqueName() . '.' . self::getExt($file);
-            if (!is_dir(self::$storageRoot . self::$public)) {
-                mkdir(self::$storageRoot . self::$public);
+        if (is_dir(self::$root . self::$storageRoot)) {
+            $dir = self::$root . self::$storageRoot;
+            $filedir = self::$public . self::uniqueName() . '.' . self::getExt($file);
+            $destination = $dir . $filedir;
+            if (!is_dir(self::$root . self::$storageRoot . self::$public)) {
+                mkdir(self::$root . self::$storageRoot . self::$public);
             }
             if (move_uploaded_file($file->tmp_name, $destination)) {
-                return $destination;
+                return $filedir;
             } else {
                 if ($file->error > 0) {
                     $error = $file->error;
@@ -43,22 +45,34 @@ class Storage
                 }
                 throw new ExceptionsHandler('Unknown Error Occured', 10);
             }
+        } else {
+            dd('Error');
         }
     }
 
     public static function put($file, $destinationDir = null)
     {
-        if (is_dir(self::$storageRoot)) {
-            $destination = self::$storageRoot . self::uniqueName() . '.' . self::getExt($file);
+        if (strpos($destinationDir, 'App/')) {
+            throw new ExceptionsHandler('Restricted Directory');
+        } elseif (strpos($destinationDir, '/App')) {
+            throw new ExceptionsHandler('Restricted Directory');
+        } elseif (strpos($destinationDir, 'App')) {
+            throw new ExceptionsHandler('Restricted Directory');
+        }
+        if (is_dir(self::$root . self::$storageRoot)) {
+            $dir = self::$root . self::$storageRoot;
+            $filedir = self::uniqueName() . '.' . self::getExt($file);
+            $destination = $dir . $filedir;
             if ($destinationDir != null) {
-                $destination = self::$storageRoot . $destinationDir . '/' . self::uniqueName() . '.' . self::getExt($file);
-                if (!is_dir(self::$storageRoot . $destinationDir)) {
-                    mkdir(self::$storageRoot . $destinationDir);
-                    dd('dir created');
+                $dir = self::$root . self::$storageRoot;
+                $filedir = $destinationDir . '/' . self::uniqueName() . '.' . self::getExt($file);
+                $destination = $dir . $filedir;
+                if (!is_dir(self::$root . self::$storageRoot . $destinationDir)) {
+                    mkdir(self::$root . self::$storageRoot . $destinationDir);
                 }
             }
             if (move_uploaded_file($file->tmp_name, $destination)) {
-                return $destination;
+                return $filedir;
             } else {
                 if ($file->error > 0) {
                     $error = $file->error;
@@ -108,7 +122,7 @@ class Storage
                 throw new ExceptionsHandler(' A PHP extension stopped the file upload.', 8);
                 break;
             default:
-                throw new ExceptionsHandler('Unknown Error Occurred', $error);
+                throw new ExceptionsHandler('Unknown Error Occurred', 11);
                 break;
         }
     }
@@ -116,5 +130,33 @@ class Storage
     private static function getExt($file)
     {
         return pathinfo($file->name, PATHINFO_EXTENSION);
+    }
+
+    public static function download($file, $name = null)
+    {
+        if (strstr($file, '../')) {
+            throw new ExceptionsHandler('An Error Occurred');
+        }
+        new static;
+        if (file_exists(self::$root . $file)) {
+            $file = self::$root . $file;
+            if ($name != null || trim($name) != '') {
+                $ext = pathinfo($file, PATHINFO_EXTENSION);
+                $filename = $name . "." . $ext;
+            } else {
+                $filename = basename($file);
+            }
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename="' . $filename . '"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: private');
+            header('Content-Length: ' . filesize($file));
+            readfile($file);
+            exit;
+        } else {
+            throw new ExceptionsHandler('File not found.');
+        }
     }
 }
