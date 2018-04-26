@@ -1,6 +1,7 @@
 <?php
 
 use Core\Exceptions\ExceptionsHandler;
+use Core\Notifications\Notifications;
 use Core\Requests\Request;
 use Core\Storage\Storage;
 
@@ -19,12 +20,25 @@ class AboutController
 
     public function hello()
     {
-        echo "<form action='file' method='post' enctype='multipart/form-data'>
-<input type='text' name='file' value='hello'>
-    <input type='file' name='file'><br>
-    <input type='file' name='file1'><br>
-    <button>Submit</button>
-</form>";
+        preg_match('/\(.*\)/', php_uname(), $match);
+        dd($match);
+//        $job=new Job();
+//        $job->delete('test');
+//        $res=$job->create('test',1,\Core\App\Bootstrap\App::getDocumentRoot().'/imap.bat');
+//        dd($res);
+        Notifications::add(1, 'well done');
+        Notifications::getNotifications('1');
+        dd(session_id());
+//        $config=new Config;
+//        dd($config->database());
+//        dd(Config::database());
+//        dd(DB::all('users'));
+//        try {
+//            dd((new Core\Auth\PasswordService)->hasInteger('sdas'));
+//        } catch (Exception $e) {
+//            dd($e);
+//        }
+//        view('test.html', ['id' => 1,'name'=>'isaac']);
     }
 
     public function index()
@@ -43,7 +57,6 @@ class AboutController
         $f = $request->files('file', 'file1');
         try {
             $storage = new Storage();
-            dd(toJson($storage));
             dd($storage->store($f->file, 'private'));
         } catch (ExceptionsHandler $e) {
             dd($e);

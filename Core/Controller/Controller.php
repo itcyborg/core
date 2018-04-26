@@ -44,4 +44,20 @@ class Controller
             throw new ExceptionsHandler('Controller Directory not found');
         }
     }
+
+    public static function make($name)
+    {
+        if (!file_exists(App::controllerDir() . $name . '.php')) {
+            if ($controller = fopen(App::controllerDir() . $name . '.php', 'w')) {
+                fwrite($controller,
+                    '<?php ' . PHP_EOL .
+                    'class ' . $name . '{' . PHP_EOL . PHP_EOL . '}'
+                );
+                fclose($controller);
+                echo "Controller '$name' successfully created.";
+            }
+        } else {
+            die('Controller already exists.');
+        }
+    }
 }

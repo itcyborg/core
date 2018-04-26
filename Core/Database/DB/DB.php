@@ -9,7 +9,7 @@
 namespace Core\Database\DB;
 
 
-use Core\Database\QueryBuilder\QueryBuilder;
+use Database\QueryBuilder\QueryBuilder;
 
 class DB extends QueryBuilder
 {

@@ -18,12 +18,8 @@ interface LoggerInterface
      * Debug
      */
     public static function error($msg);
-
     public static function event($msg);
-
     public static function debug($msg);
-
     public static function request($msg);
-
     static function init();
 }

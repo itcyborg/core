@@ -45,6 +45,7 @@ class Logger implements LoggerInterface
     public static function debug($msg)
     {
         // TODO: Implement debug() method.
+
     }
 
     public static function request($msg)
@@ -54,7 +55,6 @@ class Logger implements LoggerInterface
 
     public static function save($msg, $type = null)
     {
-//        dd(App::logDir().'Requests/log');
         if (is_dir(App::logDir())) {
             if (!$file = fopen(App::logDir() . date('j_m_y') . '_log.log', 'a')) {
                 throw new ExceptionsHandler('Failed');

@@ -10,4 +10,5 @@ require 'vendor\autoload.php';
 
 use Core\App\Bootstrap\App;
 
+App::setPublic(false);
 App::boot(__DIR__);

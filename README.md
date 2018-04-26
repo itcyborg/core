@@ -1,4 +1,9 @@
 # core
+
+# Server
+PHP 5.4 and above has an inbuilt server used for development. We can start this server by running.
+`php server start` from the terminal 
+
 core framework
 ## Create Routes
 * cd to routes directory, open routes.php file
@@ -101,3 +106,105 @@ core framework
         dd($e);
         
     }
+    
+## Migrations / Tables
+### Create Migrations | Tables 
+From the terminal run
+
+`php server make migration|table='name'`
+
+* name : is the name of your migration
+
+The migration will be created in `Database/Migrations` directory.
+
+### Edit the migration | table structure
+
+    <?php 
+        namespace App\Migrations;
+      
+        use Core\Database\SchemaBuilder\Schema;
+      
+        class test{
+      
+      
+            public static function run($tablename)
+            {
+                $table = new Schema($tablename);
+                $table->increments(); //autoincrement primary key
+                ## add table fields here
+                $table->varchar('name',15); 
+                $table->build();
+            }
+        }
+  
+### Run the migrations
+To execute the migrations, run
+ 
+`php server migrate`
+
+## Controllers
+Instead of defining all of your request handling logic as Closures in route files, you may wish to organize this behavior using Controller classes. Controllers can group related request handling logic into a single class. Controllers are stored in the `App/Controllers` directory.
+
+### Creating Controllers
+A basic controller can be created using the terminal 
+
+`php server make controller='name'`
+
+This creates a basic controller in the App/Controllers directory with the filename 'name';
+
+## Load assets
+`asset('name');`
+
+## Load Views
+### Basic View
+`view('viewname')`
+
+### Passing values to a view
+`view('viewname',['key'=>'value',...])`
+
+### Accessing values from the view
+    <article>
+        {{name}}
+        {id}
+        [title]
+    </article> 
+    
+**Use of placeholders only works if the values are not arrays/objects**
+
+    <article>
+        <?php
+            ##handle arrays/objects here
+        ?>
+    </article>
+
+**Arrays/objects can be accessed as above. More simpler solutions are coming soon**
+
+### Views location
+Views are stored in the `App\Views` directory and have a .php extension.
+
+## Configurations
+### Introduction
+Configuration details such as api keys/ SMTP settings/ Database setting are best stored in a config.ini file located in `Config/` directory. 
+
+### Storing new configuration
+    [mail] ## specifies the name of the configuration. i.e 'mail' for mail settings 
+    smtp_server=smtp.mail.com
+    port=443
+    username=user
+    password=password
+    
+### Accessing the configurations
+The configuration can be accessed by using the Config class
+
+    use Core\Config\Config;
+    //lets get the database settings
+    Config::database(); ## access it statically
+    //access it dynamically
+    $config=new Config;
+    dd($config->database());
+    
+   
+    
+    
+    
+    

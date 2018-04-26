@@ -24,7 +24,7 @@ class ExceptionsHandler extends \Exception
         if (Config::debug('debug')) {
             Logger::error($message . PHP_EOL . json_encode($this->getTrace()) . PHP_EOL);
         } else {
-            return Logger::error($message);
+            return Logger::error($message, 'Exception');
         }
     }
 

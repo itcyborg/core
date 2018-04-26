@@ -16,10 +16,13 @@ use Core\Router\Router;
 class App
 {
     public static $document_root;
+    private static $public = true;
 
     //start the engines
     public static function boot($dir)
     {
+        @session_start();
+        error_reporting(E_ERROR);
         try {
             $request = new Request();
             self::setDocumentRoot($dir);
@@ -77,4 +80,22 @@ class App
     {
         return self::getDocumentRoot() . 'Storage/App/Logs/';
     }
+
+    /**
+     * @param bool $public
+     */
+    public static function setPublic(bool $public)
+    {
+        self::$public = $public;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function isPublic()
+    {
+        return self::$public;
+    }
+
+
 }

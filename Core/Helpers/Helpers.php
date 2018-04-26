@@ -1,4 +1,7 @@
 <?php
+
+use Core\View\View;
+
 /**
  * Created by PhpStorm.
  * User: itcyborg
@@ -23,5 +26,19 @@ function dump($var)
 
 function toJson($data)
 {
-    return json_encode($data);
+    return json_encode($data, true);
+}
+
+function asset($asset)
+{
+    echo \Core\Asset\AssetLoader::load($asset);
+}
+
+function view($view, $data = null)
+{
+    try {
+        return View::loadView($view, $data);
+    } catch (\Core\Exceptions\ExceptionsHandler $e) {
+        dd($e);
+    }
 }

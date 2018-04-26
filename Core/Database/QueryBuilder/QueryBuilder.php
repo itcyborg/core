@@ -15,7 +15,7 @@ class QueryBuilder extends Connection
     private static $query;
     public static function all($table,array $columns=null)
     {
-
+        return self::$query = sprintf('select * from %s', $table);
     }
 
     public static function columns($table,array $columns)

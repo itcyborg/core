@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href='@asset("test.css")@'>
+</head>
+<body>
+<p>test file : [id] , {name}, {{$id}},{{id}} </p>
+@if($id==1)
+{{name}}
+@else
+{{id}}
+@endif
+<article>
+    <form action='file' method='post' enctype='multipart/form-data'>
+        <input type='text' name='file' value='hello'>
+        <input type='file' name='file'><br>
+        <input type='file' name='file1'><br>
+        <button>Submit</button>
+    </form>
+</article>
+</body>
+</html>
