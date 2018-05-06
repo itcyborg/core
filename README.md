@@ -10,31 +10,32 @@ core framework
 * add routes.
 ### How to add routes
    
-    <?php
+        <?php
          
-         use Core\Router\Route;
-         
-         Route::get('', 'AboutController@hello');
-         
-         Route::get('hello/', 'AboutController@index');
-         
-         Route::get('hello/{id}','AboutController@withParam');
-         
-         Route::get('help', 'AboutController@help');
-         
-         Route::post('file', 'AboutController@file');
-         
-         Route::get('test',function(){
-            echo "this is a test";
-         });
-         
-         Route::get('user/{id}',function($id){
-            echo $id;
-         });
-    ?>
- 
- ## Handle form data
- ### form submitted via GET/POST
+            use Core\Router\Route;
+            
+            Route::get('', 'AboutController@hello');
+            
+            Route::get('hello/', 'AboutController@index');
+            
+            Route::get('hello/{id}','AboutController@withParam');
+            
+            Route::get('help', 'AboutController@help');
+            
+            Route::post('file', 'AboutController@file');
+            
+            Route::get('test',function(){
+                echo "this is a test";
+            });
+            
+            Route::get('user/{id}',function($id){
+                echo $id;
+            });
+        ?>
+
+## Handle form data
+### Form submitted via GET/POST
+
     use Core\Requests\Request;
     ...
      public function getData()
@@ -48,7 +49,7 @@ core framework
           }
  
 
- ### form with files submitted via POST
+### form with files submitted via POST
  
  `
     use Core\Requests\Request;`
