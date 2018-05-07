@@ -1,14 +1,14 @@
-# core
+# Core
 
-# Server
+## Server
 PHP 5.4 and above has an inbuilt server used for development. We can start this server by running.
 `php server start` from the terminal 
 
 core framework
-## Create Routes
+### Create Routes
 * cd to routes directory, open routes.php file
 * add routes.
-### How to add routes
+#### How to add routes
    
         <?php
          
@@ -33,8 +33,8 @@ core framework
             });
         ?>
 
-## Handle form data
-### Form submitted via GET/POST
+### Handle form data
+#### Form submitted via GET/POST
 
     use Core\Requests\Request;
     ...
@@ -49,7 +49,7 @@ core framework
           }
  
 
-### form with files submitted via POST
+#### form with files submitted via POST
  
  `
     use Core\Requests\Request;`
@@ -64,7 +64,7 @@ core framework
             
     dump($g->size); //get the file attributes. Attributes: name|tmp_name|size|type|error        `
  
-### File Uploads
+#### File Uploads
     //to store files publicly
     
     
@@ -108,8 +108,8 @@ core framework
         
     }
     
-## Migrations / Tables
-### Create Migrations | Tables 
+### Migrations / Tables
+#### Create Migrations | Tables 
 From the terminal run
 
 `php server make migration|table='name'`
@@ -118,7 +118,7 @@ From the terminal run
 
 The migration will be created in `Database/Migrations` directory.
 
-### Edit the migration | table structure
+#### Edit the migration structure
 
     <?php 
         namespace App\Migrations;
@@ -138,32 +138,32 @@ The migration will be created in `Database/Migrations` directory.
             }
         }
   
-### Run the migrations
+#### Run the migrations
 To execute the migrations, run
  
 `php server migrate`
 
-## Controllers
+### Controllers
 Instead of defining all of your request handling logic as Closures in route files, you may wish to organize this behavior using Controller classes. Controllers can group related request handling logic into a single class. Controllers are stored in the `App/Controllers` directory.
 
-### Creating Controllers
+#### Creating Controllers
 A basic controller can be created using the terminal 
 
 `php server make controller='name'`
 
 This creates a basic controller in the App/Controllers directory with the filename 'name';
 
-## Load assets
+### Load assets
 `asset('name');`
 
-## Load Views
-### Basic View
+### Load Views
+#### Basic View
 `view('viewname')`
 
-### Passing values to a view
+#### Passing values to a view
 `view('viewname',['key'=>'value',...])`
 
-### Accessing values from the view
+#### Accessing values from the view
     <article>
         {{name}}
         {id}
@@ -180,21 +180,21 @@ This creates a basic controller in the App/Controllers directory with the filena
 
 **Arrays/objects can be accessed as above. More simpler solutions are coming soon**
 
-### Views location
+#### Views location
 Views are stored in the `App\Views` directory and have a .php extension.
 
-## Configurations
-### Introduction
+### Configurations
+#### Introduction
 Configuration details such as api keys/ SMTP settings/ Database setting are best stored in a config.ini file located in `Config/` directory. 
 
-### Storing new configuration
+#### Storing new configuration
     [mail] ## specifies the name of the configuration. i.e 'mail' for mail settings 
     smtp_server=smtp.mail.com
     port=443
     username=user
     password=password
     
-### Accessing the configurations
+#### Accessing the configurations
 The configuration can be accessed by using the Config class
 
     use Core\Config\Config;
@@ -204,8 +204,10 @@ The configuration can be accessed by using the Config class
     $config=new Config;
     dd($config->database());
     
-   
-    
-    
-    
-    
+## Scheduling Tasks
+To create a task:
+* In windows:
+    php server make task=taskname
+* In Linux:
+    php server make job=jobname
+
