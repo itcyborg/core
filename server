@@ -1,0 +1,17 @@
+<?php
+########################################################################################################################
+## GET THE RESOURCES
+########################################################################################################################
+require 'vendor\autoload.php';
+use Core\App\Bootstrap\App;
+use Core\Console\Console;
+
+## SET DOCUMENT ROOT
+App::setDocumentRoot(__DIR__);
+
+## CLEAN THE INPUTS
+unset($argv[0]);
+
+## EXECUTE THE CONSOLE APP
+Console::input($argv);
+
