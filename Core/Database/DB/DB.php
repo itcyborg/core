@@ -8,9 +8,17 @@
 
 namespace Core\Database\DB;
 
-
+/**
+ * Get the resources
+ */
 use Database\QueryBuilder\QueryBuilder;
 
+/**
+ * Class DB
+ * @package Core\Database\DB
+ * Interface with the query builder and execute the queries using this
+ */
 class DB extends QueryBuilder
 {
+
 }

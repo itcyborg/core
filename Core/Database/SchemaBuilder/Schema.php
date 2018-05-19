@@ -8,11 +8,17 @@
 
 namespace Core\Database\SchemaBuilder;
 
-
 use Core\Database\ConnectionBuilder\Connection;
 
+/**
+ * Class Schema
+ * @package Core\Database\SchemaBuilder
+ */
 class Schema extends SchemaBuilder
 {
+    /**
+     *
+     */
     public function build()
     {
         try {

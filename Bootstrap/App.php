@@ -15,6 +15,10 @@ use Core\Exceptions\ExceptionsHandler;
 use Core\Requests\Request;
 use Core\Router\Router;
 
+/**
+ * Class App
+ * @package Core\App\Bootstrap
+ */
 class App
 {
     //vars

@@ -12,13 +12,31 @@ namespace Core\Database\Migration;
 use Core\App\Bootstrap\App;
 use Core\Exceptions\ExceptionsHandler;
 
+/**
+ * Class Migration
+ * @package Core\Database\Migration
+ */
 class Migration
 {
+    /**
+     * @var string
+     */
     protected static $dir = 'Database/Migrations/';
+    /**
+     * @var
+     */
     protected static $root;
+    /**
+     * @var
+     */
     protected static $migration;
 
     //locate all the migrations
+
+    /**
+     * @return array
+     * @throws ExceptionsHandler
+     */
     public static function find()
     {
         self::$root = App::getDocumentRoot();
@@ -30,6 +48,10 @@ class Migration
     }
 
     //load all the migrations
+
+    /**
+     *
+     */
     public static function load()
     {
         try {
@@ -51,6 +73,10 @@ class Migration
     }
 
     //execute all the migrations
+
+    /**
+     *
+     */
     public static function run()
     {
         self::load();
@@ -59,6 +85,9 @@ class Migration
         }
     }
 
+    /**
+     * @param $name
+     */
     public static function make($name)
     {
         try {

@@ -7,6 +7,7 @@ use Core\View\View;
  * User: itcyborg
  * Date: 3/15/2018
  * Time: 1:45 PM
+ * @param $var
  */
 
 function dd($var)

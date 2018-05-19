@@ -13,7 +13,8 @@ class TemplateEngine
     public static $vars;
 
     /**
-     * @param mixed $vars
+     * @param $key
+     * @param $value
      */
 
     ## view('viewname',['key'=>'value'])
