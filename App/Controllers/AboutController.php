@@ -20,6 +20,7 @@ class AboutController
 
     public function hello()
     {
+        dump(\Database\QueryBuilder\QueryBuilder::update('users',['id','email'],[1,'isaac'],'email','brian'));
         preg_match('/\(.*\)/', php_uname(), $match);
         dd($match);
 //        $job=new Job();
