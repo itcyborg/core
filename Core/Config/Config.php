@@ -8,15 +8,21 @@
 
 namespace Core\Config;
 
-
+/**
+ * Get the resources
+ */
 use Core\App\Bootstrap\App;
 
+/**
+ * Class Config
+ * @package Core\Config
+ */
 class Config
 {
-    public function __construct()
-    {
-    }
-
+    /**
+     * Read our configuration file and process it
+     * @return array|bool
+     */
     public static function readIni()
     {
         $file = 'Config.ini';
@@ -25,21 +31,33 @@ class Config
         );
     }
 
+    /**
+     * Load our configuration when requested dynamically
+     * @param $name
+     * @param $arguments
+     * @return mixed
+     */
     public function __call($name, $arguments)
     {
+        //get the config
         $config = self::readIni();
+
+        //convert it to an object
         return json_decode(json_encode(($arguments != null) ?
-            $config[$name][$arguments[0]]
+            $config[$name][$arguments[0]] //if section and property is requested
             :
-            $config[$name]));
+            $config[$name])); //if section is requested only; will return an object with all the properties in the section
     }
 
     public static function __callStatic($name, $arguments)
     {
+        //get the config
         $config = self::readIni();
+
+        //convert it to an object
         return json_decode(json_encode(($arguments != null) ?
-            $config[$name][$arguments[0]]
+            $config[$name][$arguments[0]]  //if section and property is requested
             :
-            $config[$name]));
+            $config[$name]));  //if section is requested only; will return an object with all the properties in the section
     }
 }

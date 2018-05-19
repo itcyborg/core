@@ -50,7 +50,7 @@ class Console
     private static function make($type, $name)
     {
         switch ($type) {
-            case 'table' | 'migration':
+            case 'migration':
                 {
                     Migration::make($name);
                     break;
@@ -59,7 +59,7 @@ class Console
             case 'controller':
                 Controller::make($name);
                 break;
-            case 'job':
+            case 'task':
                 JobManager::make($name);
                 break;
             default;

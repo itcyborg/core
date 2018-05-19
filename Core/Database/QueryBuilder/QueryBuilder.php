@@ -50,8 +50,9 @@ class QueryBuilder extends Connection
     public static function update($table, $fields, $values, $target, $data)
     {
         for ($i = 0; $i < count($fields); $i++) {
-            return self::$query = "UPDATE " . $table . " SET " . $fields[$i] . "='" . $values[$i] . "' WHERE " . $target . " = " . $data;
+            self::$query = "UPDATE " . $table . " SET " . $fields[$i] . "='" . $values[$i] . "' WHERE " . $target . " = " . $data;
         }
+        return self::$query;
     }
 
     public static function add($table, $fields, $values)
