@@ -1,4 +1,30 @@
-# core
+# ERP Framework
+## What is this about?
+This project is mostly about creating a framework that is going to be the foundation of any small scale system.
+It is intended to be used specifically for the ERP system.
+
+## What does it do?
+This framework is intended to reduce if not eliminate problems that most programmer face such as:
+
+### 1. Eliminate code repetition
+Through carefully designing the codebase and the functions, tasks that are normally repeated such as creating a connection object every time you needed to connect to the database and more.
+
+### 2. Ease up development
+Though the framework's structure and design, the developer can easily create an application using the inbuilt and ready to go functions.
+
+### 3. Better Collaboration
+With collaboration in mind, the framework has been designed to enable easy and swift collaboration with your team.
+
+Easy setup migrations and share them for your team to use easily.
+Share your controllers and views without breaking anything.
+
+## Requirements
+This framework depends on:
+
+ - php 7.0 and above
+
+ 
+## Heading
 
 # Server
 PHP 5.4 and above has an inbuilt server used for development. We can start this server by running.
@@ -208,3 +234,6 @@ The configuration can be accessed by using the Config class
     
     
     
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTgyNDAyMDYwNV19
+-->
