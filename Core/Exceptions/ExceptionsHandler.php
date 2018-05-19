@@ -9,6 +9,8 @@
 namespace Core\Exceptions;
 
 
+use Core\Config\Config;
+use Core\Logger\Logger;
 use Throwable;
 
 class ExceptionsHandler extends \Exception
@@ -18,6 +20,11 @@ class ExceptionsHandler extends \Exception
         parent::__construct($message, $code, $previous);
         if ($code == 405) {
             die('Page not found');
+        }
+        if (Config::debug('debug')) {
+            Logger::error($message . PHP_EOL . json_encode($this->getTrace()) . PHP_EOL);
+        } else {
+            return Logger::error($message, 'Exception');
         }
     }
 

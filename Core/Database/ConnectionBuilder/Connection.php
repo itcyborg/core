@@ -8,10 +8,16 @@
 
 namespace Core\Database\ConnectionBuilder;
 
-class Connection extends \Database\ConnectionBuilder\ConnectionBuilder
+use Core\Exceptions\ExceptionsHandler;
+
+class Connection extends ConnectionBuilder
 {
     public static function connection()
     {
-        return ConnectionBuilder::getConnection();
+        try {
+            return ConnectionBuilder::getConnection();
+        } catch (ExceptionsHandler $e) {
+            dd($e);
+        }
     }
 }

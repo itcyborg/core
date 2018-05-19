@@ -22,52 +22,47 @@ class ConnectionBuilder
     protected static $username;
     protected static $password;
 
-    public function __construct()
-    {
-        $this->getConfig();
-        self::connect();
-    }
-
     private static function connect()
     {
         try{
             return new PDO(
-                "mysql:
-                host=" . self::$host . ";
+                "mysql:host=" . self::$host . ";
                 dbname=" . self::$database, // database name
                 self::$username, // database username
-                self::$password//, //database password
-            //self::$options //additional options
+                self::$password,
+                [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
             );
-        }catch (\Exception $e){
+        } catch (\PDOException $e) {
             throw new ExceptionsHandler($e->getMessage(),$e->getCode());
         }
     }
 
-    private function setConfig()
+    private static function setDBConfig()
     {
-        self::$database=self::$config['database'];
-        self::$host=self::$config['host'];
-        self::$port=self::$config['port'];
-        self::$username=self::$config['username'];
-        self::$password=self::$config['password'];
+        self::$database = self::$config->database;
+        self::$host = self::$config->host;
+        self::$port = self::$config->port;
+        self::$username = self::$config->username;
+        self::$password = self::$config->password;
     }
 
-    private function getConfig()
+    private static function getConfig()
     {
         try {
             self::$config = Config::database();
         }catch (\Exception $e){
             throw new ExceptionsHandler($e->getMessage(),$e->getCode());
         }
-        $this->setConfig();
+        self::setDBConfig();
     }
 
     /**
      * @return mixed
+     * @throws ExceptionsHandler
      */
     protected static function getConnection()
     {
-        return self::$connection;
+        self::getConfig();
+        return self::connect();
     }
 }

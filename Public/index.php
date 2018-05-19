@@ -10,4 +10,4 @@ require '..\vendor\autoload.php';
 
 use Core\App\Bootstrap\App;
 
-App::boot(__DIR__ . "\..\/");
+App::boot(__DIR__ . "/../");
