@@ -1,41 +1,66 @@
-# Core
+# ERP Framework
+## What is this about?
+This project is mostly about creating a framework that is going to be the foundation of any small scale system.
+It is intended to be used specifically for the ERP system.
 
-## Server
+## What does it do?
+This framework is intended to reduce if not eliminate problems that most programmer face such as:
+
+### 1. Eliminate code repetition
+Through carefully designing the codebase and the functions, tasks that are normally repeated such as creating a connection object every time you needed to connect to the database and more.
+
+### 2. Ease up development
+Though the framework's structure and design, the developer can easily create an application using the inbuilt and ready to go functions.
+
+### 3. Better Collaboration
+With collaboration in mind, the framework has been designed to enable easy and swift collaboration with your team.
+
+Easy setup migrations and share them for your team to use easily.
+Share your controllers and views without breaking anything.
+
+## Requirements
+This framework depends on:
+
+ - php 7.0 and above
+
+ 
+## Heading
+
+# Server
 PHP 5.4 and above has an inbuilt server used for development. We can start this server by running.
 `php server start` from the terminal 
 
 core framework
-### Create Routes
+## Create Routes
 * cd to routes directory, open routes.php file
 * add routes.
-#### How to add routes
+### How to add routes
    
-        <?php
+    <?php
          
-            use Core\Router\Route;
-            
-            Route::get('', 'AboutController@hello');
-            
-            Route::get('hello/', 'AboutController@index');
-            
-            Route::get('hello/{id}','AboutController@withParam');
-            
-            Route::get('help', 'AboutController@help');
-            
-            Route::post('file', 'AboutController@file');
-            
-            Route::get('test',function(){
-                echo "this is a test";
-            });
-            
-            Route::get('user/{id}',function($id){
-                echo $id;
-            });
-        ?>
-
-### Handle form data
-#### Form submitted via GET/POST
-
+         use Core\Router\Route;
+         
+         Route::get('', 'AboutController@hello');
+         
+         Route::get('hello/', 'AboutController@index');
+         
+         Route::get('hello/{id}','AboutController@withParam');
+         
+         Route::get('help', 'AboutController@help');
+         
+         Route::post('file', 'AboutController@file');
+         
+         Route::get('test',function(){
+            echo "this is a test";
+         });
+         
+         Route::get('user/{id}',function($id){
+            echo $id;
+         });
+    ?>
+ 
+ ## Handle form data
+ ### form submitted via GET/POST
     use Core\Requests\Request;
     ...
      public function getData()
@@ -49,7 +74,7 @@ core framework
           }
  
 
-#### form with files submitted via POST
+ ### form with files submitted via POST
  
  `
     use Core\Requests\Request;`
@@ -64,7 +89,7 @@ core framework
             
     dump($g->size); //get the file attributes. Attributes: name|tmp_name|size|type|error        `
  
-#### File Uploads
+### File Uploads
     //to store files publicly
     
     
@@ -108,8 +133,8 @@ core framework
         
     }
     
-### Migrations / Tables
-#### Create Migrations | Tables 
+## Migrations / Tables
+### Create Migrations | Tables 
 From the terminal run
 
 `php server make migration|table='name'`
@@ -118,7 +143,7 @@ From the terminal run
 
 The migration will be created in `Database/Migrations` directory.
 
-#### Edit the migration structure
+### Edit the migration | table structure
 
     <?php 
         namespace App\Migrations;
@@ -138,32 +163,32 @@ The migration will be created in `Database/Migrations` directory.
             }
         }
   
-#### Run the migrations
+### Run the migrations
 To execute the migrations, run
  
 `php server migrate`
 
-### Controllers
+## Controllers
 Instead of defining all of your request handling logic as Closures in route files, you may wish to organize this behavior using Controller classes. Controllers can group related request handling logic into a single class. Controllers are stored in the `App/Controllers` directory.
 
-#### Creating Controllers
+### Creating Controllers
 A basic controller can be created using the terminal 
 
 `php server make controller='name'`
 
 This creates a basic controller in the App/Controllers directory with the filename 'name';
 
-### Load assets
+## Load assets
 `asset('name');`
 
-### Load Views
-#### Basic View
+## Load Views
+### Basic View
 `view('viewname')`
 
-#### Passing values to a view
+### Passing values to a view
 `view('viewname',['key'=>'value',...])`
 
-#### Accessing values from the view
+### Accessing values from the view
     <article>
         {{name}}
         {id}
@@ -180,21 +205,21 @@ This creates a basic controller in the App/Controllers directory with the filena
 
 **Arrays/objects can be accessed as above. More simpler solutions are coming soon**
 
-#### Views location
+### Views location
 Views are stored in the `App\Views` directory and have a .php extension.
 
-### Configurations
-#### Introduction
+## Configurations
+### Introduction
 Configuration details such as api keys/ SMTP settings/ Database setting are best stored in a config.ini file located in `Config/` directory. 
 
-#### Storing new configuration
+### Storing new configuration
     [mail] ## specifies the name of the configuration. i.e 'mail' for mail settings 
     smtp_server=smtp.mail.com
     port=443
     username=user
     password=password
     
-#### Accessing the configurations
+### Accessing the configurations
 The configuration can be accessed by using the Config class
 
     use Core\Config\Config;
@@ -204,10 +229,11 @@ The configuration can be accessed by using the Config class
     $config=new Config;
     dd($config->database());
     
-## Scheduling Tasks
-To create a task:
-* In windows:
-    php server make task=taskname
-* In Linux:
-    php server make job=jobname
-
+   
+    
+    
+    
+    
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTgyNDAyMDYwNV19
+-->
