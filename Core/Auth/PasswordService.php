@@ -33,6 +33,7 @@ class PasswordService implements \PasswordService
     /**
      * verify password with hash
      * @param $password
+     * @param $hash
      * @return mixed
      */
     #
@@ -57,6 +58,7 @@ class PasswordService implements \PasswordService
      * check if password has lowercase
      * @param $password
      * @return mixed
+     * @throws Exception
      */
     public function hasLower($password)
     {
@@ -70,6 +72,7 @@ class PasswordService implements \PasswordService
      * * check if password has uppercase
      * @param $password
      * @return mixed
+     * @throws Exception
      */
     public function hasUpper($password)
     {
@@ -82,6 +85,7 @@ class PasswordService implements \PasswordService
     /**
      * @param $password
      * @return mixed
+     * @throws Exception
      */
     public function hasInteger($password)
     {

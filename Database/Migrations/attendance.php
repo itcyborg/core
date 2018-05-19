@@ -11,8 +11,15 @@ namespace App\Migrations;
 
 use Core\Database\SchemaBuilder\Schema;
 
+/**
+ * Class attendance
+ * @package App\Migrations
+ */
 class attendance
 {
+    /**
+     * @param $tablename
+     */
     public static function run($tablename)
     {
         $table = new Schema($tablename);

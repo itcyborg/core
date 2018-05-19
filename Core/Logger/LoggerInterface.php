@@ -16,6 +16,8 @@ interface LoggerInterface
      * Events
      * Requests
      * Debug
+     * @param $msg
+     * @return
      */
     public static function error($msg);
     public static function event($msg);

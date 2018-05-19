@@ -10,8 +10,15 @@ namespace App\Migrations;
 
 use Core\Database\SchemaBuilder\Schema;
 
+/**
+ * Class address
+ * @package App\Migrations
+ */
 class address
 {
+    /**
+     * @param $tablename
+     */
     public static function run($tablename)
     {
         $table = new Schema($tablename);

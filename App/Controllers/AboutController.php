@@ -1,5 +1,6 @@
 <?php
 
+use Core\Database\DB\DB;
 use Core\Exceptions\ExceptionsHandler;
 use Core\Notifications\Notifications;
 use Core\Requests\Request;
@@ -20,7 +21,7 @@ class AboutController
 
     public function hello()
     {
-        dump(\Database\QueryBuilder\QueryBuilder::update('users',['id','email'],[1,'isaac'],'email','brian'));
+        dd(DB::add('users', ['name', 'email', 'password'], ['lkld', 'fsddf', 'asdaad']));
         preg_match('/\(.*\)/', php_uname(), $match);
         dd($match);
 //        $job=new Job();

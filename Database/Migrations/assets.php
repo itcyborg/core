@@ -3,10 +3,17 @@ namespace App\Migrations;
 
 use Core\Database\SchemaBuilder\Schema;
 
+/**
+ * Class assets
+ * @package App\Migrations
+ */
 class assets{
 
 
- public static function run($tablename)
+    /**
+     * @param $tablename
+     */
+    public static function run($tablename)
  {
     $table = new Schema($tablename);
     $table->increments();

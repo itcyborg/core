@@ -4,10 +4,17 @@ namespace App\Migrations;
 
 use Core\Database\SchemaBuilder\Schema;
 
+/**
+ * Class allowance
+ * @package App\Migrations
+ */
 class allowance
 {
 
 
+    /**
+     * @param $tablename
+     */
     public static function run($tablename)
     {
         $table = new Schema($tablename);

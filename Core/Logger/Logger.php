@@ -29,6 +29,9 @@ class Logger implements LoggerInterface
      * Events
      * Requests
      * Debug
+     * @param $msg
+     * @return void
+     * @throws ExceptionsHandler
      */
     public static function error($msg)
     {

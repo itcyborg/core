@@ -19,6 +19,7 @@ interface PasswordService
     /**
      * verify password with hash
      * @param $password
+     * @param $hash
      * @return mixed
      */
     public static function verify($password, $hash);

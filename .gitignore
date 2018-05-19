@@ -1,0 +1,12 @@
+
+\.idea/
+
+Storage/
+
+vendor/
+
+*.bat
+
+test\.php
+
+git
