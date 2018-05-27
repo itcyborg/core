@@ -9,6 +9,10 @@
 namespace Core\Router;
 
 
+/**
+ * Class Route
+ * @package Core\Router
+ */
 class Route extends Router
 {
 }

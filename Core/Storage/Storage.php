@@ -11,12 +11,28 @@ namespace Core\Storage;
 use Core\App\Bootstrap\App;
 use Core\Exceptions\ExceptionsHandler;
 
+/**
+ * Class Storage
+ * @package Core\Storage
+ */
 class Storage
 {
+    /**
+     * @var mixed
+     */
     private static $root;
+    /**
+     * @var string
+     */
     private static $storageRoot = '/Storage/';
+    /**
+     * @var string
+     */
     private static $public = 'Public/';
 
+    /**
+     * Storage constructor.
+     */
     public function __construct()
     {
         self::$root = App::getDocumentRoot();
@@ -50,6 +66,12 @@ class Storage
         }
     }
 
+    /**
+     * @param $file
+     * @param null $destinationDir
+     * @return string
+     * @throws ExceptionsHandler
+     */
     public static function put($file, $destinationDir = null)
     {
         if (strpos($destinationDir, 'App/')) {
@@ -83,6 +105,9 @@ class Storage
         }
     }
 
+    /**
+     * @return string
+     */
     protected static function uniqueName()
     {
         $idkeyspace = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz';
@@ -97,6 +122,10 @@ class Storage
         return implode($idstr);
     }
 
+    /**
+     * @param $error
+     * @throws ExceptionsHandler
+     */
     private static function generateError($error)
     {
         switch ($error) {
@@ -127,11 +156,20 @@ class Storage
         }
     }
 
+    /**
+     * @param $file
+     * @return mixed
+     */
     private static function getExt($file)
     {
         return pathinfo($file->name, PATHINFO_EXTENSION);
     }
 
+    /**
+     * @param $file
+     * @param null $name
+     * @throws ExceptionsHandler
+     */
     public static function download($file, $name = null)
     {
         if (strstr($file, '../')) {

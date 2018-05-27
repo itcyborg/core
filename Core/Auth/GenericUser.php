@@ -11,7 +11,6 @@ namespace Core\Auth;
 
 class GenericUser implements \GenericUser
 {
-
     /**
      * set email
      * @param $email
@@ -20,6 +19,7 @@ class GenericUser implements \GenericUser
     public function email($email)
     {
         // TODO: Implement email() method.
+        self::$email = $email;
     }
 
     /**
@@ -68,5 +68,6 @@ class GenericUser implements \GenericUser
     public function save()
     {
         // TODO: Implement save() method.
+
     }
 }

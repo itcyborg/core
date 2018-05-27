@@ -12,8 +12,17 @@ namespace Core\View;
 use Core\App\Bootstrap\App;
 use Core\Exceptions\ExceptionsHandler;
 
+/**
+ * Class View
+ * @package Core\View
+ */
 class View
 {
+    /**
+     * @param $view
+     * @param null $data
+     * @throws ExceptionsHandler
+     */
     public static function loadView($view, $data = null)
     {
         if (is_readable(App::viewsDir() . $view)) {
@@ -29,6 +38,9 @@ class View
         self::render($contents);
     }
 
+    /**
+     * @param $content
+     */
     public static function render($content)
     {
         TemplateEngine::render($content);

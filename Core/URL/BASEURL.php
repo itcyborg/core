@@ -9,10 +9,22 @@
 namespace Core\URL;
 
 
+/**
+ * Class BASEURL
+ * @package Core\URL
+ */
 class BASEURL
 {
+    /**
+     * @var
+     */
     public static $base;
 
+    /**
+     * @param $name
+     * @param $arguments
+     * @return mixed
+     */
     public static function __callStatic($name, $arguments)
     {
         if ($name == 'getBase') {

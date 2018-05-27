@@ -17,20 +17,20 @@ use Core\Database\ConnectionBuilder\Connection;
 class Schema extends SchemaBuilder
 {
     /**
-     *
+     * Build a schema for migration
      */
     public function build()
     {
         try {
-            Connection::connection()->exec($this->getQuery());
-            print "Table '" . $this->getTable() . "' migrated successfully.";
-            echo PHP_EOL;
+            Connection::connection()->exec($this->getQuery()); // get the connection to the database and execute the migration
+            print "Table '" . $this->getTable() . "' migrated successfully."; // Migration successful
+            echo PHP_EOL; // print a line break
         } catch (\Exception $e) {
-            if ($e->getCode() === '42S01') {
-                print trim(explode(':', $e->getMessage())[2]);
-                echo PHP_EOL;
+            if ($e->getCode() === '42S01') { // if a migration/ table already exists
+                print trim(explode(':', $e->getMessage())[2]); // Tell the user
+                echo PHP_EOL; // print a line break
             } else {
-                print trim($e->getMessage());
+                print trim($e->getMessage()); // remove extra white spaces
             }
         }
     }

@@ -7,9 +7,11 @@ use Core\View\View;
  * User: itcyborg
  * Date: 3/15/2018
  * Time: 1:45 PM
- * @param $var
  */
 
+/**
+ * @param $var
+ */
 function dd($var)
 {
     echo "<pre>";
@@ -18,6 +20,9 @@ function dd($var)
     die();
 }
 
+/**
+ * @param $var
+ */
 function dump($var)
 {
     echo "<pre><code>";
@@ -25,16 +30,27 @@ function dump($var)
     echo "</code></pre>";
 }
 
+/**
+ * @param $data
+ * @return string
+ */
 function toJson($data)
 {
     return json_encode($data, true);
 }
 
+/**
+ * @param $asset
+ */
 function asset($asset)
 {
     echo \Core\Asset\AssetLoader::load($asset);
 }
 
+/**
+ * @param $view
+ * @param null $data
+ */
 function view($view, $data = null)
 {
     try {

@@ -11,7 +11,6 @@ namespace Core\Database\ConnectionBuilder;
 /**
  * Get resources
  */
-use Core\Config\Config;
 use Core\Exceptions\ExceptionsHandler;
 use PDO;
 
@@ -20,16 +19,10 @@ use PDO;
  * @package Core\Database\ConnectionBuilder
  * Builds a connection to the database
  */
-class ConnectionBuilder
+class ConnectionBuilder extends GetDatabaseConfig
 {
     //vars
-    private static $config;
     protected static $connection;
-    protected static $host;
-    protected static $port;
-    protected static $database;
-    protected static $username;
-    protected static $password;
 
     /**
      * @return PDO
@@ -58,42 +51,13 @@ class ConnectionBuilder
     }
 
     /**
-     * Set the database configuration from the read app config file in Config dir
-     */
-    private static function setDBConfig()
-    {
-        self::$database = self::$config->database; # get the database name
-        self::$host = self::$config->host; # get the host address
-        self::$port = self::$config->port; # get the host port address
-        self::$username = self::$config->username; # get the database user name
-        self::$password = self::$config->password; # get the database user password
-    }
-
-    /**
-     * @throws ExceptionsHandler
-     * Read the app config file and extract the database connection settings
-     */
-    private static function getConfig()
-    {
-        try {
-            // Extract the database connection settings from the read config and set it
-            self::$config = Config::database();
-        }catch (\Exception $e){
-            // Catch any errors and handle it
-            throw new ExceptionsHandler($e->getMessage(),$e->getCode());
-        }
-        // Set the settings of the database
-        self::setDBConfig();
-    }
-
-    /**
      * @return mixed
      * @throws ExceptionsHandler
      * Get the connection object
      */
     protected static function getConnection()
     {
-        self::getConfig();// Get the current configuration
+        parent::getConfig();// Get the current configuration
         return self::connect(); // Connect to the database
     }
 }

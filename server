@@ -1,17 +1,22 @@
 <?php
 ########################################################################################################################
-## GET THE RESOURCES
+# Interact with the application via the terminal using this interface.
+# Using this interface, you can use the cli to create migrations, Jobs for windows server/ Cron jobs for linux servers,
+# create controllers, run migrations and many more
 ########################################################################################################################
+
+// Autoload all the classes
 require 'vendor\autoload.php';
+
+// Include the classes we want to use
 use Core\App\Bootstrap\App;
 use Core\Console\Console;
 
 ## SET DOCUMENT ROOT
 App::setDocumentRoot(__DIR__);
 
-## CLEAN THE INPUTS
+## CLEAN THE INPUTS AND REMOVE THE UNWANTED FIRST INPUT
 unset($argv[0]);
 
 ## EXECUTE THE CONSOLE APP
 Console::input($argv);
-

@@ -16,7 +16,8 @@ use Database\QueryBuilder\QueryBuilder;
 /**
  * Class DB
  * @package Core\Database\DB
- * Interface with the query builder and execute the queries using this
+ * Interface with the query builder and execute the queries using this.
+ * Allows you to use DB::all() instead of QueryBuilder::all()
  */
 class DB extends QueryBuilder
 {

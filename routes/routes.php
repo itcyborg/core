@@ -7,13 +7,20 @@
  */
 
 use Core\Auth\Auth;
+use Core\Database\DB\DB;
 use Core\Router\Route;
+
 
 Auth::Routes();
 Route::get('', 'AboutController@hello');
-Route::get('hello/{id}', function ($id) {
-    echo $id;
-});
+Route::get(/**
+ * @param $id
+ */
+    'hello/{id}',
+    function ($id) {
+        dd(DB::all('users'));
+    }
+);
 Route::get('test', 'AboutController@download');
 Route::get('help/{id}/{page}', 'AboutController@help');
 

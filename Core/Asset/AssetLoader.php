@@ -16,6 +16,7 @@ use Core\App\Bootstrap\App;
 /**
  * Class AssetLoader
  * @package Core\Asset
+ * This class is used to load assets like css, fonts and scripts to the template engine
  */
 class AssetLoader
 {

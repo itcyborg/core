@@ -14,6 +14,7 @@ use Core\Database\ConnectionBuilder\ConnectionBuilder;
 /**
  * Class QueryBuilder
  * @package Database\QueryBuilder
+ * Build a query from the parameters we receive and execute it. Return the results.
  */
 class QueryBuilder extends Connection
 {
@@ -26,15 +27,17 @@ class QueryBuilder extends Connection
      * @param $table
      * @param array|null $columns
      * @return mixed
+     * Query the database for all records from a table
+     * TODO Add a limit if the table has a lot of records
      */
     public static function all($table, array $columns = null)
     {
         try {
-            $pdo = ConnectionBuilder::getConnection();
-            self::$query = sprintf('select * from %s', $table);
-            $stmt = $pdo->prepare(self::$query);
-            $stmt->execute();
-            return $stmt->fetchAll();
+            $pdo = ConnectionBuilder::getConnection(); // Get a connection from the builder
+            self::$query = sprintf('select * from %s', $table); // build the query
+            $stmt = $pdo->prepare(self::$query); // prepare the query to prevent sql injection
+            $stmt->execute(); // execute the query
+            return $stmt->fetchAll(); // fetch and return the results
         } catch (\Throwable $e) {
             dd($e->getMessage());
         }
@@ -66,6 +69,7 @@ class QueryBuilder extends Connection
         }
     }
 
+    // @Rachael: make sure you comment this section of the code.
     /**
      * @param $table
      * @param $field
