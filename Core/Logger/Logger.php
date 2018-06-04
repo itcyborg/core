@@ -62,10 +62,11 @@ class Logger implements LoggerInterface
             if (!$file = fopen(App::logDir() . date('j_m_y') . '_log.log', 'a')) {
                 throw new ExceptionsHandler('Failed');
             }
-            fwrite($file, $msg . PHP_EOL);
+            fwrite($file, $msg);
             fclose($file);
         } else {
-            dd(App::logDir());
+            mkdir(App::logDir());
+            self::save($msg, $type);
         }
     }
 }
