@@ -1,8 +1,6 @@
 chai.should()
 
 describe "Dropzone", ->
-
-
   getMockFile = ->
     status: Dropzone.ADDED
     accepted: true
@@ -15,7 +13,6 @@ describe "Dropzone", ->
   beforeEach -> xhr = sinon.useFakeXMLHttpRequest()
 
   describe "Emitter", ->
-
     emitter = null
     beforeEach -> emitter = new Dropzone::Emitter()
 
@@ -83,7 +80,6 @@ describe "Dropzone", ->
       callCount2.should.equal 1
 
     describe ".off()", ->
-
       callback1 = ->
       callback2 = ->
       callback3 = ->
@@ -91,10 +87,10 @@ describe "Dropzone", ->
 
       beforeEach ->
         emitter._callbacks =
-          'test1': [ callback1, callback2 ]
-          'test2': [ callback3 ]
-          'test3': [ callback1, callback4 ]
-          'test4': [ ]
+          'test1': [callback1, callback2]
+          'test2': [callback3]
+          'test3': [callback1, callback4]
+          'test4': []
 
       it "should work without any listeners", ->
         emitter._callbacks = undefined
@@ -127,12 +123,8 @@ describe "Dropzone", ->
         emt.should.equal emitter
 
 
-
-
   describe "static functions", ->
-
     describe "Dropzone.createElement()", ->
-
       element = Dropzone.createElement """<div class="test"><span>Hallo</span></div>"""
 
       it "should properly create an element from a string", ->
@@ -223,7 +215,8 @@ describe "Dropzone", ->
 
       describe "specific options", ->
         before ->
-          Dropzone.options.testElement1 = url: "test-url"
+          Dropzone.options.testElement1 =
+            url: "test-url"
           Dropzone.options.testElement2 = false # Disabled
           document.body.appendChild element1
           document.body.appendChild element2
@@ -240,13 +233,14 @@ describe "Dropzone", ->
 
       describe "Dropzone.autoDiscover", ->
         before ->
-          Dropzone.options.testElement3 = url: "test-url"
+          Dropzone.options.testElement3 =
+            url: "test-url"
           document.body.appendChild element3
         after ->
           document.body.removeChild element3
 
         it "should create dropzones even if Dropzone.autoDiscover == false", ->
-          # Because the check is in the actual contentLoaded function.
+# Because the check is in the actual contentLoaded function.
           Dropzone.autoDiscover = off
           Dropzone.discover()
           expect(element3.dropzone).to.be.ok
@@ -259,50 +253,50 @@ describe "Dropzone", ->
 
     describe "Dropzone.isValidFile()", ->
       it "should return true if called without acceptedFiles", ->
-        Dropzone.isValidFile({ type: "some/type" }, null).should.be.ok
+        Dropzone.isValidFile({type: "some/type"}, null).should.be.ok
 
       it "should properly validate if called with concrete mime types", ->
         acceptedMimeTypes = "text/html,image/jpeg,application/json"
 
-        Dropzone.isValidFile({ type: "text/html" }, acceptedMimeTypes).should.be.ok
-        Dropzone.isValidFile({ type: "image/jpeg" }, acceptedMimeTypes).should.be.ok
-        Dropzone.isValidFile({ type: "application/json" }, acceptedMimeTypes).should.be.ok
-        Dropzone.isValidFile({ type: "image/bmp" }, acceptedMimeTypes).should.not.be.ok
+        Dropzone.isValidFile({type: "text/html"}, acceptedMimeTypes).should.be.ok
+        Dropzone.isValidFile({type: "image/jpeg"}, acceptedMimeTypes).should.be.ok
+        Dropzone.isValidFile({type: "application/json"}, acceptedMimeTypes).should.be.ok
+        Dropzone.isValidFile({type: "image/bmp"}, acceptedMimeTypes).should.not.be.ok
 
       it "should properly validate if called with base mime types", ->
         acceptedMimeTypes = "text/*,image/*,application/*"
 
-        Dropzone.isValidFile({ type: "text/html" }, acceptedMimeTypes).should.be.ok
-        Dropzone.isValidFile({ type: "image/jpeg" }, acceptedMimeTypes).should.be.ok
-        Dropzone.isValidFile({ type: "application/json" }, acceptedMimeTypes).should.be.ok
-        Dropzone.isValidFile({ type: "image/bmp" }, acceptedMimeTypes).should.be.ok
-        Dropzone.isValidFile({ type: "some/type" }, acceptedMimeTypes).should.not.be.ok
+        Dropzone.isValidFile({type: "text/html"}, acceptedMimeTypes).should.be.ok
+        Dropzone.isValidFile({type: "image/jpeg"}, acceptedMimeTypes).should.be.ok
+        Dropzone.isValidFile({type: "application/json"}, acceptedMimeTypes).should.be.ok
+        Dropzone.isValidFile({type: "image/bmp"}, acceptedMimeTypes).should.be.ok
+        Dropzone.isValidFile({type: "some/type"}, acceptedMimeTypes).should.not.be.ok
 
       it "should properly validate if called with mixed mime types", ->
         acceptedMimeTypes = "text/*,image/jpeg,application/*"
 
-        Dropzone.isValidFile({ type: "text/html" }, acceptedMimeTypes).should.be.ok
-        Dropzone.isValidFile({ type: "image/jpeg" }, acceptedMimeTypes).should.be.ok
-        Dropzone.isValidFile({ type: "image/bmp" }, acceptedMimeTypes).should.not.be.ok
-        Dropzone.isValidFile({ type: "application/json" }, acceptedMimeTypes).should.be.ok
-        Dropzone.isValidFile({ type: "some/type" }, acceptedMimeTypes).should.not.be.ok
+        Dropzone.isValidFile({type: "text/html"}, acceptedMimeTypes).should.be.ok
+        Dropzone.isValidFile({type: "image/jpeg"}, acceptedMimeTypes).should.be.ok
+        Dropzone.isValidFile({type: "image/bmp"}, acceptedMimeTypes).should.not.be.ok
+        Dropzone.isValidFile({type: "application/json"}, acceptedMimeTypes).should.be.ok
+        Dropzone.isValidFile({type: "some/type"}, acceptedMimeTypes).should.not.be.ok
 
       it "should properly validate even with spaces in between", ->
         acceptedMimeTypes = "text/html ,   image/jpeg, application/json"
 
-        Dropzone.isValidFile({ type: "text/html" }, acceptedMimeTypes).should.be.ok
-        Dropzone.isValidFile({ type: "image/jpeg" }, acceptedMimeTypes).should.be.ok
+        Dropzone.isValidFile({type: "text/html"}, acceptedMimeTypes).should.be.ok
+        Dropzone.isValidFile({type: "image/jpeg"}, acceptedMimeTypes).should.be.ok
 
       it "should properly validate extensions", ->
         acceptedMimeTypes = "text/html ,    image/jpeg, .pdf  ,.png"
 
-        Dropzone.isValidFile({ name: "somxsfsd", type: "text/html" }, acceptedMimeTypes).should.be.ok
-        Dropzone.isValidFile({ name: "somesdfsdf", type: "image/jpeg" }, acceptedMimeTypes).should.be.ok
-        Dropzone.isValidFile({ name: "somesdfadfadf", type: "application/json" }, acceptedMimeTypes).should.not.be.ok
-        Dropzone.isValidFile({ name: "some-file file.pdf", type: "random/type" }, acceptedMimeTypes).should.be.ok
+        Dropzone.isValidFile({name: "somxsfsd", type: "text/html"}, acceptedMimeTypes).should.be.ok
+        Dropzone.isValidFile({name: "somesdfsdf", type: "image/jpeg"}, acceptedMimeTypes).should.be.ok
+        Dropzone.isValidFile({name: "somesdfadfadf", type: "application/json"}, acceptedMimeTypes).should.not.be.ok
+        Dropzone.isValidFile({name: "some-file file.pdf", type: "random/type"}, acceptedMimeTypes).should.be.ok
         # .pdf has to be in the end
-        Dropzone.isValidFile({ name: "some-file.pdf file.gif", type: "random/type" }, acceptedMimeTypes).should.not.be.ok
-        Dropzone.isValidFile({ name: "some-file file.png", type: "random/type" }, acceptedMimeTypes).should.be.ok
+        Dropzone.isValidFile({name: "some-file.pdf file.gif", type: "random/type"}, acceptedMimeTypes).should.not.be.ok
+        Dropzone.isValidFile({name: "some-file file.png", type: "random/type"}, acceptedMimeTypes).should.be.ok
 
     describe "Dropzone.confirm", ->
       beforeEach -> sinon.stub window, "confirm"
@@ -333,10 +327,10 @@ describe "Dropzone", ->
 
 
   describe "Dropzone.getElement() / getElements()", ->
-    tmpElements = [ ]
+    tmpElements = []
 
     beforeEach ->
-      tmpElements = [ ]
+      tmpElements = []
       tmpElements.push Dropzone.createElement """<div class="tmptest"></div>"""
       tmpElements.push Dropzone.createElement """<div id="tmptest1" class="random"></div>"""
       tmpElements.push Dropzone.createElement """<div class="random div"></div>"""
@@ -357,32 +351,31 @@ describe "Dropzone", ->
       it "should fail if invalid selector", ->
         errorMessage = "Invalid `clickable` option provided. Please provide a CSS selector or a plain HTML element."
         expect(-> Dropzone.getElement "lblasdlfsfl", "clickable").to.throw errorMessage
-        expect(-> Dropzone.getElement { "lblasdlfsfl" }, "clickable").to.throw errorMessage
-        expect(-> Dropzone.getElement [ "lblasdlfsfl" ], "clickable").to.throw errorMessage
+        expect(-> Dropzone.getElement {"lblasdlfsfl"}, "clickable").to.throw errorMessage
+        expect(-> Dropzone.getElement ["lblasdlfsfl"], "clickable").to.throw errorMessage
 
     describe ".getElements()", ->
       it "should accept a list of strings", ->
-        els = Dropzone.getElements [ ".tmptest", "#tmptest1" ]
-        els.should.eql [ tmpElements[0], tmpElements[1] ]
+        els = Dropzone.getElements [".tmptest", "#tmptest1"]
+        els.should.eql [tmpElements[0], tmpElements[1]]
       it "should accept a list of nodes", ->
-        els = Dropzone.getElements [ tmpElements[0], tmpElements[2] ]
-        els.should.eql [ tmpElements[0], tmpElements[2] ]
+        els = Dropzone.getElements [tmpElements[0], tmpElements[2]]
+        els.should.eql [tmpElements[0], tmpElements[2]]
       it "should accept a mixed list", ->
-        els = Dropzone.getElements [ "#tmptest1", tmpElements[2] ]
-        els.should.eql [ tmpElements[1], tmpElements[2] ]
+        els = Dropzone.getElements ["#tmptest1", tmpElements[2]]
+        els.should.eql [tmpElements[1], tmpElements[2]]
       it "should accept a string selector", ->
         els = Dropzone.getElements ".random"
-        els.should.eql [ tmpElements[1], tmpElements[2] ]
+        els.should.eql [tmpElements[1], tmpElements[2]]
       it "should accept a single node", ->
         els = Dropzone.getElements tmpElements[1]
-        els.should.eql [ tmpElements[1] ]
+        els.should.eql [tmpElements[1]]
       it "should fail if invalid selector", ->
         errorMessage = "Invalid `clickable` option provided. Please provide a CSS selector, a plain HTML element or a list of those."
         expect(-> Dropzone.getElements "lblasdlfsfl", "clickable").to.throw errorMessage
-        expect(-> Dropzone.getElements [ "lblasdlfsfl" ], "clickable").to.throw errorMessage
+        expect(-> Dropzone.getElements ["lblasdlfsfl"], "clickable").to.throw errorMessage
 
   describe "constructor()", ->
-
     dropzone = null
 
     afterEach -> dropzone.destroy() if dropzone?
@@ -397,7 +390,10 @@ describe "Dropzone", ->
 
     it "should throw an exception if both acceptedFiles and acceptedMimeTypes are specified", ->
       element = document.createElement "div"
-      expect(-> dropzone = new Dropzone element, url: "test", acceptedFiles: "param", acceptedMimeTypes: "types").to.throw "You can't provide both 'acceptedFiles' and 'acceptedMimeTypes'. 'acceptedMimeTypes' is deprecated."
+      expect(-> dropzone = new Dropzone element,
+        url: "test",
+        acceptedFiles: "param",
+        acceptedMimeTypes: "types").to.throw "You can't provide both 'acceptedFiles' and 'acceptedMimeTypes'. 'acceptedMimeTypes' is deprecated."
 
     it "should set itself as element.dropzone", ->
       element = document.createElement "div"
@@ -422,7 +418,8 @@ describe "Dropzone", ->
         element.id = "test-element"
         element2 = document.createElement "div"
         element2.id = "test-element2"
-        Dropzone.options.testElement = url: "/some/url", parallelUploads: 10
+        Dropzone.options.testElement =
+          url: "/some/url", parallelUploads: 10
       afterEach -> delete Dropzone.options.testElement
 
       it "should take the options set in Dropzone.options", ->
@@ -463,31 +460,36 @@ describe "Dropzone", ->
 
         it "should use the default element if clickable == true", ->
           dropzone = new Dropzone element, clickable: yes
-          dropzone.clickableElements.should.eql [ dropzone.element ]
+          dropzone.clickableElements.should.eql [dropzone.element]
         it "should lookup the element if clickable is a CSS selector", ->
           dropzone = new Dropzone element, clickable: ".some-clickable"
-          dropzone.clickableElements.should.eql [ clickableElement ]
+          dropzone.clickableElements.should.eql [clickableElement]
         it "should simply use the provided element", ->
           dropzone = new Dropzone element, clickable: clickableElement
-          dropzone.clickableElements.should.eql [ clickableElement ]
+          dropzone.clickableElements.should.eql [clickableElement]
         it "should accept multiple clickable elements", ->
-          dropzone = new Dropzone element, clickable: [ document.body, ".some-clickable" ]
-          dropzone.clickableElements.should.eql [ document.body, clickableElement ]
+          dropzone = new Dropzone element, clickable: [document.body, ".some-clickable"]
+          dropzone.clickableElements.should.eql [document.body, clickableElement]
         it "should throw an exception if the element is invalid", ->
-          expect(-> dropzone = new Dropzone element, clickable: ".some-invalid-clickable").to.throw "Invalid `clickable` option provided. Please provide a CSS selector, a plain HTML element or a list of those."
-
-
+          expect(-> dropzone = new Dropzone element,
+            clickable: ".some-invalid-clickable").to.throw "Invalid `clickable` option provided. Please provide a CSS selector, a plain HTML element or a list of those."
 
 
   describe "init()", ->
     describe "clickable", ->
-
       dropzones =
-        "using acceptedFiles": new Dropzone(Dropzone.createElement("""<form action="/"></form>"""), { clickable: yes, acceptedFiles: "audio/*,video/*" })
-        "using acceptedMimeTypes": new Dropzone(Dropzone.createElement("""<form action="/"></form>"""), { clickable: yes, acceptedMimeTypes: "audio/*,video/*" })
+        "using acceptedFiles": new Dropzone(Dropzone.createElement("""<form action="/"></form>"""), {
+          clickable: yes,
+          acceptedFiles: "audio/*,video/*"
+        })
+        "using acceptedMimeTypes": new Dropzone(Dropzone.createElement("""<form action="/"></form>"""), {
+          clickable: yes,
+          acceptedMimeTypes: "audio/*,video/*"
+        })
 
       it "should not add an accept attribute if no acceptParameter", ->
-        dropzone = new Dropzone (Dropzone.createElement """<form action="/"></form>"""), clickable: yes, acceptParameter: null, acceptedMimeTypes: null
+        dropzone = new Dropzone (Dropzone.createElement """<form action="/"></form>"""),
+          clickable: yes, acceptParameter: null, acceptedMimeTypes: null
         dropzone.hiddenFileInput.hasAttribute("accept").should.be.false
 
 
@@ -526,9 +528,7 @@ describe "Dropzone", ->
       element.querySelectorAll(".dz-message").length.should.equal 1
 
 
-
   describe "options", ->
-
     element = null
     dropzone = null
 
@@ -584,10 +584,8 @@ describe "Dropzone", ->
           file.previewElement.querySelector("[data-dz-uploadprogress]").style.width.should.eql "100%"
 
       describe ".resize()", ->
-
         describe "with default thumbnail settings", ->
           it "should properly return target dimensions", ->
-
             info = dropzone.options.resize.call dropzone, file
 
             info.optWidth.should.eql 120
@@ -620,44 +618,45 @@ describe "Dropzone", ->
                 info.optHeight.should.eql 75
 
   describe "instance", ->
-
     element = null
     dropzone = null
     requests = null
     beforeEach ->
-      requests = [ ]
+      requests = []
       xhr.onCreate = (xhr) -> requests.push xhr
 
       element = Dropzone.createElement """<div></div>"""
       document.body.appendChild element
-      dropzone = new Dropzone element, maxFilesize: 4, maxFiles: 100, url: "url", acceptedMimeTypes: "audio/*,image/png", uploadprogress: ->
+      dropzone = new Dropzone element,
+        maxFilesize: 4, maxFiles: 100, url: "url", acceptedMimeTypes: "audio/*,image/png", uploadprogress: ->
     afterEach ->
       document.body.removeChild element
       dropzone.destroy()
       xhr.restore()
 
     describe ".accept()", ->
-
       it "should pass if the filesize is OK", ->
-        dropzone.accept { size: 2 * 1024 * 1024, type: "audio/mp3" }, (err) -> expect(err).to.be.undefined
+        dropzone.accept {size: 2 * 1024 * 1024, type: "audio/mp3"}, (err) -> expect(err).to.be.undefined
 
       it "shouldn't pass if the filesize is too big", ->
-        dropzone.accept { size: 10 * 1024 * 1024, type: "audio/mp3" }, (err) -> err.should.eql "File is too big (10MiB). Max filesize: 4MiB."
+        dropzone.accept {
+          size: 10 * 1024 * 1024,
+          type: "audio/mp3"
+        }, (err) -> err.should.eql "File is too big (10MiB). Max filesize: 4MiB."
 
       it "should properly accept files which mime types are listed in acceptedFiles", ->
-
-        dropzone.accept { type: "audio/mp3" }, (err) -> expect(err).to.be.undefined
-        dropzone.accept { type: "image/png" }, (err) -> expect(err).to.be.undefined
-        dropzone.accept { type: "audio/wav" }, (err) -> expect(err).to.be.undefined
+        dropzone.accept {type: "audio/mp3"}, (err) -> expect(err).to.be.undefined
+        dropzone.accept {type: "image/png"}, (err) -> expect(err).to.be.undefined
+        dropzone.accept {type: "audio/wav"}, (err) -> expect(err).to.be.undefined
 
       it "should properly reject files when the mime type isn't listed in acceptedFiles", ->
-        dropzone.accept { type: "image/jpeg" }, (err) -> err.should.eql "You can't upload files of this type."
+        dropzone.accept {type: "image/jpeg"}, (err) -> err.should.eql "You can't upload files of this type."
 
       it "should fail if maxFiles has been exceeded and call the event maxfilesexceeded", ->
         sinon.stub dropzone, "getAcceptedFiles"
-        file = { type: "audio/mp3" }
+        file = {type: "audio/mp3"}
 
-        dropzone.getAcceptedFiles.returns { length: 99 }
+        dropzone.getAcceptedFiles.returns {length: 99}
 
         dropzone.options.dictMaxFilesExceeded = "You can only upload {{maxFiles}} files."
 
@@ -669,14 +668,14 @@ describe "Dropzone", ->
         dropzone.accept file, (err) -> expect(err).to.be.undefined
         called.should.not.be.ok
 
-        dropzone.getAcceptedFiles.returns { length: 100 }
+        dropzone.getAcceptedFiles.returns {length: 100}
         dropzone.accept file, (err) -> expect(err).to.equal "You can only upload 100 files."
         called.should.be.ok
 
         dropzone.getAcceptedFiles.restore()
 
       it "should properly handle if maxFiles is 0", ->
-        file = { type: "audio/mp3" }
+        file = {type: "audio/mp3"}
 
         dropzone.options.maxFiles = 0
 
@@ -687,7 +686,6 @@ describe "Dropzone", ->
 
         dropzone.accept file, (err) -> expect(err).to.equal "You can not upload any more files."
         called.should.be.ok
-
 
 
     describe ".removeFile()", ->
@@ -801,38 +799,36 @@ describe "Dropzone", ->
         , 10
 
 
-
     describe ".disable()", ->
       it "should properly cancel all pending uploads", (done) ->
-          dropzone.accept = (file, done) -> done()
+        dropzone.accept = (file, done) -> done()
 
-          dropzone.options.parallelUploads = 1
+        dropzone.options.parallelUploads = 1
 
-          dropzone.addFile getMockFile()
-          dropzone.addFile getMockFile()
+        dropzone.addFile getMockFile()
+        dropzone.addFile getMockFile()
 
-          setTimeout ->
+        setTimeout ->
+          dropzone.getUploadingFiles().length.should.equal 1
+          dropzone.getQueuedFiles().length.should.equal 1
+          dropzone.files.length.should.equal 2
 
-            dropzone.getUploadingFiles().length.should.equal 1
-            dropzone.getQueuedFiles().length.should.equal 1
-            dropzone.files.length.should.equal 2
+          sinon.spy requests[0], "abort"
 
-            sinon.spy requests[0], "abort"
+          requests[0].abort.callCount.should.equal 0
 
-            requests[0].abort.callCount.should.equal 0
+          dropzone.disable()
 
-            dropzone.disable()
+          requests[0].abort.callCount.should.equal 1
 
-            requests[0].abort.callCount.should.equal 1
+          dropzone.getUploadingFiles().length.should.equal 0
+          dropzone.getQueuedFiles().length.should.equal 0
+          dropzone.files.length.should.equal 2
 
-            dropzone.getUploadingFiles().length.should.equal 0
-            dropzone.getQueuedFiles().length.should.equal 0
-            dropzone.files.length.should.equal 2
-
-            dropzone.files[0].status.should.equal Dropzone.CANCELED
-            dropzone.files[1].status.should.equal Dropzone.CANCELED
-            done()
-          , 10
+          dropzone.files[0].status.should.equal Dropzone.CANCELED
+          dropzone.files[1].status.should.equal Dropzone.CANCELED
+          done()
+        , 10
 
     describe ".destroy()", ->
       it "should properly cancel all pending uploads and remove all file references", (done) ->
@@ -860,7 +856,11 @@ describe "Dropzone", ->
 
       it "should be able to create instance of dropzone on the same element after destroy", ->
         dropzone.destroy()
-        ( -> new Dropzone element, maxFilesize: 4, url: "url", acceptedMimeTypes: "audio/*,image/png", uploadprogress: -> ).should.not.throw( Error )
+        (-> new Dropzone element,
+          maxFilesize: 4,
+          url: "url",
+          acceptedMimeTypes: "audio/*,image/png",
+          uploadprogress: ->).should.not.throw(Error)
 
       it "should remove itself from Dropzone.instances", ->
         (Dropzone.instances.indexOf(dropzone) != -1).should.be.ok
@@ -868,14 +868,11 @@ describe "Dropzone", ->
         (Dropzone.instances.indexOf(dropzone) == -1).should.be.ok
 
 
-
     describe ".filesize()", ->
-
       it "should handle files with 0 size properly", ->
         dropzone.filesize(0).should.eql "<strong>0</strong> b"
 
       it "should convert to KiloBytes, etc..", ->
-
         dropzone.options.filesizeBase.should.eql 1000 # Just making sure the default config is correct
 
         dropzone.filesize(2 * 1000 * 1000).should.eql "<strong>2</strong> MB"
@@ -889,7 +886,6 @@ describe "Dropzone", ->
         dropzone.filesize(999 * 1000).should.eql "<strong>1</strong> MB"
 
       it "should convert to KibiBytes, etc.. when the filesizeBase is changed to 1024", ->
-
         dropzone.options.filesizeBase = 1024
 
         dropzone.filesize(2 * 1024 * 1024).should.eql "<strong>2</strong> MB"
@@ -928,9 +924,7 @@ describe "Dropzone", ->
         dropzone.element.classList.contains("dz-max-files-reached").should.not.be.ok
 
     describe "events", ->
-
       describe "progress updates", ->
-
         it "should properly emit a totaluploadprogress event", (done) ->
           dropzone.files = [
             {
@@ -960,21 +954,21 @@ describe "Dropzone", ->
             done() if ++_called == 3
 
           totalProgressExpectation = 15
-          dropzone.emit "uploadprogress", { }
+          dropzone.emit "uploadprogress", {}
 
           totalProgressExpectation = 97.5
           dropzone.files[0].upload.bytesSent = 2000
           dropzone.files[1].upload.bytesSent = 1900
           # It shouldn't matter that progress is not properly updated since the total size
           # should be calculated from the bytes
-          dropzone.emit "uploadprogress", { }
+          dropzone.emit "uploadprogress", {}
 
           totalProgressExpectation = 100
           dropzone.files[0].upload.bytesSent = 2000
           dropzone.files[1].upload.bytesSent = 2000
           # It shouldn't matter that progress is not properly updated since the total size
           # should be calculated from the bytes
-          dropzone.emit "uploadprogress", { }
+          dropzone.emit "uploadprogress", {}
 
           # Just so the afterEach hook doesn't try to cancel them.
           dropzone.files[0].status = Dropzone.CANCELED
@@ -1029,7 +1023,7 @@ describe "Dropzone", ->
         mock3 = getMockFile()
         mock4 = getMockFile()
         dropzone.options.accept = (file, done) ->
-          if file in [ mock1, mock3 ]
+          if file in [mock1, mock3]
             done()
           else
             done "error"
@@ -1039,9 +1033,9 @@ describe "Dropzone", ->
         dropzone.addFile mock4
 
       it "getAcceptedFiles() should only return accepted files", ->
-        dropzone.getAcceptedFiles().should.eql [ mock1, mock3 ]
+        dropzone.getAcceptedFiles().should.eql [mock1, mock3]
       it "getRejectedFiles() should only return rejected files", ->
-        dropzone.getRejectedFiles().should.eql [ mock2, mock4 ]
+        dropzone.getRejectedFiles().should.eql [mock2, mock4]
 
     describe "getQueuedFiles()", ->
       it "should return all files with the status Dropzone.QUEUED", ->
@@ -1057,12 +1051,12 @@ describe "Dropzone", ->
         dropzone.addFile mock3
         dropzone.addFile mock4
 
-        dropzone.getQueuedFiles().should.eql [ ]
+        dropzone.getQueuedFiles().should.eql []
 
         mock1.done()
         mock3.done()
 
-        dropzone.getQueuedFiles().should.eql [ mock1, mock3 ]
+        dropzone.getQueuedFiles().should.eql [mock1, mock3]
         mock1.status.should.equal Dropzone.QUEUED
         mock3.status.should.equal Dropzone.QUEUED
         mock2.status.should.equal Dropzone.ADDED
@@ -1084,13 +1078,13 @@ describe "Dropzone", ->
         dropzone.addFile mock3
         dropzone.addFile mock4
 
-        dropzone.getUploadingFiles().should.eql [ ]
+        dropzone.getUploadingFiles().should.eql []
 
         mock1.done()
         mock3.done()
 
         setTimeout (->
-          dropzone.getUploadingFiles().should.eql [ mock1, mock3 ]
+          dropzone.getUploadingFiles().should.eql [mock1, mock3]
           mock1.status.should.equal Dropzone.UPLOADING
           mock3.status.should.equal Dropzone.UPLOADING
           mock2.status.should.equal Dropzone.ADDED
@@ -1115,14 +1109,14 @@ describe "Dropzone", ->
         dropzone.addFile mock3
         dropzone.addFile mock4
 
-        dropzone.getActiveFiles().should.eql [ ]
+        dropzone.getActiveFiles().should.eql []
 
         mock1.done()
         mock3.done()
         mock4.done()
 
         setTimeout (->
-          dropzone.getActiveFiles().should.eql [ mock1, mock3, mock4 ]
+          dropzone.getActiveFiles().should.eql [mock1, mock3, mock4]
           mock1.status.should.equal Dropzone.UPLOADING
           mock3.status.should.equal Dropzone.UPLOADING
           mock2.status.should.equal Dropzone.ADDED
@@ -1146,17 +1140,15 @@ describe "Dropzone", ->
         dropzone.addFile mock3
         dropzone.addFile mock4
 
-        dropzone.getFilesWithStatus(Dropzone.ADDED).should.eql [ mock1, mock2, mock3, mock4 ]
+        dropzone.getFilesWithStatus(Dropzone.ADDED).should.eql [mock1, mock2, mock3, mock4]
 
         mock1.status = Dropzone.UPLOADING
         mock3.status = Dropzone.QUEUED
         mock4.status = Dropzone.QUEUED
 
-        dropzone.getFilesWithStatus(Dropzone.ADDED).should.eql [ mock2 ]
-        dropzone.getFilesWithStatus(Dropzone.UPLOADING).should.eql [ mock1 ]
-        dropzone.getFilesWithStatus(Dropzone.QUEUED).should.eql [ mock3, mock4 ]
-        
-
+        dropzone.getFilesWithStatus(Dropzone.ADDED).should.eql [mock2]
+        dropzone.getFilesWithStatus(Dropzone.UPLOADING).should.eql [mock1]
+        dropzone.getFilesWithStatus(Dropzone.QUEUED).should.eql [mock3, mock4]
 
 
   describe "file handling", ->
@@ -1278,7 +1270,6 @@ describe "Dropzone", ->
         dropzone.removeFile.callCount.should.eql 2
 
 
-
       describe "thumbnails", ->
         it "should properly queue the thumbnail creation", (done) ->
           doneFunction = null
@@ -1303,7 +1294,7 @@ describe "Dropzone", ->
             ct_callback = callback
 
           sinon.spy dropzone, "createThumbnail"
-          
+
           dropzone.addFile mock1
           dropzone.addFile mock2
           dropzone.addFile mock3
@@ -1321,19 +1312,18 @@ describe "Dropzone", ->
 
             done()
           ), 10
-          
 
-          # dropzone.addFile mock1
+
+        # dropzone.addFile mock1
 
         describe "when file is SVG", ->
           it "should use the SVG image itself", (done) ->
-
             createBlob = (data, type) ->
               try
                 new Blob([data], type: type)
               catch e
                 BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder ||
-                    window.MozBlobBuilder || window.MSBlobBuilder
+                  window.MozBlobBuilder || window.MSBlobBuilder
                 builder = new BlobBuilder()
                 builder.append(data.buffer || data)
                 builder.getBlob(type)
@@ -1358,7 +1348,7 @@ describe "Dropzone", ->
         mock2 = getMockFile()
         mock3 = getMockFile()
 
-        dropzone.enqueueFiles [ mock1, mock2, mock3 ]
+        dropzone.enqueueFiles [mock1, mock2, mock3]
 
         dropzone.enqueueFile.callCount.should.equal 3
         dropzone.enqueueFile.args[0][0].should.equal mock1
@@ -1389,9 +1379,8 @@ describe "Dropzone", ->
       requests = null
 
 
-
       beforeEach ->
-        requests = [ ]
+        requests = []
 
         xhr.onCreate = (xhr) -> requests.push xhr
 
@@ -1407,10 +1396,9 @@ describe "Dropzone", ->
         dropzone.uploadFile mockFile
 
         dropzone.uploadFiles.callCount.should.equal 1
-        dropzone.uploadFiles.calledWith([ mockFile ]).should.be.ok
+        dropzone.uploadFiles.calledWith([mockFile]).should.be.ok
 
       it "should use url options if strings", (done) ->
-
         dropzone.addFile mockFile
 
         setTimeout ->
@@ -1444,7 +1432,6 @@ describe "Dropzone", ->
         dropzone.addFile mockFile
 
         setTimeout ->
-
           mockFile.status.should.eql Dropzone.UPLOADING
 
           requests[0].status = 200
@@ -1452,14 +1439,14 @@ describe "Dropzone", ->
           requests[0].onload()
 
           mockFile.status.should.eql Dropzone.UPLOADING
-        
+
           requests[0].readyState = 4
           requests[0].onload()
 
           mockFile.status.should.eql Dropzone.SUCCESS
           done()
         , 10
-      
+
 
       it "should emit error and errormultiple when response was not OK", (done) ->
         dropzone.options.uploadMultiple = yes
@@ -1476,7 +1463,6 @@ describe "Dropzone", ->
         dropzone.addFile mockFile
 
         setTimeout ->
-
           mockFile.status.should.eql Dropzone.UPLOADING
 
           requests[0].status = 400
@@ -1570,7 +1556,6 @@ describe "Dropzone", ->
         , 10
 
 
-
       describe "settings()", ->
         it "should correctly set `withCredentials` on the xhr object", ->
           dropzone.uploadFile mockFile
@@ -1595,7 +1580,7 @@ describe "Dropzone", ->
           dropzone.options.uploadMultiple = false
           dropzone.options.paramName = "myName"
 
-          formData = [ ]
+          formData = []
           sendingCount = 0
           dropzone.on "sending", (files, xhr, tformData) ->
             sendingCount++
@@ -1645,7 +1630,7 @@ describe "Dropzone", ->
           setTimeout ->
             sendingCount.should.equal 2
             sendingMultipleCount.should.equal 1
-            dropzone.uploadFiles [ mock1, mock2 ]
+            dropzone.uploadFiles [mock1, mock2]
             formData.append.callCount.should.equal 2
             formData.append.args[0][0].should.eql "myName[0]"
             formData.append.args[1][0].should.eql "myName[1]"
@@ -1707,7 +1692,6 @@ describe "Dropzone", ->
 
     describe "complete file", ->
       it "should properly emit the queuecomplete event when the complete queue is finished", (done) ->
-
         mock1 = getMockFile()
         mock2 = getMockFile()
         mock3 = getMockFile()

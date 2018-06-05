@@ -4,214 +4,222 @@
  * Copyright 2013-2014 Twitter, Inc. and other contributors; Licensed MIT
  */
 
-var Menu = (function() {
-  'use strict';
+var Menu = (function () {
+    'use strict';
 
-  // constructor
-  // -----------
+    // constructor
+    // -----------
 
-  function Menu(o, www) {
-    var that = this;
+    function Menu(o, www) {
+        var that = this;
 
-    o = o || {};
+        o = o || {};
 
-    if (!o.node) {
-      $.error('node is required');
+        if (!o.node) {
+            $.error('node is required');
+        }
+
+        www.mixin(this);
+
+        this.$node = $(o.node);
+
+        // the latest query #update was called with
+        this.query = null;
+        this.datasets = _.map(o.datasets, initializeDataset);
+
+        function initializeDataset(oDataset) {
+            var node = that.$node.find(oDataset.node).first();
+            oDataset.node = node.length ? node : $('<div>').appendTo(that.$node);
+
+            return new Dataset(oDataset, www);
+        }
     }
 
-    www.mixin(this);
+    // instance methods
+    // ----------------
 
-    this.$node = $(o.node);
+    _.mixin(Menu.prototype, EventEmitter, {
 
-    // the latest query #update was called with
-    this.query = null;
-    this.datasets = _.map(o.datasets, initializeDataset);
+        // ### event handlers
 
-    function initializeDataset(oDataset) {
-      var node = that.$node.find(oDataset.node).first();
-      oDataset.node = node.length ? node : $('<div>').appendTo(that.$node);
+        _onSelectableClick: function onSelectableClick($e) {
+            this.trigger('selectableClicked', $($e.currentTarget));
+        },
 
-      return new Dataset(oDataset, www);
-    }
-  }
+        _onRendered: function onRendered(type, dataset, suggestions, async) {
+            this.$node.toggleClass(this.classes.empty, this._allDatasetsEmpty());
+            this.trigger('datasetRendered', dataset, suggestions, async);
+        },
 
-  // instance methods
-  // ----------------
+        _onCleared: function onCleared() {
+            this.$node.toggleClass(this.classes.empty, this._allDatasetsEmpty());
+            this.trigger('datasetCleared');
+        },
 
-  _.mixin(Menu.prototype, EventEmitter, {
+        _propagate: function propagate() {
+            this.trigger.apply(this, arguments);
+        },
 
-    // ### event handlers
+        // ### private
 
-    _onSelectableClick: function onSelectableClick($e) {
-      this.trigger('selectableClicked', $($e.currentTarget));
-    },
+        _allDatasetsEmpty: function allDatasetsEmpty() {
+            return _.every(this.datasets, isDatasetEmpty);
 
-    _onRendered: function onRendered(type, dataset, suggestions, async) {
-      this.$node.toggleClass(this.classes.empty, this._allDatasetsEmpty());
-      this.trigger('datasetRendered', dataset, suggestions, async);
-    },
+            function isDatasetEmpty(dataset) {
+                return dataset.isEmpty();
+            }
+        },
 
-    _onCleared: function onCleared() {
-      this.$node.toggleClass(this.classes.empty, this._allDatasetsEmpty());
-      this.trigger('datasetCleared');
-    },
+        _getSelectables: function getSelectables() {
+            return this.$node.find(this.selectors.selectable);
+        },
 
-    _propagate: function propagate() {
-      this.trigger.apply(this, arguments);
-    },
+        _removeCursor: function _removeCursor() {
+            var $selectable = this.getActiveSelectable();
+            $selectable && $selectable.removeClass(this.classes.cursor);
+        },
 
-    // ### private
+        _ensureVisible: function ensureVisible($el) {
+            var elTop, elBottom, nodeScrollTop, nodeHeight;
 
-    _allDatasetsEmpty: function allDatasetsEmpty() {
-      return _.every(this.datasets, isDatasetEmpty);
+            elTop = $el.position().top;
+            elBottom = elTop + $el.outerHeight(true);
+            nodeScrollTop = this.$node.scrollTop();
+            nodeHeight = this.$node.height() +
+                parseInt(this.$node.css('paddingTop'), 10) +
+                parseInt(this.$node.css('paddingBottom'), 10);
 
-      function isDatasetEmpty(dataset) { return dataset.isEmpty(); }
-    },
+            if (elTop < 0) {
+                this.$node.scrollTop(nodeScrollTop + elTop);
+            }
 
-    _getSelectables: function getSelectables() {
-      return this.$node.find(this.selectors.selectable);
-    },
+            else if (nodeHeight < elBottom) {
+                this.$node.scrollTop(nodeScrollTop + (elBottom - nodeHeight));
+            }
+        },
 
-    _removeCursor: function _removeCursor() {
-      var $selectable = this.getActiveSelectable();
-      $selectable && $selectable.removeClass(this.classes.cursor);
-    },
+        // ### public
 
-    _ensureVisible: function ensureVisible($el) {
-      var elTop, elBottom, nodeScrollTop, nodeHeight;
+        bind: function () {
+            var that = this, onSelectableClick;
 
-      elTop = $el.position().top;
-      elBottom = elTop + $el.outerHeight(true);
-      nodeScrollTop = this.$node.scrollTop();
-      nodeHeight = this.$node.height() +
-        parseInt(this.$node.css('paddingTop'), 10) +
-        parseInt(this.$node.css('paddingBottom'), 10);
+            onSelectableClick = _.bind(this._onSelectableClick, this);
+            this.$node.on('click.tt', this.selectors.selectable, onSelectableClick);
 
-      if (elTop < 0) {
-        this.$node.scrollTop(nodeScrollTop + elTop);
-      }
+            _.each(this.datasets, function (dataset) {
+                dataset
+                    .onSync('asyncRequested', that._propagate, that)
+                    .onSync('asyncCanceled', that._propagate, that)
+                    .onSync('asyncReceived', that._propagate, that)
+                    .onSync('rendered', that._onRendered, that)
+                    .onSync('cleared', that._onCleared, that);
+            });
 
-      else if (nodeHeight < elBottom) {
-        this.$node.scrollTop(nodeScrollTop + (elBottom - nodeHeight));
-      }
-    },
+            return this;
+        },
 
-    // ### public
+        isOpen: function isOpen() {
+            return this.$node.hasClass(this.classes.open);
+        },
 
-    bind: function() {
-    var that = this, onSelectableClick;
+        open: function open() {
+            this.$node.addClass(this.classes.open);
+        },
 
-      onSelectableClick = _.bind(this._onSelectableClick, this);
-      this.$node.on('click.tt', this.selectors.selectable, onSelectableClick);
+        close: function close() {
+            this.$node.removeClass(this.classes.open);
+            this._removeCursor();
+        },
 
-      _.each(this.datasets, function(dataset) {
-        dataset
-        .onSync('asyncRequested', that._propagate, that)
-        .onSync('asyncCanceled', that._propagate, that)
-        .onSync('asyncReceived', that._propagate, that)
-        .onSync('rendered', that._onRendered, that)
-        .onSync('cleared', that._onCleared, that);
-      });
+        setLanguageDirection: function setLanguageDirection(dir) {
+            this.$node.attr('dir', dir);
+        },
 
-      return this;
-    },
+        selectableRelativeToCursor: function selectableRelativeToCursor(delta) {
+            var $selectables, $oldCursor, oldIndex, newIndex;
 
-    isOpen: function isOpen() {
-      return this.$node.hasClass(this.classes.open);
-    },
+            $oldCursor = this.getActiveSelectable();
+            $selectables = this._getSelectables();
 
-    open: function open() {
-      this.$node.addClass(this.classes.open);
-    },
+            // shifting before and after modulo to deal with -1 index
+            oldIndex = $oldCursor ? $selectables.index($oldCursor) : -1;
+            newIndex = oldIndex + delta;
+            newIndex = (newIndex + 1) % ($selectables.length + 1) - 1;
 
-    close: function close() {
-      this.$node.removeClass(this.classes.open);
-      this._removeCursor();
-    },
+            // wrap new index if less than -1
+            newIndex = newIndex < -1 ? $selectables.length - 1 : newIndex;
 
-    setLanguageDirection: function setLanguageDirection(dir) {
-      this.$node.attr('dir', dir);
-    },
+            return newIndex === -1 ? null : $selectables.eq(newIndex);
+        },
 
-    selectableRelativeToCursor: function selectableRelativeToCursor(delta) {
-      var $selectables, $oldCursor, oldIndex, newIndex;
+        setCursor: function setCursor($selectable) {
+            this._removeCursor();
 
-      $oldCursor = this.getActiveSelectable();
-      $selectables = this._getSelectables();
+            if ($selectable = $selectable && $selectable.first()) {
+                $selectable.addClass(this.classes.cursor);
 
-      // shifting before and after modulo to deal with -1 index
-      oldIndex = $oldCursor ? $selectables.index($oldCursor) : -1;
-      newIndex = oldIndex + delta;
-      newIndex = (newIndex + 1) % ($selectables.length + 1) - 1;
+                // in the case of scrollable overflow
+                // make sure the cursor is visible in the node
+                this._ensureVisible($selectable);
+            }
+        },
 
-      // wrap new index if less than -1
-      newIndex = newIndex < -1 ? $selectables.length - 1 : newIndex;
+        getSelectableData: function getSelectableData($el) {
+            return ($el && $el.length) ? Dataset.extractData($el) : null;
+        },
 
-      return newIndex === -1 ? null : $selectables.eq(newIndex);
-    },
+        getActiveSelectable: function getActiveSelectable() {
+            var $selectable = this._getSelectables().filter(this.selectors.cursor).first();
 
-    setCursor: function setCursor($selectable) {
-      this._removeCursor();
+            return $selectable.length ? $selectable : null;
+        },
 
-      if ($selectable = $selectable && $selectable.first()) {
-        $selectable.addClass(this.classes.cursor);
+        getTopSelectable: function getTopSelectable() {
+            var $selectable = this._getSelectables().first();
 
-        // in the case of scrollable overflow
-        // make sure the cursor is visible in the node
-        this._ensureVisible($selectable);
-      }
-    },
+            return $selectable.length ? $selectable : null;
+        },
 
-    getSelectableData: function getSelectableData($el) {
-      return ($el && $el.length) ? Dataset.extractData($el) : null;
-    },
+        update: function update(query) {
+            var isValidUpdate = query !== this.query;
 
-    getActiveSelectable: function getActiveSelectable() {
-      var $selectable = this._getSelectables().filter(this.selectors.cursor).first();
+            // don't update if the query hasn't changed
+            if (isValidUpdate) {
+                this.query = query;
+                _.each(this.datasets, updateDataset);
+            }
 
-      return $selectable.length ? $selectable : null;
-    },
+            return isValidUpdate;
 
-    getTopSelectable: function getTopSelectable() {
-      var $selectable = this._getSelectables().first();
+            function updateDataset(dataset) {
+                dataset.update(query);
+            }
+        },
 
-      return $selectable.length ? $selectable : null;
-    },
+        empty: function empty() {
+            _.each(this.datasets, clearDataset);
 
-    update: function update(query) {
-      var isValidUpdate = query !== this.query;
+            this.query = null;
+            this.$node.addClass(this.classes.empty);
 
-      // don't update if the query hasn't changed
-      if (isValidUpdate) {
-        this.query = query;
-        _.each(this.datasets, updateDataset);
-      }
+            function clearDataset(dataset) {
+                dataset.clear();
+            }
+        },
 
-      return isValidUpdate;
+        destroy: function destroy() {
+            this.$node.off('.tt');
 
-      function updateDataset(dataset) { dataset.update(query); }
-    },
+            // #970
+            this.$node = $('<div>');
 
-    empty: function empty() {
-      _.each(this.datasets, clearDataset);
+            _.each(this.datasets, destroyDataset);
 
-      this.query = null;
-      this.$node.addClass(this.classes.empty);
+            function destroyDataset(dataset) {
+                dataset.destroy();
+            }
+        }
+    });
 
-      function clearDataset(dataset) { dataset.clear(); }
-    },
-
-    destroy: function destroy() {
-      this.$node.off('.tt');
-
-      // #970
-      this.$node = $('<div>');
-
-      _.each(this.datasets, destroyDataset);
-
-      function destroyDataset(dataset) { dataset.destroy(); }
-    }
-  });
-
-  return Menu;
+    return Menu;
 })();

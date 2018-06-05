@@ -9,7 +9,7 @@
 namespace Core\URL;
 
 
-class URL
+class URL extends BASEURL
 {
 
 }

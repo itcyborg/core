@@ -12,12 +12,13 @@ use Core\Router\Route;
 
 
 Auth::Routes();
-Route::get('', 'AboutController@hello');
+Route::get('', 'indexController@index');
 Route::get(/**
  * @param $id
  */
     'hello/{id}',
     function ($id) {
+//        echo $id;
         dd(DB::all('users'));
     }
 );

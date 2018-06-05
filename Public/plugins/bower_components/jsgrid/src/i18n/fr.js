@@ -1,4 +1,4 @@
-(function(jsGrid) {
+(function (jsGrid) {
 
     jsGrid.locales.fr = {
         grid: {
@@ -32,14 +32,14 @@
         },
 
         validators: {
-            required: { message: "Champ requis" },
-            rangeLength: { message: "Longueur de la valeur du champ est hors de la plage définie" },
-            minLength: { message: "La valeur du champ est trop long" },
-            maxLength: { message: "La valeur du champ est trop court" },
-            pattern: { message: "La valeur du champ ne correspond pas à la configuration définie" },
-            range: { message: "La valeur du champ est hors de la plage définie" },
-            min: { message: "La valeur du champ est trop grande" },
-            max: { message: "La valeur du champ est trop petit" }
+            required: {message: "Champ requis"},
+            rangeLength: {message: "Longueur de la valeur du champ est hors de la plage définie"},
+            minLength: {message: "La valeur du champ est trop long"},
+            maxLength: {message: "La valeur du champ est trop court"},
+            pattern: {message: "La valeur du champ ne correspond pas à la configuration définie"},
+            range: {message: "La valeur du champ est hors de la plage définie"},
+            min: {message: "La valeur du champ est trop grande"},
+            max: {message: "La valeur du champ est trop petit"}
         }
     };
 

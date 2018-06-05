@@ -81,7 +81,7 @@
       outline: none;
 
       &[contenteditable=true]:empty:not(:focus):before {
-        content:attr(data-placeholder);
+        content: attr(data-placeholder);
       }
       &[contenteditable="false"] {
         background-color: #e5e5e5;
@@ -141,7 +141,7 @@
       max-width: 200px;
       overflow: hidden;
       text-overflow: ellipsis;
-      white-space: nowrap;    /* for FF */
+      white-space: nowrap; /* for FF */
       vertical-align: middle; /* for FF */
     }
   }
@@ -156,7 +156,7 @@
   margin: 0;
   padding: 0 0 5px 5px;
 
-  &>.btn-group {
+  & > .btn-group {
     margin-top: 5px;
     margin-left: 0;
     margin-right: 5px;
@@ -242,7 +242,7 @@
     .dropdown-menu {
       min-width: 216px;
       padding: 5px;
-      &>div:first-child {
+      & > div:first-child {
         margin-right: 5px;
       }
     }
@@ -257,8 +257,14 @@
     &.right {
       right: 0;
       left: auto;
-      &::before { right: 9px; left: auto !important;  }
-      &::after { right: 10px; left: auto !important;  }
+      &::before {
+        right: 9px;
+        left: auto !important;
+      }
+      &::after {
+        right: 10px;
+        left: auto !important;
+      }
     }
     /* dropdown-menu for selectbox */
     &.note-check {
@@ -298,7 +304,7 @@
 /* Dialog
 ------------------------------------------*/
 .note-dialog {
-  &>div {
+  & > div {
     display: none; /* BS2's hide pacth. */
   }
   .form-group { /* overwrite BS's form-horizontal minus margins */
@@ -397,7 +403,9 @@
     position: absolute;
     display: none;
     border: 1px solid black;
-    &>div { position: absolute; }
+    & > div {
+      position: absolute;
+    }
 
     .note-control-selection-bg {
       width: 100%;

@@ -96,6 +96,7 @@ table.tablesaw {
     display: none !important;
   }
 }
+
 @mixin tablesaw-stack-max {
   .tablesaw-stack thead td,
   .tablesaw-stack thead th {
@@ -148,8 +149,7 @@ $use-respond-mixins: false !default;
     @include respond-min($breakpoint) {
       @include tablesaw-stack-min;
     }
-  }
-  @else {
+  } @else {
     @media (max-width: ($breakpoint - .0625)) {
       @include tablesaw-stack-max;
     }

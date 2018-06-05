@@ -23,16 +23,15 @@
 
 @mixin keyframes($name) {
   @-webkit-keyframes #{$name} {
-    @content; 
+    @content;
   }
   @-moz-keyframes #{$name} {
     @content;
   }
   @keyframes #{$name} {
     @content;
-  } 
+  }
 }
-
 
 @mixin prefix($map, $vendors: webkit moz ms o) {
   @each $prop, $value in $map {
@@ -46,9 +45,8 @@
   }
 }
 
-
 @include keyframes(passing-through) {
-  
+
   0% {
     opacity: 0;
     @include prefix((transform: translateY(40px)));
@@ -65,9 +63,8 @@
   }
 }
 
-
 @include keyframes(slide-in) {
-  
+
   0% {
     opacity: 0;
     @include prefix((transform: translateY(40px)));
@@ -79,21 +76,24 @@
   }
 }
 
-
-
 @include keyframes(pulse) {
-  
-  0% { @include prefix((transform: scale(1))); }
-  10% { @include prefix((transform: scale(1.1))); }
-  20% { @include prefix((transform: scale(1))); }
+
+  0% {
+    @include prefix((transform: scale(1)));
+  }
+  10% {
+    @include prefix((transform: scale(1.1)));
+  }
+  20% {
+    @include prefix((transform: scale(1)));
+  }
 
 }
-
-
 
 .dropzone, .dropzone * {
   box-sizing: border-box;
 }
+
 .dropzone {
 
   $image-size: 120px;
@@ -134,10 +134,7 @@
     text-align: center;
     margin: 2em 0;
 
-
   }
-
-
 
   .dz-preview {
     position: relative;
@@ -270,7 +267,6 @@
       }
     }
 
-
     &.dz-success {
       .dz-success-mark {
         @include prefix((animation: passing-through 3s cubic-bezier(0.770, 0.000, 0.175, 1.000)));
@@ -282,7 +278,6 @@
         @include prefix((animation: slide-in 3s cubic-bezier(0.770, 0.000, 0.175, 1.000)));
       }
     }
-
 
     .dz-success-mark, .dz-error-mark {
 
@@ -307,8 +302,7 @@
         height: $image-height;
       }
     }
-    
-      
+
     &.dz-processing .dz-progress {
       opacity: 1;
       @include prefix((transition: all 0.2s linear));
@@ -343,7 +337,6 @@
 
       // Fix for chrome bug: https://code.google.com/p/chromium/issues/detail?id=157218
       -webkit-transform: scale(1);
-
 
       border-radius: 8px;
 
@@ -399,8 +392,8 @@
         position: absolute;
         top: -6px;
         left: $width / 2 - 6px;
-        width: 0; 
-        height: 0; 
+        width: 0;
+        height: 0;
         border-left: 6px solid transparent;
         border-right: 6px solid transparent;
         border-bottom: 6px solid $color;

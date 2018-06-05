@@ -4,7 +4,11 @@
   // Documentation: http://www.jshint.com/docs/
   "browser": true,
   "esnext": true,
-  "globals": { $: false, jQuery: false, "console": false},
+  "globals": {
+    $: false,
+    jQuery: false,
+    "console": false
+  },
   "globalstrict": true,
   "quotmark": "single",
   "smarttabs": true,

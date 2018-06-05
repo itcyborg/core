@@ -7,30 +7,30 @@ var where = 'client';  // where to install: 'client' or 'server'. For both, pass
 var packageJson = JSON.parse(Npm.require("fs").readFileSync('package.json'));
 
 Package.describe({
-  name: packageName,
-  summary: 'summernote standalone (official): WYSIWYG editor with embedded images support, packaged without deps',
-  version: packageJson.version,
-  git: 'https://github.com/summernote/summernote.git'
+    name: packageName,
+    summary: 'summernote standalone (official): WYSIWYG editor with embedded images support, packaged without deps',
+    version: packageJson.version,
+    git: 'https://github.com/summernote/summernote.git'
 });
 
 Package.onUse(function (api) {
-  api.versionsFrom(['METEOR@0.9.0', 'METEOR@1.0']);
-  // no exports - summernote adds itself to jQuery
-  api.addFiles([
-    'dist/summernote.js',
-    'dist/summernote.css'
-  ], where);
+    api.versionsFrom(['METEOR@0.9.0', 'METEOR@1.0']);
+    // no exports - summernote adds itself to jQuery
+    api.addFiles([
+        'dist/summernote.js',
+        'dist/summernote.css'
+    ], where);
 });
 
 Package.onTest(function (api) {
-  // load dependencies for test only, before loading the package
-  api.use(['twbs:bootstrap@3.3.1', 'fortawesome:fontawesome@4.2.0'], where);
+    // load dependencies for test only, before loading the package
+    api.use(['twbs:bootstrap@3.3.1', 'fortawesome:fontawesome@4.2.0'], where);
 
-  // load our package
-  api.use(packageName, where);
+    // load our package
+    api.use(packageName, where);
 
-  // load the test runner
-  api.use('tinytest', where);
+    // load the test runner
+    api.use('tinytest', where);
 
-  api.addFiles('meteor/test.js', where);
+    api.addFiles('meteor/test.js', where);
 });

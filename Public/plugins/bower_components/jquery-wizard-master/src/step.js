@@ -5,7 +5,7 @@ function Step() {
 
 $.extend(Step.prototype, {
     TRANSITION_DURATION: 200,
-    initialize: function(element, wizard, index) {
+    initialize: function (element, wizard, index) {
         this.$element = $(element);
         this.wizard = wizard;
 
@@ -29,7 +29,7 @@ $.extend(Step.prototype, {
 
         this.$pane = this.getPaneFromTarget();
 
-        if(!this.$pane){
+        if (!this.$pane) {
             this.$pane = this.wizard.options.getPane.call(this.wizard, index, element);
         }
 
@@ -37,7 +37,7 @@ $.extend(Step.prototype, {
         this.setLoaderFromData();
     },
 
-    getPaneFromTarget: function(){
+    getPaneFromTarget: function () {
         var selector = this.$element.data('target');
 
         if (!selector) {
@@ -45,22 +45,22 @@ $.extend(Step.prototype, {
             selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '');
         }
 
-        if(selector) {
+        if (selector) {
             return $(selector);
         } else {
             return null;
         }
     },
 
-    setup: function() {
+    setup: function () {
         var current = this.wizard.currentIndex();
-        if(this.index === current){
+        if (this.index === current) {
             this.enter('active');
 
-            if(this.loader){
+            if (this.loader) {
                 this.load();
             }
-        } else if (this.index > current){
+        } else if (this.index > current) {
             this.enter('disabled');
         }
 
@@ -68,15 +68,15 @@ $.extend(Step.prototype, {
         this.$pane.attr('aria-expanded', this.is('active'));
 
         var classes = this.wizard.options.classes;
-        if(this.is('active')){
+        if (this.is('active')) {
             this.$pane.addClass(classes.pane.active);
         } else {
             this.$pane.removeClass(classes.pane.active);
         }
     },
 
-    show: function(callback) {
-        if(this.is('activing') || this.is('active')) {
+    show: function (callback) {
+        if (this.is('activing') || this.is('active')) {
             return;
         }
 
@@ -101,7 +101,7 @@ $.extend(Step.prototype, {
             this.enter('active');
             this.trigger('afterShow');
 
-            if($.isFunction(callback)){
+            if ($.isFunction(callback)) {
                 callback.call(this);
             }
         }
@@ -115,8 +115,8 @@ $.extend(Step.prototype, {
         emulateTransitionEnd(this.$pane, this.TRANSITION_DURATION);
     },
 
-    hide: function(callback) {
-        if(this.is('activing') || !this.is('active')) {
+    hide: function (callback) {
+        if (this.is('activing') || !this.is('active')) {
             return;
         }
 
@@ -141,7 +141,7 @@ $.extend(Step.prototype, {
             this.leave('active');
             this.trigger('afterHide');
 
-            if($.isFunction(callback)){
+            if ($.isFunction(callback)) {
                 callback.call(this);
             }
         }
@@ -155,20 +155,20 @@ $.extend(Step.prototype, {
         emulateTransitionEnd(this.$pane, this.TRANSITION_DURATION);
     },
 
-    empty: function() {
+    empty: function () {
         this.$pane.empty();
     },
 
-    load: function(callback) {
+    load: function (callback) {
         var self = this;
         var loader = this.loader;
 
-        if($.isFunction(loader)){
+        if ($.isFunction(loader)) {
             loader = loader.call(this.wizard, this);
         }
 
-        if(this.wizard.options.cacheContent && this.loaded){
-            if($.isFunction(callback)){
+        if (this.wizard.options.cacheContent && this.loaded) {
+            if ($.isFunction(callback)) {
                 callback.call(this);
             }
             return true;
@@ -184,7 +184,7 @@ $.extend(Step.prototype, {
             self.loaded = true;
             self.trigger('afterLoad');
 
-            if($.isFunction(callback)){
+            if ($.isFunction(callback)) {
                 callback.call(self);
             }
         }
@@ -194,11 +194,11 @@ $.extend(Step.prototype, {
         } else if (typeof loader === 'object' && loader.hasOwnProperty('url')) {
             self.wizard.options.loading.show.call(self.wizard, self);
 
-            $.ajax(loader.url, loader.settings || {}).done(function(data) {
+            $.ajax(loader.url, loader.settings || {}).done(function (data) {
                 setContent(data);
 
                 self.wizard.options.loading.hide.call(self.wizard, self);
-            }).fail(function(){
+            }).fail(function () {
                 self.wizard.options.loading.fail.call(self.wizard, self);
             });
         } else {
@@ -206,11 +206,11 @@ $.extend(Step.prototype, {
         }
     },
 
-    trigger: function(event) {
+    trigger: function (event) {
         var method_arguments = Array.prototype.slice.call(arguments, 1);
 
-        if($.isArray(this.events[event])){
-            for(var i in this.events[event]){
+        if ($.isArray(this.events[event])) {
+            for (var i in this.events[event]) {
                 this.events[event][i].apply(this, method_arguments);
             }
         }
@@ -218,7 +218,7 @@ $.extend(Step.prototype, {
         this.wizard.trigger.apply(this.wizard, [event, this].concat(method_arguments));
     },
 
-    enter: function(state) {
+    enter: function (state) {
         this.states[state] = true;
 
         var classes = this.wizard.options.classes;
@@ -227,8 +227,8 @@ $.extend(Step.prototype, {
         this.trigger('stateChange', true, state);
     },
 
-    leave: function(state) {
-        if(this.states[state]){
+    leave: function (state) {
+        if (this.states[state]) {
             this.states[state] = false;
 
             var classes = this.wizard.options.classes;
@@ -238,23 +238,23 @@ $.extend(Step.prototype, {
         }
     },
 
-    setValidatorFromData: function(){
+    setValidatorFromData: function () {
         var validator = this.$pane.data('validator');
-        if(validator && $.isFunction(window[validator])){
+        if (validator && $.isFunction(window[validator])) {
             this.validator = window[validator];
         }
     },
 
-    setLoaderFromData: function(){
+    setLoaderFromData: function () {
         var loader = this.$pane.data('loader');
 
-        if(loader){
-            if($.isFunction(window[loader])){
+        if (loader) {
+            if ($.isFunction(window[loader])) {
                 this.loader = window[loader];
             }
         } else {
             var url = this.$pane.data('loader-url');
-            if(url){
+            if (url) {
                 this.loader = {
                     url: url,
                     settings: this.$pane.data('settings') || {}
@@ -266,13 +266,13 @@ $.extend(Step.prototype, {
     /*
      * Public methods below
      */
-    active: function(){
+    active: function () {
         return this.wizard.goTo(this.index);
     },
 
-    on: function(event, handler){
-        if($.isFunction(handler)){
-            if($.isArray(this.events[event])){
+    on: function (event, handler) {
+        if ($.isFunction(handler)) {
+            if ($.isArray(this.events[event])) {
                 this.events[event].push(handler);
             } else {
                 this.events[event] = [handler];
@@ -282,10 +282,10 @@ $.extend(Step.prototype, {
         return this;
     },
 
-    off: function(event, handler){
-        if($.isFunction(handler) && $.isArray(this.events[event])){
-            $.each(this.events[event], function(i, f){
-                if(f === handler) {
+    off: function (event, handler) {
+        if ($.isFunction(handler) && $.isArray(this.events[event])) {
+            $.each(this.events[event], function (i, f) {
+                if (f === handler) {
                     delete this.events[event][i];
                     return false;
                 }
@@ -295,12 +295,12 @@ $.extend(Step.prototype, {
         return this;
     },
 
-    is: function(state) {
+    is: function (state) {
         return this.states[state] && this.states[state] === true;
     },
 
-    reset: function(){
-        for(var state in this.states){
+    reset: function () {
+        for (var state in this.states) {
             this.leave(state);
         }
         this.setup();
@@ -308,25 +308,25 @@ $.extend(Step.prototype, {
         return this;
     },
 
-    setLoader: function(loader){
+    setLoader: function (loader) {
         this.loader = loader;
 
-        if(this.is('active')){
+        if (this.is('active')) {
             this.load();
         }
 
         return this;
     },
 
-    setValidator: function(validator) {
-        if($.isFunction(validator)){
+    setValidator: function (validator) {
+        if ($.isFunction(validator)) {
             this.validator = validator;
         }
 
         return this;
     },
 
-    validate: function() {
+    validate: function () {
         return this.validator.call(this.$pane.get(0), this);
     }
 });

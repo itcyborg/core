@@ -1,10 +1,10 @@
 /*! jQuery wizard - v0.3.1 - 2015-05-07
  * https://github.com/amazingSurge/jquery-wizard
  * Copyright (c) 2015 amazingSurge; Licensed GPL */
-(function($, document, window, undefined) {
+(function ($, document, window, undefined) {
     "use strict";
 
-    var Support = (function() {
+    var Support = (function () {
         var style = $('<support>').get(0).style,
             prefixes = ['webkit', 'Moz', 'O', 'ms'],
             events = {
@@ -18,7 +18,7 @@
                 }
             },
             tests = {
-                csstransitions: function() {
+                csstransitions: function () {
                     return !!test('transition');
                 }
             };
@@ -31,7 +31,7 @@
                 result = property;
             }
             if (!result) {
-                $.each(prefixes, function(i, prefix) {
+                $.each(prefixes, function (i, prefix) {
                     if (style[prefix + upper] !== undefined) {
                         result = '-' + prefix.toLowerCase() + '-' + upper;
                         return false;
@@ -52,6 +52,7 @@
         function prefixed(property) {
             return test(property, true);
         }
+
         var support = {};
         if (tests.csstransitions()) {
             /* jshint -W053 */
@@ -65,7 +66,7 @@
 
     var counter = 0;
 
-    var Wizard = function(element, options) {
+    var Wizard = function (element, options) {
         this.$element = $(element);
 
         this.options = $.extend(true, {}, Wizard.defaults, options);
@@ -84,26 +85,27 @@
     function emulateTransitionEnd($el, duration) {
         var called = false;
 
-        $el.one(Support.transition.end, function() {
+        $el.one(Support.transition.end, function () {
             called = true;
         });
-        var callback = function() {
+        var callback = function () {
             if (!called) {
                 $el.trigger(Support.transition.end);
             }
         }
         setTimeout(callback, duration);
     }
+
     Wizard.defaults = {
         step: '.wizard-steps > li',
 
-        getPane: function(index, step) {
+        getPane: function (index, step) {
             return this.$element.find('.wizard-content').children().eq(index);
         },
 
         buttonsAppendTo: 'this',
         templates: {
-            buttons: function() {
+            buttons: function () {
                 var options = this.options;
                 return '<div class="wizard-buttons">' +
                     '<a class="wizard-back" href="#' + this.id + '" data-wizard="back" role="button">' + options.buttonLabels.back + '</a>' +
@@ -146,14 +148,17 @@
         },
 
         loading: {
-            show: function(step) {},
-            hide: function(step) {},
-            fail: function(step) {}
+            show: function (step) {
+            },
+            hide: function (step) {
+            },
+            fail: function (step) {
+            }
         },
 
         cacheContent: false,
 
-        validator: function(step) {
+        validator: function (step) {
             return true;
         },
 
@@ -184,7 +189,7 @@
 
     $.extend(Step.prototype, {
         TRANSITION_DURATION: 200,
-        initialize: function(element, wizard, index) {
+        initialize: function (element, wizard, index) {
             this.$element = $(element);
             this.wizard = wizard;
 
@@ -216,7 +221,7 @@
             this.setLoaderFromData();
         },
 
-        getPaneFromTarget: function() {
+        getPaneFromTarget: function () {
             var selector = this.$element.data('target');
 
             if (!selector) {
@@ -231,7 +236,7 @@
             }
         },
 
-        setup: function() {
+        setup: function () {
             var current = this.wizard.currentIndex();
             if (this.index === current) {
                 this.enter('active');
@@ -254,7 +259,7 @@
             }
         },
 
-        show: function(callback) {
+        show: function (callback) {
             if (this.is('activing') || this.is('active')) {
                 return;
             }
@@ -272,7 +277,7 @@
                 .addClass(classes.pane.active)
                 .attr('aria-expanded', true);
 
-            var complete = function() {
+            var complete = function () {
                 this.$pane
                     .removeClass(classes.pane.activing)
 
@@ -294,7 +299,7 @@
             emulateTransitionEnd(this.$pane, this.TRANSITION_DURATION);
         },
 
-        hide: function(callback) {
+        hide: function (callback) {
             if (this.is('activing') || !this.is('active')) {
                 return;
             }
@@ -312,7 +317,7 @@
                 .removeClass(classes.pane.active)
                 .attr('aria-expanded', false);
 
-            var complete = function() {
+            var complete = function () {
                 this.$pane
                     .removeClass(classes.pane.activing);
 
@@ -334,11 +339,11 @@
             emulateTransitionEnd(this.$pane, this.TRANSITION_DURATION);
         },
 
-        empty: function() {
+        empty: function () {
             this.$pane.empty();
         },
 
-        load: function(callback) {
+        load: function (callback) {
             var self = this;
             var loader = this.loader;
 
@@ -373,11 +378,11 @@
             } else if (typeof loader === 'object' && loader.hasOwnProperty('url')) {
                 self.wizard.options.loading.show.call(self.wizard, self);
 
-                $.ajax(loader.url, loader.settings || {}).done(function(data) {
+                $.ajax(loader.url, loader.settings || {}).done(function (data) {
                     setContent(data);
 
                     self.wizard.options.loading.hide.call(self.wizard, self);
-                }).fail(function() {
+                }).fail(function () {
                     self.wizard.options.loading.fail.call(self.wizard, self);
                 });
             } else {
@@ -385,7 +390,7 @@
             }
         },
 
-        trigger: function(event) {
+        trigger: function (event) {
             var method_arguments = Array.prototype.slice.call(arguments, 1);
 
             if ($.isArray(this.events[event])) {
@@ -397,7 +402,7 @@
             this.wizard.trigger.apply(this.wizard, [event, this].concat(method_arguments));
         },
 
-        enter: function(state) {
+        enter: function (state) {
             this.states[state] = true;
 
             var classes = this.wizard.options.classes;
@@ -406,7 +411,7 @@
             this.trigger('stateChange', true, state);
         },
 
-        leave: function(state) {
+        leave: function (state) {
             if (this.states[state]) {
                 this.states[state] = false;
 
@@ -417,14 +422,14 @@
             }
         },
 
-        setValidatorFromData: function() {
+        setValidatorFromData: function () {
             var validator = this.$pane.data('validator');
             if (validator && $.isFunction(window[validator])) {
                 this.validator = window[validator];
             }
         },
 
-        setLoaderFromData: function() {
+        setLoaderFromData: function () {
             var loader = this.$pane.data('loader');
 
             if (loader) {
@@ -445,11 +450,11 @@
         /*
          * Public methods below
          */
-        active: function() {
+        active: function () {
             return this.wizard.goTo(this.index);
         },
 
-        on: function(event, handler) {
+        on: function (event, handler) {
             if ($.isFunction(handler)) {
                 if ($.isArray(this.events[event])) {
                     this.events[event].push(handler);
@@ -461,9 +466,9 @@
             return this;
         },
 
-        off: function(event, handler) {
+        off: function (event, handler) {
             if ($.isFunction(handler) && $.isArray(this.events[event])) {
-                $.each(this.events[event], function(i, f) {
+                $.each(this.events[event], function (i, f) {
                     if (f === handler) {
                         delete this.events[event][i];
                         return false;
@@ -474,11 +479,11 @@
             return this;
         },
 
-        is: function(state) {
+        is: function (state) {
             return this.states[state] && this.states[state] === true;
         },
 
-        reset: function() {
+        reset: function () {
             for (var state in this.states) {
                 this.leave(state);
             }
@@ -487,7 +492,7 @@
             return this;
         },
 
-        setLoader: function(loader) {
+        setLoader: function (loader) {
             this.loader = loader;
 
             if (this.is('active')) {
@@ -497,7 +502,7 @@
             return this;
         },
 
-        setValidator: function(validator) {
+        setValidator: function (validator) {
             if ($.isFunction(validator)) {
                 this.validator = validator;
             }
@@ -505,31 +510,31 @@
             return this;
         },
 
-        validate: function() {
+        validate: function () {
             return this.validator.call(this.$pane.get(0), this);
         }
     });
 
     $.extend(Wizard.prototype, {
         Constructor: Wizard,
-        initialize: function() {
+        initialize: function () {
             this.steps = [];
             var self = this;
 
-            this.$steps.each(function(index) {
+            this.$steps.each(function (index) {
                 self.steps.push(new Step(this, self, index));
             });
 
             this._current = 0;
             this.transitioning = null;
 
-            $.each(this.steps, function(i, step) {
+            $.each(this.steps, function (i, step) {
                 step.setup();
             });
 
             this.setup();
 
-            this.$element.on('click', this.options.step, function(e) {
+            this.$element.on('click', this.options.step, function (e) {
                 var index = $(this).data('wizard-index');
 
                 if (!self.get(index).is('disabled')) {
@@ -547,7 +552,7 @@
             this.trigger('init');
         },
 
-        setup: function() {
+        setup: function () {
             this.$buttons = $(this.options.templates.buttons.call(this));
 
             this.updateButtons();
@@ -564,7 +569,7 @@
             this.$buttons = this.$buttons.appendTo($to);
         },
 
-        updateButtons: function() {
+        updateButtons: function () {
             var classes = this.options.classes.button;
             var $back = this.$buttons.find('[data-wizard="back"]');
             var $next = this.$buttons.find('[data-wizard="next"]');
@@ -585,10 +590,10 @@
             }
         },
 
-        updateSteps: function() {
+        updateSteps: function () {
             var self = this;
 
-            $.each(this.steps, function(i, step) {
+            $.each(this.steps, function (i, step) {
 
                 if (i > self._current) {
                     step.leave('error');
@@ -602,7 +607,7 @@
             });
         },
 
-        keydown: function(e) {
+        keydown: function (e) {
             if (/input|textarea/i.test(e.target.tagName)) return;
             switch (e.which) {
                 case 37:
@@ -618,14 +623,14 @@
             e.preventDefault();
         },
 
-        trigger: function(eventType) {
+        trigger: function (eventType) {
             var method_arguments = Array.prototype.slice.call(arguments, 1);
             var data = [this].concat(method_arguments);
 
             this.$element.trigger('wizard::' + eventType, data);
 
             // callback
-            eventType = eventType.replace(/\b\w+\b/g, function(word) {
+            eventType = eventType.replace(/\b\w+\b/g, function (word) {
                 return word.substring(0, 1).toUpperCase() + word.substring(1);
             });
 
@@ -635,7 +640,7 @@
             }
         },
 
-        get: function(index) {
+        get: function (index) {
             if (typeof index === 'string' && index.substring(0, 1) === '#') {
                 var id = index.substring(1);
                 for (var i in this.steps) {
@@ -652,7 +657,7 @@
             return null;
         },
 
-        goTo: function(index, callback) {
+        goTo: function (index, callback) {
             if (index === this._current || this.transitioning === true) {
                 return false;
             }
@@ -676,12 +681,12 @@
             }
 
             var self = this;
-            var process = function() {
+            var process = function () {
                 self.trigger('beforeChange', current, to);
                 self.transitioning = true;
 
                 current.hide();
-                to.show(function() {
+                to.show(function () {
                     self._current = index;
                     self.transitioning = false;
                     this.leave('disabled');
@@ -707,7 +712,7 @@
             };
 
             if (to.loader) {
-                to.load(function() {
+                to.load(function () {
                     process();
                 });
             } else {
@@ -717,28 +722,28 @@
             return true;
         },
 
-        length: function() {
+        length: function () {
             return this.steps.length;
         },
 
-        current: function() {
+        current: function () {
             return this.get(this._current);
         },
 
-        currentIndex: function() {
+        currentIndex: function () {
             return this._current;
         },
 
-        lastIndex: function() {
+        lastIndex: function () {
             return this.length() - 1;
         },
 
-        next: function() {
+        next: function () {
             if (this._current < this.lastIndex()) {
                 var from = this._current,
                     to = this._current + 1;
 
-                this.goTo(to, function() {
+                this.goTo(to, function () {
                     this.trigger('next', this.get(from), this.get(to));
                 });
             }
@@ -746,12 +751,12 @@
             return false;
         },
 
-        back: function() {
+        back: function () {
             if (this._current > 0) {
                 var from = this._current,
                     to = this._current - 1;
 
-                this.goTo(to, function() {
+                this.goTo(to, function () {
                     this.trigger('back', this.get(from), this.get(to));
                 });
             }
@@ -759,11 +764,11 @@
             return false;
         },
 
-        first: function() {
+        first: function () {
             return this.goTo(0);
         },
 
-        finish: function() {
+        finish: function () {
             if (this._current === this.lastIndex()) {
                 var current = this.current();
                 if (current.validate()) {
@@ -776,10 +781,10 @@
             }
         },
 
-        reset: function() {
+        reset: function () {
             this._current = 0;
 
-            $.each(this.steps, function(i, step) {
+            $.each(this.steps, function (i, step) {
                 step.reset();
             });
 
@@ -787,7 +792,7 @@
         }
     });
 
-    $(document).on('click', '[data-wizard]', function(e) {
+    $(document).on('click', '[data-wizard]', function (e) {
         var href;
         var $this = $(this);
         var $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, ''));
@@ -807,7 +812,7 @@
         e.preventDefault();
     });
 
-    $.fn.wizard = function(options) {
+    $.fn.wizard = function (options) {
         if (typeof options === 'string') {
             var method = options;
             var method_arguments = Array.prototype.slice.call(arguments, 1);
@@ -820,7 +825,7 @@
                     return api[method].apply(api, method_arguments);
                 }
             } else {
-                return this.each(function() {
+                return this.each(function () {
                     var api = $.data(this, 'wizard');
                     if (api && typeof api[method] === 'function') {
                         api[method].apply(api, method_arguments);
@@ -828,7 +833,7 @@
                 });
             }
         } else {
-            return this.each(function() {
+            return this.each(function () {
                 if (!$.data(this, 'wizard')) {
                     $.data(this, 'wizard', new Wizard(this, options));
                 }

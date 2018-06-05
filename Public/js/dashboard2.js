@@ -10,9 +10,9 @@ $(document).ready(function () {
     var chart = new Chartist.Line('#ct-extra', {
         labels: ['1', '2', '3', '4', '5', '6'],
         series: [
-    [1, -2, 5, 3, 0, 2.5]
+            [1, -2, 5, 3, 0, 2.5]
 
-  ]
+        ]
     }, {
         showArea: true,
         showPoint: true,
@@ -31,17 +31,17 @@ $(document).ready(function () {
         },
         fullWidth: true,
         plugins: [
-    Chartist.plugins.tooltip()
-  ]
+            Chartist.plugins.tooltip()
+        ]
     });
 
     //ct-main-balance-chart
     var chart = new Chartist.Line('#ct-main-bal', {
         labels: ['1', '2', '3', '4', '5', '6'],
         series: [
-    [1, 2, 5, 3, 4, 1],
-    [1, 4, 2, 5, 2, 1]
-   ]
+            [1, 2, 5, 3, 4, 1],
+            [1, 4, 2, 5, 2, 1]
+        ]
 
     }, {
         showArea: true,
@@ -61,16 +61,16 @@ $(document).ready(function () {
         },
         fullWidth: true,
         plugins: [
-    Chartist.plugins.tooltip()
-  ]
+            Chartist.plugins.tooltip()
+        ]
     });
     //ct-bar-chart
     new Chartist.Bar('#ct-bar-chart', {
         labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
         series: [
-    [5, 4, 3, 7, 5, 2, 3]
+            [5, 4, 3, 7, 5, 2, 3]
 
-  ]
+        ]
     }, {
         axisX: {
             showLabel: false,
@@ -91,8 +91,8 @@ $(document).ready(function () {
         fullWidth: true,
         height: 65,
         plugins: [
-    Chartist.plugins.tooltip()
-  ]
+            Chartist.plugins.tooltip()
+        ]
     });
     // Morris donut chart
     Morris.Donut({
@@ -100,13 +100,13 @@ $(document).ready(function () {
         data: [{
             label: "Jan",
             value: 15,
-    }, {
+        }, {
             label: "Feb",
             value: 15,
-    }, {
+        }, {
             label: "Mar",
             value: 35,
-    }, {
+        }, {
             label: "Apr",
             value: 105
         }],
@@ -138,6 +138,7 @@ $(document).ready(function () {
         }
         return res;
     }
+
     // Set up the control widget
     var updateInterval = 30;
     $("#updateInterval").val(updateInterval).change(function () {
@@ -183,6 +184,7 @@ $(document).ready(function () {
         plot.draw();
         setTimeout(update, updateInterval);
     }
+
     $(window).resize(function () {
         $.plot($('#placeholder'), [getRandomData()]);
     });

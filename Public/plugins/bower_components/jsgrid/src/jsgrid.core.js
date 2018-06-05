@@ -1,4 +1,4 @@
-(function(window, $, undefined) {
+(function (window, $, undefined) {
 
     var JSGRID = "JSGrid",
         JSGRID_DATA_KEY = JSGRID,
@@ -19,8 +19,8 @@
 
         EMPTY_HREF = "javascript:void(0);";
 
-    var getOrApply = function(value, context) {
-        if($.isFunction(value)) {
+    var getOrApply = function (value, context) {
+        if ($.isFunction(value)) {
             return value.apply(context, $.makeArray(arguments).slice(2));
         }
         return value;
@@ -61,8 +61,8 @@
         rowClass: $.noop,
         rowRenderer: null,
 
-        rowClick: function(args) {
-            if(this.editing) {
+        rowClick: function (args) {
+            if (this.editing) {
                 this.editItem($(args.event.target).closest("tr"));
             }
         },
@@ -132,8 +132,8 @@
 
         invalidMessage: "Invalid data entered!",
 
-        invalidNotify: function(args) {
-            var messages = $.map(args.errors, function(error) {
+        invalidNotify: function (args) {
+            var messages = $.map(args.errors, function (error) {
                 return error.message || null;
             });
 
@@ -163,7 +163,7 @@
         gridHeaderClass: "jsgrid-grid-header",
         gridBodyClass: "jsgrid-grid-body",
 
-        _init: function(config) {
+        _init: function (config) {
             $.extend(this, config);
             this._initLoadStrategy();
             this._initController();
@@ -172,32 +172,32 @@
             this._attachWindowResizeCallback();
         },
 
-        loadStrategy: function() {
+        loadStrategy: function () {
             return this.pageLoading
                 ? new jsGrid.loadStrategies.PageLoadingStrategy(this)
                 : new jsGrid.loadStrategies.DirectLoadingStrategy(this);
         },
 
-        _initLoadStrategy: function() {
+        _initLoadStrategy: function () {
             this._loadStrategy = getOrApply(this.loadStrategy, this);
         },
 
-        _initController: function() {
+        _initController: function () {
             this._controller = $.extend({}, defaultController, getOrApply(this.controller, this));
         },
 
-        loadIndicator: function(config) {
+        loadIndicator: function (config) {
             return new jsGrid.LoadIndicator(config);
         },
 
-        validation: function(config) {
+        validation: function (config) {
             return jsGrid.Validation && new jsGrid.Validation(config);
         },
 
-        _initFields: function() {
+        _initFields: function () {
             var self = this;
-            self.fields = $.map(self.fields, function(field) {
-                if($.isPlainObject(field)) {
+            self.fields = $.map(self.fields, function (field) {
+                if ($.isPlainObject(field)) {
                     var fieldConstructor = (field.type && jsGrid.fields[field.type]) || jsGrid.Field;
                     field = new fieldConstructor(field);
                 }
@@ -206,25 +206,25 @@
             });
         },
 
-        _attachWindowLoadResize: function() {
+        _attachWindowLoadResize: function () {
             $(window).on("load", $.proxy(this._refreshSize, this));
         },
 
-        _attachWindowResizeCallback: function() {
-            if(this.updateOnResize) {
+        _attachWindowResizeCallback: function () {
+            if (this.updateOnResize) {
                 $(window).on("resize", $.proxy(this._refreshSize, this));
             }
         },
 
-        _detachWindowResizeCallback: function() {
+        _detachWindowResizeCallback: function () {
             $(window).off("resize", this._refreshSize);
         },
 
-        option: function(key, value) {
+        option: function (key, value) {
             var optionChangingEventArgs,
                 optionChangedEventArgs;
 
-            if(arguments.length === 1)
+            if (arguments.length === 1)
                 return this[key];
 
             optionChangingEventArgs = {
@@ -243,20 +243,20 @@
             this._callEventHandler(this.onOptionChanged, optionChangedEventArgs);
         },
 
-        fieldOption: function(field, key, value) {
+        fieldOption: function (field, key, value) {
             field = this._normalizeField(field);
 
-            if(arguments.length === 2)
+            if (arguments.length === 2)
                 return field[key];
 
             field[key] = value;
             this._renderGrid();
         },
 
-        _handleOptionChange: function(name, value) {
+        _handleOptionChange: function (name, value) {
             this[name] = value;
 
-            switch(name) {
+            switch (name) {
                 case "width":
                 case "height":
                     this._refreshSize();
@@ -330,18 +330,18 @@
             }
         },
 
-        destroy: function() {
+        destroy: function () {
             this._detachWindowResizeCallback();
             this._clear();
             this._container.removeData(JSGRID_DATA_KEY);
         },
 
-        render: function() {
+        render: function () {
             this._renderGrid();
             return this.autoload ? this.loadData() : $.Deferred().resolve().promise();
         },
 
-        _renderGrid: function() {
+        _renderGrid: function () {
             this._clear();
 
             this._container.addClass(this.containerClass)
@@ -356,7 +356,7 @@
             this.refresh();
         },
 
-        _createLoadIndicator: function() {
+        _createLoadIndicator: function () {
             return getOrApply(this.loadIndicator, this, {
                 message: this.loadMessage,
                 shading: this.loadShading,
@@ -364,11 +364,11 @@
             });
         },
 
-        _createValidation: function() {
+        _createValidation: function () {
             return getOrApply(this.validation, this);
         },
 
-        _clear: function() {
+        _clear: function () {
             this.cancelEdit();
 
             clearTimeout(this._loadingTimer);
@@ -376,10 +376,10 @@
             this._pagerContainer && this._pagerContainer.empty();
 
             this._container.empty()
-                .css({ position: "", width: "", height: "" });
+                .css({position: "", width: "", height: ""});
         },
 
-        _createHeader: function() {
+        _createHeader: function () {
             var $headerRow = this._headerRow = this._createHeaderRow(),
                 $filterRow = this._filterRow = this._createFilterRow(),
                 $insertRow = this._insertRow = this._createInsertRow();
@@ -396,7 +396,7 @@
             return $header;
         },
 
-        _createBody: function() {
+        _createBody: function () {
             var $content = this._content = $("<tbody>");
 
             var $bodyGrid = this._bodyGrid = $("<table>").addClass(this.tableClass)
@@ -404,41 +404,41 @@
 
             var $body = this._body = $("<div>").addClass(this.gridBodyClass)
                 .append($bodyGrid)
-                .on("scroll", $.proxy(function(e) {
+                .on("scroll", $.proxy(function (e) {
                     this._header.scrollLeft(e.target.scrollLeft);
                 }, this));
 
             return $body;
         },
 
-        _createPagerContainer: function() {
+        _createPagerContainer: function () {
             var pagerContainer = this.pagerContainer || $("<div>").appendTo(this._container);
             return $(pagerContainer).addClass(this.pagerContainerClass);
         },
 
-        _eachField: function(callBack) {
+        _eachField: function (callBack) {
             var self = this;
-            $.each(this.fields, function(index, field) {
-                if(field.visible) {
+            $.each(this.fields, function (index, field) {
+                if (field.visible) {
                     callBack.call(self, field, index);
                 }
             });
         },
 
-        _createHeaderRow: function() {
-            if($.isFunction(this.headerRowRenderer))
+        _createHeaderRow: function () {
+            if ($.isFunction(this.headerRowRenderer))
                 return $(this.headerRowRenderer());
 
             var $result = $("<tr>").addClass(this.headerRowClass);
 
-            this._eachField(function(field, index) {
+            this._eachField(function (field, index) {
                 var $th = this._prepareCell("<th>", field, "headercss")
                     .append(field.headerTemplate ? field.headerTemplate() : "")
                     .appendTo($result);
 
-                if(this.sorting && field.sorting) {
+                if (this.sorting && field.sorting) {
                     $th.addClass(this.sortableClass)
-                        .on("click", $.proxy(function() {
+                        .on("click", $.proxy(function () {
                             this.sort(index);
                         }, this));
                 }
@@ -447,19 +447,19 @@
             return $result;
         },
 
-        _prepareCell: function(cell, field, cssprop) {
+        _prepareCell: function (cell, field, cssprop) {
             return $(cell).css("width", field.width)
                 .addClass((cssprop && field[cssprop]) || field.css)
                 .addClass(field.align ? ("jsgrid-align-" + field.align) : "");
         },
 
-        _createFilterRow: function() {
-            if($.isFunction(this.filterRowRenderer))
+        _createFilterRow: function () {
+            if ($.isFunction(this.filterRowRenderer))
                 return $(this.filterRowRenderer());
 
             var $result = $("<tr>").addClass(this.filterRowClass);
 
-            this._eachField(function(field) {
+            this._eachField(function (field) {
                 this._prepareCell("<td>", field, "filtercss")
                     .append(field.filterTemplate ? field.filterTemplate() : "")
                     .appendTo($result);
@@ -468,13 +468,13 @@
             return $result;
         },
 
-        _createInsertRow: function() {
-            if($.isFunction(this.insertRowRenderer))
+        _createInsertRow: function () {
+            if ($.isFunction(this.insertRowRenderer))
                 return $(this.insertRowRenderer());
 
             var $result = $("<tr>").addClass(this.insertRowClass);
 
-            this._eachField(function(field) {
+            this._eachField(function (field) {
                 this._prepareCell("<td>", field, "insertcss")
                     .append(field.insertTemplate ? field.insertTemplate() : "")
                     .appendTo($result);
@@ -483,7 +483,7 @@
             return $result;
         },
 
-        _callEventHandler: function(handler, eventParams) {
+        _callEventHandler: function (handler, eventParams) {
             handler.call(this, $.extend(eventParams, {
                 grid: this
             }));
@@ -491,24 +491,24 @@
             return eventParams;
         },
 
-        reset: function() {
+        reset: function () {
             this._resetSorting();
             this._resetPager();
             this.refresh();
         },
 
-        _resetPager: function() {
+        _resetPager: function () {
             this._firstDisplayingPage = 1;
             this._setPage(1);
         },
 
-        _resetSorting: function() {
+        _resetSorting: function () {
             this._sortField = null;
             this._sortOrder = SORT_ORDER_ASC;
             this._clearSortingCss();
         },
 
-        refresh: function() {
+        refresh: function () {
             this._callEventHandler(this.onRefreshing);
 
             this.cancelEdit();
@@ -523,23 +523,23 @@
             this._callEventHandler(this.onRefreshed);
         },
 
-        _refreshHeading: function() {
+        _refreshHeading: function () {
             this._headerRow.toggle(this.heading);
         },
 
-        _refreshFiltering: function() {
+        _refreshFiltering: function () {
             this._filterRow.toggle(this.filtering);
         },
 
-        _refreshInserting: function() {
+        _refreshInserting: function () {
             this._insertRow.toggle(this.inserting);
         },
 
-        _refreshContent: function() {
+        _refreshContent: function () {
             var $content = this._content;
             $content.empty();
 
-            if(!this.data.length) {
+            if (!this.data.length) {
                 $content.append(this._createNoDataRow());
                 return this;
             }
@@ -547,17 +547,17 @@
             var indexFrom = this._loadStrategy.firstDisplayIndex();
             var indexTo = this._loadStrategy.lastDisplayIndex();
 
-            for(var itemIndex = indexFrom; itemIndex < indexTo; itemIndex++) {
+            for (var itemIndex = indexFrom; itemIndex < indexTo; itemIndex++) {
                 var item = this.data[itemIndex];
                 $content.append(this._createRow(item, itemIndex));
             }
         },
 
-        _createNoDataRow: function() {
+        _createNoDataRow: function () {
             var noDataContent = getOrApply(this.noDataContent, this);
 
             var amountOfFields = 0;
-            this._eachField(function() {
+            this._eachField(function () {
                 amountOfFields++;
             });
 
@@ -565,16 +565,16 @@
                 .append($("<td>").attr("colspan", amountOfFields).append(noDataContent));
         },
 
-        _createNoDataContent: function() {
+        _createNoDataContent: function () {
             return $.isFunction(this.noDataRenderer)
                 ? this.noDataRenderer()
                 : this.noDataText;
         },
 
-        _createRow: function(item, itemIndex) {
+        _createRow: function (item, itemIndex) {
             var $result;
 
-            if($.isFunction(this.rowRenderer)) {
+            if ($.isFunction(this.rowRenderer)) {
                 $result = $(this.rowRenderer(item, itemIndex));
             } else {
                 $result = $("<tr>");
@@ -583,14 +583,14 @@
 
             $result.addClass(this._getRowClasses(item, itemIndex))
                 .data(JSGRID_ROW_DATA_KEY, item)
-                .on("click", $.proxy(function(e) {
+                .on("click", $.proxy(function (e) {
                     this.rowClick({
                         item: item,
                         itemIndex: itemIndex,
                         event: e
                     });
                 }, this))
-                .on("dblclick", $.proxy(function(e) {
+                .on("dblclick", $.proxy(function (e) {
                     this.rowDoubleClick({
                         item: item,
                         itemIndex: itemIndex,
@@ -598,43 +598,43 @@
                     });
                 }, this));
 
-            if(this.selecting) {
+            if (this.selecting) {
                 this._attachRowHover($result);
             }
 
             return $result;
         },
 
-        _getRowClasses: function(item, itemIndex) {
+        _getRowClasses: function (item, itemIndex) {
             var classes = [];
             classes.push(((itemIndex + 1) % 2) ? this.oddRowClass : this.evenRowClass);
             classes.push(getOrApply(this.rowClass, this, item, itemIndex));
             return classes.join(" ");
         },
 
-        _attachRowHover: function($row) {
+        _attachRowHover: function ($row) {
             var selectedRowClass = this.selectedRowClass;
-            $row.hover(function() {
+            $row.hover(function () {
                     $(this).addClass(selectedRowClass);
                 },
-                function() {
+                function () {
                     $(this).removeClass(selectedRowClass);
                 }
             );
         },
 
-        _renderCells: function($row, item) {
-            this._eachField(function(field) {
+        _renderCells: function ($row, item) {
+            this._eachField(function (field) {
                 $row.append(this._createCell(item, field));
             });
             return this;
         },
 
-        _createCell: function(item, field) {
+        _createCell: function (item, field) {
             var $result;
             var fieldValue = this._getItemFieldValue(item, field);
 
-            if($.isFunction(field.cellRenderer)) {
+            if ($.isFunction(field.cellRenderer)) {
                 $result = $(field.cellRenderer(fieldValue, item));
             } else {
                 $result = $("<td>").append(field.itemTemplate ? field.itemTemplate(fieldValue, item) : fieldValue);
@@ -643,30 +643,30 @@
             return this._prepareCell($result, field);
         },
 
-        _getItemFieldValue: function(item, field) {
+        _getItemFieldValue: function (item, field) {
             var props = field.name.split('.');
             var result = item[props.shift()];
 
-            while(result && props.length) {
+            while (result && props.length) {
                 result = result[props.shift()];
             }
 
             return result;
         },
 
-        _setItemFieldValue: function(item, field, value) {
+        _setItemFieldValue: function (item, field, value) {
             var props = field.name.split('.');
             var current = item;
             var prop = props[0];
 
-            while(current && props.length) {
+            while (current && props.length) {
                 item = current;
                 prop = props.shift();
                 current = item[prop];
             }
 
-            if(!current) {
-                while(props.length) {
+            if (!current) {
+                while (props.length) {
                     item = item[prop] = {};
                     prop = props.shift();
                 }
@@ -675,8 +675,8 @@
             item[prop] = value;
         },
 
-        sort: function(field, order) {
-            if($.isPlainObject(field)) {
+        sort: function (field, order) {
+            if ($.isPlainObject(field)) {
                 order = field.order;
                 field = field.field;
             }
@@ -687,13 +687,13 @@
             return this._loadStrategy.sort();
         },
 
-        _clearSortingCss: function() {
+        _clearSortingCss: function () {
             this._headerRow.find("th")
                 .removeClass(this.sortAscClass)
                 .removeClass(this.sortDescClass);
         },
 
-        _setSortingParams: function(field, order) {
+        _setSortingParams: function (field, order) {
             field = this._normalizeField(field);
             order = order || ((this._sortField === field) ? this._reversedSortOrder(this._sortOrder) : SORT_ORDER_ASC);
 
@@ -701,13 +701,13 @@
             this._sortOrder = order;
         },
 
-        _normalizeField: function(field) {
-            if($.isNumeric(field)) {
+        _normalizeField: function (field) {
+            if ($.isNumeric(field)) {
                 return this.fields[field];
             }
 
-            if(typeof field === "string") {
-                return $.grep(this.fields, function(f) {
+            if (typeof field === "string") {
+                return $.grep(this.fields, function (f) {
                     return f.name === field;
                 })[0];
             }
@@ -715,47 +715,49 @@
             return field;
         },
 
-        _reversedSortOrder: function(order) {
+        _reversedSortOrder: function (order) {
             return (order === SORT_ORDER_ASC ? SORT_ORDER_DESC : SORT_ORDER_ASC);
         },
 
-        _setSortingCss: function() {
-            var fieldIndex = $.inArray(this._sortField, $.grep(this.fields, function(f) { return f.visible; }));
+        _setSortingCss: function () {
+            var fieldIndex = $.inArray(this._sortField, $.grep(this.fields, function (f) {
+                return f.visible;
+            }));
 
             this._headerRow.find("th").eq(fieldIndex)
                 .addClass(this._sortOrder === SORT_ORDER_ASC ? this.sortAscClass : this.sortDescClass);
         },
 
-        _sortData: function() {
+        _sortData: function () {
             var sortFactor = this._sortFactor(),
                 sortField = this._sortField;
 
-            if(sortField) {
-                this.data.sort(function(item1, item2) {
+            if (sortField) {
+                this.data.sort(function (item1, item2) {
                     return sortFactor * sortField.sortingFunc(item1[sortField.name], item2[sortField.name]);
                 });
             }
         },
 
-        _sortFactor: function() {
+        _sortFactor: function () {
             return this._sortOrder === SORT_ORDER_ASC ? 1 : -1;
         },
 
-        _itemsCount: function() {
+        _itemsCount: function () {
             return this._loadStrategy.itemsCount();
         },
 
-        _pagesCount: function() {
+        _pagesCount: function () {
             var itemsCount = this._itemsCount(),
                 pageSize = this.pageSize;
             return Math.floor(itemsCount / pageSize) + (itemsCount % pageSize ? 1 : 0);
         },
 
-        _refreshPager: function() {
+        _refreshPager: function () {
             var $pagerContainer = this._pagerContainer;
             $pagerContainer.empty();
 
-            if(this.paging) {
+            if (this.paging) {
                 $pagerContainer.append(this._createPager());
             }
 
@@ -763,10 +765,10 @@
             $pagerContainer.toggle(showPager);
         },
 
-        _createPager: function() {
+        _createPager: function () {
             var $result;
 
-            if($.isFunction(this.pagerRenderer)) {
+            if ($.isFunction(this.pagerRenderer)) {
                 $result = $(this.pagerRenderer({
                     pageIndex: this.pageIndex,
                     pageCount: this._pagesCount()
@@ -780,30 +782,30 @@
             return $result;
         },
 
-        _createPagerByFormat: function() {
+        _createPagerByFormat: function () {
             var pageIndex = this.pageIndex,
                 pageCount = this._pagesCount(),
                 itemCount = this._itemsCount(),
                 pagerParts = this.pagerFormat.split(" ");
 
-            return $.map(pagerParts, $.proxy(function(pagerPart) {
+            return $.map(pagerParts, $.proxy(function (pagerPart) {
                 var result = pagerPart;
 
-                if(pagerPart === PAGES_PLACEHOLDER) {
+                if (pagerPart === PAGES_PLACEHOLDER) {
                     result = this._createPages();
-                } else if(pagerPart === FIRST_PAGE_PLACEHOLDER) {
+                } else if (pagerPart === FIRST_PAGE_PLACEHOLDER) {
                     result = this._createPagerNavButton(this.pageFirstText, 1, pageIndex > 1);
-                } else if(pagerPart === PREV_PAGE_PLACEHOLDER) {
+                } else if (pagerPart === PREV_PAGE_PLACEHOLDER) {
                     result = this._createPagerNavButton(this.pagePrevText, pageIndex - 1, pageIndex > 1);
-                } else if(pagerPart === NEXT_PAGE_PLACEHOLDER) {
+                } else if (pagerPart === NEXT_PAGE_PLACEHOLDER) {
                     result = this._createPagerNavButton(this.pageNextText, pageIndex + 1, pageIndex < pageCount);
-                } else if(pagerPart === LAST_PAGE_PLACEHOLDER) {
+                } else if (pagerPart === LAST_PAGE_PLACEHOLDER) {
                     result = this._createPagerNavButton(this.pageLastText, pageCount, pageIndex < pageCount);
-                } else if(pagerPart === PAGE_INDEX_PLACEHOLDER) {
+                } else if (pagerPart === PAGE_INDEX_PLACEHOLDER) {
                     result = pageIndex;
-                } else if(pagerPart === PAGE_COUNT_PLACEHOLDER) {
+                } else if (pagerPart === PAGE_COUNT_PLACEHOLDER) {
                     result = pageCount;
-                } else if(pagerPart === ITEM_COUNT_PLACEHOLDER) {
+                } else if (pagerPart === ITEM_COUNT_PLACEHOLDER) {
                     result = itemCount;
                 }
 
@@ -811,45 +813,47 @@
             }, this));
         },
 
-        _createPages: function() {
+        _createPages: function () {
             var pageCount = this._pagesCount(),
                 pageButtonCount = this.pageButtonCount,
                 firstDisplayingPage = this._firstDisplayingPage,
                 pages = [];
 
-            if(firstDisplayingPage > 1) {
+            if (firstDisplayingPage > 1) {
                 pages.push(this._createPagerPageNavButton(this.pageNavigatorPrevText, this.showPrevPages));
             }
 
-            for(var i = 0, pageNumber = firstDisplayingPage; i < pageButtonCount && pageNumber <= pageCount; i++, pageNumber++) {
+            for (var i = 0, pageNumber = firstDisplayingPage; i < pageButtonCount && pageNumber <= pageCount; i++, pageNumber++) {
                 pages.push(pageNumber === this.pageIndex
                     ? this._createPagerCurrentPage()
                     : this._createPagerPage(pageNumber));
             }
 
-            if((firstDisplayingPage + pageButtonCount - 1) < pageCount) {
+            if ((firstDisplayingPage + pageButtonCount - 1) < pageCount) {
                 pages.push(this._createPagerPageNavButton(this.pageNavigatorNextText, this.showNextPages));
             }
 
             return pages;
         },
 
-        _createPagerNavButton: function(text, pageIndex, isActive) {
+        _createPagerNavButton: function (text, pageIndex, isActive) {
             return this._createPagerButton(text, this.pagerNavButtonClass + (isActive ? "" : " " + this.pagerNavButtonInactiveClass),
-                isActive ? function() { this.openPage(pageIndex); } : $.noop);
+                isActive ? function () {
+                    this.openPage(pageIndex);
+                } : $.noop);
         },
 
-        _createPagerPageNavButton: function(text, handler) {
+        _createPagerPageNavButton: function (text, handler) {
             return this._createPagerButton(text, this.pagerNavButtonClass, handler);
         },
 
-        _createPagerPage: function(pageIndex) {
-            return this._createPagerButton(pageIndex, this.pageClass, function() {
+        _createPagerPage: function (pageIndex) {
+            return this._createPagerButton(pageIndex, this.pageClass, function () {
                 this.openPage(pageIndex);
             });
         },
 
-        _createPagerButton: function(text, css, handler) {
+        _createPagerButton: function (text, css, handler) {
             var $link = $("<a>").attr("href", EMPTY_HREF)
                 .html(text)
                 .on("click", $.proxy(handler, this));
@@ -857,24 +861,24 @@
             return $("<span>").addClass(css).append($link);
         },
 
-        _createPagerCurrentPage: function() {
+        _createPagerCurrentPage: function () {
             return $("<span>")
                 .addClass(this.pageClass)
                 .addClass(this.currentPageClass)
                 .text(this.pageIndex);
         },
 
-        _refreshSize: function() {
+        _refreshSize: function () {
             this._refreshHeight();
             this._refreshWidth();
         },
 
-        _refreshWidth: function() {
+        _refreshWidth: function () {
             var $headerGrid = this._headerGrid,
                 $bodyGrid = this._bodyGrid,
                 width = this.width;
 
-            if(width === "auto") {
+            if (width === "auto") {
                 $headerGrid.width("auto");
                 width = $headerGrid.outerWidth();
             }
@@ -886,11 +890,11 @@
             $bodyGrid.width(width);
         },
 
-        _scrollBarWidth: (function() {
+        _scrollBarWidth: (function () {
             var result;
 
-            return function() {
-                if(result === undefined) {
+            return function () {
+                if (result === undefined) {
                     var $ghostContainer = $("<div style='width:50px;height:50px;overflow:hidden;position:absolute;top:-10000px;left:-10000px;'></div>");
                     var $ghostContent = $("<div style='height:100px;'></div>");
                     $ghostContainer.append($ghostContent).appendTo("body");
@@ -904,7 +908,7 @@
             };
         })(),
 
-        _refreshHeight: function() {
+        _refreshHeight: function () {
             var container = this._container,
                 pagerContainer = this._pagerContainer,
                 height = this.height,
@@ -912,11 +916,11 @@
 
             container.height(height);
 
-            if(height !== "auto") {
+            if (height !== "auto") {
                 height = container.height();
 
                 nonBodyHeight = this._header.outerHeight(true);
-                if(pagerContainer.parents(container).length) {
+                if (pagerContainer.parents(container).length) {
                     nonBodyHeight += pagerContainer.outerHeight(true);
                 }
 
@@ -924,7 +928,7 @@
             }
         },
 
-        showPrevPages: function() {
+        showPrevPages: function () {
             var firstDisplayingPage = this._firstDisplayingPage,
                 pageButtonCount = this.pageButtonCount;
 
@@ -933,7 +937,7 @@
             this._refreshPager();
         },
 
-        showNextPages: function() {
+        showNextPages: function () {
             var firstDisplayingPage = this._firstDisplayingPage,
                 pageButtonCount = this.pageButtonCount,
                 pageCount = this._pagesCount();
@@ -945,37 +949,37 @@
             this._refreshPager();
         },
 
-        openPage: function(pageIndex) {
-            if(pageIndex < 1 || pageIndex > this._pagesCount())
+        openPage: function (pageIndex) {
+            if (pageIndex < 1 || pageIndex > this._pagesCount())
                 return;
 
             this._setPage(pageIndex);
             this._loadStrategy.openPage(pageIndex);
         },
 
-        _setPage: function(pageIndex) {
+        _setPage: function (pageIndex) {
             var firstDisplayingPage = this._firstDisplayingPage,
                 pageButtonCount = this.pageButtonCount;
 
             this.pageIndex = pageIndex;
 
-            if(pageIndex < firstDisplayingPage) {
+            if (pageIndex < firstDisplayingPage) {
                 this._firstDisplayingPage = pageIndex;
             }
 
-            if(pageIndex > firstDisplayingPage + pageButtonCount - 1) {
+            if (pageIndex > firstDisplayingPage + pageButtonCount - 1) {
                 this._firstDisplayingPage = pageIndex - pageButtonCount + 1;
             }
         },
 
-        _controllerCall: function(method, param, isCanceled, doneCallback) {
-            if(isCanceled)
+        _controllerCall: function (method, param, isCanceled, doneCallback) {
+            if (isCanceled)
                 return $.Deferred().reject().promise();
 
             this._showLoading();
 
             var controller = this._controller;
-            if(!controller || !controller[method]) {
+            if (!controller || !controller[method]) {
                 throw Error("controller has no method '" + method + "'");
             }
 
@@ -985,38 +989,38 @@
                 .always($.proxy(this._hideLoading, this));
         },
 
-        _errorHandler: function() {
+        _errorHandler: function () {
             this._callEventHandler(this.onError, {
                 args: $.makeArray(arguments)
             });
         },
 
-        _showLoading: function() {
-            if(!this.loadIndication)
+        _showLoading: function () {
+            if (!this.loadIndication)
                 return;
 
             clearTimeout(this._loadingTimer);
 
-            this._loadingTimer = setTimeout($.proxy(function() {
+            this._loadingTimer = setTimeout($.proxy(function () {
                 this._loadIndicator.show();
             }, this), this.loadIndicationDelay);
         },
 
-        _hideLoading: function() {
-            if(!this.loadIndication)
+        _hideLoading: function () {
+            if (!this.loadIndication)
                 return;
 
             clearTimeout(this._loadingTimer);
             this._loadIndicator.hide();
         },
 
-        search: function(filter) {
+        search: function (filter) {
             this._resetSorting();
             this._resetPager();
             return this.loadData(filter);
         },
 
-        loadData: function(filter) {
+        loadData: function (filter) {
             filter = filter || (this.filtering ? this.getFilter() : {});
 
             $.extend(filter, this._loadStrategy.loadParams(), this._sortingParams());
@@ -1025,8 +1029,8 @@
                 filter: filter
             });
 
-            return this._controllerCall("loadData", filter, args.cancel, function(loadedData) {
-                if(!loadedData)
+            return this._controllerCall("loadData", filter, args.cancel, function (loadedData) {
+                if (!loadedData)
                     return;
 
                 this._loadStrategy.finishLoad(loadedData);
@@ -1037,18 +1041,18 @@
             });
         },
 
-        getFilter: function() {
+        getFilter: function () {
             var result = {};
-            this._eachField(function(field) {
-                if(field.filtering) {
+            this._eachField(function (field) {
+                if (field.filtering) {
                     this._setItemFieldValue(result, field, field.filterValue());
                 }
             });
             return result;
         },
 
-        _sortingParams: function() {
-            if(this.sorting && this._sortField) {
+        _sortingParams: function () {
+            if (this.sorting && this._sortField) {
                 return {
                     sortField: this._sortField.name,
                     sortOrder: this._sortOrder
@@ -1057,7 +1061,7 @@
             return {};
         },
 
-        getSorting: function() {
+        getSorting: function () {
             var sortingParams = this._sortingParams();
             return {
                 field: sortingParams.sortField,
@@ -1065,24 +1069,24 @@
             };
         },
 
-        clearFilter: function() {
+        clearFilter: function () {
             var $filterRow = this._createFilterRow();
             this._filterRow.replaceWith($filterRow);
             this._filterRow = $filterRow;
             return this.search();
         },
 
-        insertItem: function(item) {
+        insertItem: function (item) {
             var insertingItem = item || this._getValidatedInsertItem();
 
-            if(!insertingItem)
+            if (!insertingItem)
                 return $.Deferred().reject().promise();
 
             var args = this._callEventHandler(this.onItemInserting, {
                 item: insertingItem
             });
 
-            return this._controllerCall("insertItem", insertingItem, args.cancel, function(insertedItem) {
+            return this._controllerCall("insertItem", insertingItem, args.cancel, function (insertedItem) {
                 insertedItem = insertedItem || insertingItem;
                 this._loadStrategy.finishInsert(insertedItem);
 
@@ -1092,22 +1096,22 @@
             });
         },
 
-        _getValidatedInsertItem: function() {
+        _getValidatedInsertItem: function () {
             var item = this._getInsertItem();
             return this._validateItem(item, this._insertRow) ? item : null;
         },
 
-        _getInsertItem: function() {
+        _getInsertItem: function () {
             var result = {};
-            this._eachField(function(field) {
-                if(field.inserting) {
+            this._eachField(function (field) {
+                if (field.inserting) {
                     this._setItemFieldValue(result, field, field.insertValue());
                 }
             });
             return result;
         },
 
-        _validateItem: function(item, $row) {
+        _validateItem: function (item, $row) {
             var validationErrors = [];
 
             var args = {
@@ -1116,8 +1120,8 @@
                 row: $row
             };
 
-            this._eachField(function(field, index) {
-                if(!field.validate)
+            this._eachField(function (field, index) {
+                if (!field.validate)
                     return;
 
                 var errors = this._validation.validate($.extend({
@@ -1127,16 +1131,16 @@
 
                 this._setCellValidity($row.children().eq(index), errors);
 
-                if(!errors.length)
+                if (!errors.length)
                     return;
 
                 validationErrors.push.apply(validationErrors,
-                    $.map(errors, function(message) {
-                        return { field: field, message: message };
+                    $.map(errors, function (message) {
+                        return {field: field, message: message};
                     }));
             });
 
-            if(!validationErrors.length)
+            if (!validationErrors.length)
                 return true;
 
             var invalidArgs = $.extend({
@@ -1148,37 +1152,37 @@
             return false;
         },
 
-        _setCellValidity: function($cell, errors) {
+        _setCellValidity: function ($cell, errors) {
             $cell
                 .toggleClass(this.invalidClass, !!errors.length)
                 .attr("title", errors.join("\n"));
         },
 
-        clearInsert: function() {
+        clearInsert: function () {
             var insertRow = this._createInsertRow();
             this._insertRow.replaceWith(insertRow);
             this._insertRow = insertRow;
             this.refresh();
         },
 
-        editItem: function(item) {
+        editItem: function (item) {
             var $row = this.rowByItem(item);
-            if($row.length) {
+            if ($row.length) {
                 this._editRow($row);
             }
         },
 
-        rowByItem: function(item) {
-            if(item.jquery || item.nodeType)
+        rowByItem: function (item) {
+            if (item.jquery || item.nodeType)
                 return $(item);
 
-            return this._content.find("tr").filter(function() {
+            return this._content.find("tr").filter(function () {
                 return $.data(this, JSGRID_ROW_DATA_KEY) === item;
             });
         },
 
-        _editRow: function($row) {
-            if(!this.editing)
+        _editRow: function ($row) {
+            if (!this.editing)
                 return;
 
             var item = $row.data(JSGRID_ROW_DATA_KEY);
@@ -1189,10 +1193,10 @@
                 itemIndex: this._itemIndex(item)
             });
 
-            if(args.cancel)
+            if (args.cancel)
                 return;
 
-            if(this._editingRow) {
+            if (this._editingRow) {
                 this.cancelEdit();
             }
 
@@ -1204,14 +1208,14 @@
             $row.data(JSGRID_EDIT_ROW_DATA_KEY, $editRow);
         },
 
-        _createEditRow: function(item) {
-            if($.isFunction(this.editRowRenderer)) {
+        _createEditRow: function (item) {
+            if ($.isFunction(this.editRowRenderer)) {
                 return $(this.editRowRenderer(item, this._itemIndex(item)));
             }
 
             var $result = $("<tr>").addClass(this.editRowClass);
 
-            this._eachField(function(field) {
+            this._eachField(function (field) {
                 var fieldValue = this._getItemFieldValue(item, field);
 
                 this._prepareCell("<td>", field, "editcss")
@@ -1222,26 +1226,26 @@
             return $result;
         },
 
-        updateItem: function(item, editedItem) {
-            if(arguments.length === 1) {
+        updateItem: function (item, editedItem) {
+            if (arguments.length === 1) {
                 editedItem = item;
             }
 
             var $row = item ? this.rowByItem(item) : this._editingRow;
             editedItem = editedItem || this._getValidatedEditedItem();
 
-            if(!editedItem)
+            if (!editedItem)
                 return;
 
             return this._updateRow($row, editedItem);
         },
 
-        _getValidatedEditedItem: function() {
+        _getValidatedEditedItem: function () {
             var item = this._getEditedItem();
             return this._validateItem(item, this._getEditRow()) ? item : null;
         },
 
-        _updateRow: function($updatingRow, editedItem) {
+        _updateRow: function ($updatingRow, editedItem) {
             var updatingItem = $updatingRow.data(JSGRID_ROW_DATA_KEY),
                 updatingItemIndex = this._itemIndex(updatingItem),
                 previousItem = $.extend(true, {}, updatingItem);
@@ -1255,7 +1259,7 @@
                 previousItem: previousItem
             });
 
-            return this._controllerCall("updateItem", updatingItem, args.cancel, function(updatedItem) {
+            return this._controllerCall("updateItem", updatingItem, args.cancel, function (updatedItem) {
                 updatedItem = updatedItem || updatingItem;
                 var $updatedRow = this._finishUpdate($updatingRow, updatedItem, updatingItemIndex);
 
@@ -1268,15 +1272,15 @@
             });
         },
 
-        _rowIndex: function(row) {
+        _rowIndex: function (row) {
             return this._content.children().index($(row));
         },
 
-        _itemIndex: function(item) {
+        _itemIndex: function (item) {
             return $.inArray(item, this.data);
         },
 
-        _finishUpdate: function($updatingRow, updatedItem, updatedItemIndex) {
+        _finishUpdate: function ($updatingRow, updatedItem, updatedItemIndex) {
             this.cancelEdit();
             this.data[updatedItemIndex] = updatedItem;
 
@@ -1285,18 +1289,18 @@
             return $updatedRow;
         },
 
-        _getEditedItem: function() {
+        _getEditedItem: function () {
             var result = {};
-            this._eachField(function(field) {
-                if(field.editing) {
+            this._eachField(function (field) {
+                if (field.editing) {
                     this._setItemFieldValue(result, field, field.editValue());
                 }
             });
             return result;
         },
 
-        cancelEdit: function() {
-            if(!this._editingRow)
+        cancelEdit: function () {
+            if (!this._editingRow)
                 return;
 
             this._getEditRow().remove();
@@ -1304,23 +1308,23 @@
             this._editingRow = null;
         },
 
-        _getEditRow: function() {
+        _getEditRow: function () {
             return this._editingRow.data(JSGRID_EDIT_ROW_DATA_KEY);
         },
 
-        deleteItem: function(item) {
+        deleteItem: function (item) {
             var $row = this.rowByItem(item);
 
-            if(!$row.length)
+            if (!$row.length)
                 return;
 
-            if(this.confirmDeleting && !window.confirm(getOrApply(this.deleteConfirm, this, $row.data(JSGRID_ROW_DATA_KEY))))
+            if (this.confirmDeleting && !window.confirm(getOrApply(this.deleteConfirm, this, $row.data(JSGRID_ROW_DATA_KEY))))
                 return;
 
             return this._deleteRow($row);
         },
 
-        _deleteRow: function($row) {
+        _deleteRow: function ($row) {
             var deletingItem = $row.data(JSGRID_ROW_DATA_KEY),
                 deletingItemIndex = this._itemIndex(deletingItem);
 
@@ -1330,7 +1334,7 @@
                 itemIndex: deletingItemIndex
             });
 
-            return this._controllerCall("deleteItem", deletingItem, args.cancel, function() {
+            return this._controllerCall("deleteItem", deletingItem, args.cancel, function () {
                 this._loadStrategy.finishDelete(deletingItem, deletingItemIndex);
 
                 this._callEventHandler(this.onItemDeleted, {
@@ -1342,20 +1346,20 @@
         }
     };
 
-    $.fn.jsGrid = function(config) {
+    $.fn.jsGrid = function (config) {
         var args = $.makeArray(arguments),
             methodArgs = args.slice(1),
             result = this;
 
-        this.each(function() {
+        this.each(function () {
             var $element = $(this),
                 instance = $element.data(JSGRID_DATA_KEY),
                 methodResult;
 
-            if(instance) {
-                if(typeof config === "string") {
+            if (instance) {
+                if (typeof config === "string") {
                     methodResult = instance[config].apply(instance, methodArgs);
-                    if(methodResult !== undefined && methodResult !== instance) {
+                    if (methodResult !== undefined && methodResult !== instance) {
                         result = methodResult;
                         return false;
                     }
@@ -1374,10 +1378,10 @@
 
     var fields = {};
 
-    var setDefaults = function(config) {
+    var setDefaults = function (config) {
         var componentPrototype;
 
-        if($.isPlainObject(config)) {
+        if ($.isPlainObject(config)) {
             componentPrototype = Grid.prototype;
         } else {
             componentPrototype = fields[config].prototype;
@@ -1389,23 +1393,23 @@
 
     var locales = {};
 
-    var locale = function(lang) {
+    var locale = function (lang) {
         var localeConfig = $.isPlainObject(lang) ? lang : locales[lang];
 
-        if(!localeConfig)
+        if (!localeConfig)
             throw Error("unknown locale " + lang);
 
         setLocale(jsGrid, localeConfig);
     };
 
-    var setLocale = function(obj, localeConfig) {
-        $.each(localeConfig, function(field, value) {
-            if($.isPlainObject(value)) {
+    var setLocale = function (obj, localeConfig) {
+        $.each(localeConfig, function (field, value) {
+            if ($.isPlainObject(value)) {
                 setLocale(obj[field] || obj[field[0].toUpperCase() + field.slice(1)], value);
                 return;
             }
 
-            if(obj.hasOwnProperty(field)) {
+            if (obj.hasOwnProperty(field)) {
                 obj[field] = value;
             } else {
                 obj.prototype[field] = value;

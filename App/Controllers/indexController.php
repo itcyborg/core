@@ -1,5 +1,7 @@
-<?php 
-class indexController{
+<?php
+
+class indexController
+{
     public function index()
     {
         view('dashboard.php');

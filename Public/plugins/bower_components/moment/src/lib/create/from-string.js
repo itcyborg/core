@@ -1,7 +1,7 @@
-import { matchOffset } from '../parse/regex';
-import { configFromStringAndFormat } from './from-string-and-format';
-import { hooks } from '../utils/hooks';
-import { deprecate } from '../utils/deprecate';
+import {matchOffset} from '../parse/regex';
+import {configFromStringAndFormat} from './from-string-and-format';
+import {hooks} from '../utils/hooks';
+import {deprecate} from '../utils/deprecate';
 import getParsingFlags from './parsing-flags';
 
 // iso 8601 regex

@@ -12,8 +12,8 @@ var browser, caps;
 browser = (process.env.BROWSER || 'chrome').split(':');
 
 caps = {
-  name: f('[%s] typeahead.js ui', browser.join(' , ')),
-  browserName: browser[0]
+    name: f('[%s] typeahead.js ui', browser.join(' , ')),
+    browserName: browser[0]
 };
 
 setIf(caps, 'version', browser[1]);
@@ -23,373 +23,373 @@ setIf(caps, 'build', env['TRAVIS_BUILD_NUMBER']);
 setIf(caps, 'tags', env['CI'] ? ['CI'] : ['local']);
 
 function setIf(obj, key, val) {
-  val && (obj[key] = val);
+    val && (obj[key] = val);
 }
 
-describe('jquery-typeahead.js', function() {
-  var driver, body, input, hint, dropdown, allPassed = true;
+describe('jquery-typeahead.js', function () {
+    var driver, body, input, hint, dropdown, allPassed = true;
 
-  this.timeout(300000);
+    this.timeout(300000);
 
-  before(function(done) {
-    var host = 'ondemand.saucelabs.com', port = 80, username, password;
+    before(function (done) {
+        var host = 'ondemand.saucelabs.com', port = 80, username, password;
 
-    if (env['CI']) {
-      host = 'localhost';
-      port = 4445;
-      username = env['SAUCE_USERNAME'];
-      password = env['SAUCE_ACCESS_KEY'];
-    }
+        if (env['CI']) {
+            host = 'localhost';
+            port = 4445;
+            username = env['SAUCE_USERNAME'];
+            password = env['SAUCE_ACCESS_KEY'];
+        }
 
-    driver = wd.remote(host, port, username, password);
-    driver.configureHttp({
-      timeout: 30000,
-      retries: 5,
-      retryDelay: 200
+        driver = wd.remote(host, port, username, password);
+        driver.configureHttp({
+            timeout: 30000,
+            retries: 5,
+            retryDelay: 200
+        });
+
+        driver.on('status', function (info) {
+            console.log(info.cyan);
+        });
+
+        driver.on('command', function (meth, path, data) {
+            console.log(' > ' + meth.yellow, path.grey, data || '');
+        });
+
+        driver.run(function* () {
+            yield this.init(caps);
+            yield this.get('http://localhost:8888/test/integration/test.html');
+
+            body = yield this.elementByTagName('body');
+            input = yield this.elementById('states');
+            hint = yield this.elementByClassName('tt-hint');
+            dropdown = yield this.elementByClassName('tt-menu');
+
+            done();
+        });
     });
 
-    driver.on('status', function(info) {
-      console.log(info.cyan);
+    afterEach(function (done) {
+        allPassed = allPassed && (this.currentTest.state === 'passed');
+
+        driver.run(function* () {
+            yield body.click();
+            yield this.execute('window.jQuery("#states").typeahead("val", "")');
+            done();
+        });
     });
 
-    driver.on('command', function(meth, path, data) {
-      console.log(' > ' + meth.yellow, path.grey, data || '');
+    after(function (done) {
+        driver.run(function* () {
+            yield this.quit();
+            yield driver.sauceJobStatus(allPassed);
+            done();
+        });
     });
 
-    driver.run(function*() {
-      yield this.init(caps);
-      yield this.get('http://localhost:8888/test/integration/test.html');
+    describe('on blur', function () {
+        it('should close dropdown', function (done) {
+            driver.run(function* () {
+                yield input.click();
+                yield input.type('mi');
+                expect(yield dropdown.isDisplayed()).to.equal(true);
 
-      body = yield this.elementByTagName('body');
-      input = yield this.elementById('states');
-      hint = yield this.elementByClassName('tt-hint');
-      dropdown = yield this.elementByClassName('tt-menu');
+                yield body.click();
+                expect(yield dropdown.isDisplayed()).to.equal(false);
 
-      done();
-    });
-  });
+                done();
+            });
+        });
 
-  afterEach(function(done) {
-    allPassed = allPassed && (this.currentTest.state === 'passed');
+        it('should clear hint', function (done) {
+            driver.run(function* () {
+                yield input.click();
+                yield input.type('mi');
+                expect(yield hint.getValue()).to.equal('michigan');
 
-    driver.run(function*() {
-      yield body.click();
-      yield this.execute('window.jQuery("#states").typeahead("val", "")');
-      done();
-    });
-  });
+                yield body.click();
+                expect(yield hint.getValue()).to.equal('');
 
-  after(function(done) {
-    driver.run(function*() {
-      yield this.quit();
-      yield driver.sauceJobStatus(allPassed);
-      done();
-    });
-  });
-
-  describe('on blur', function() {
-    it('should close dropdown', function(done) {
-      driver.run(function*() {
-        yield input.click();
-        yield input.type('mi');
-        expect(yield dropdown.isDisplayed()).to.equal(true);
-
-        yield body.click();
-        expect(yield dropdown.isDisplayed()).to.equal(false);
-
-        done();
-      });
+                done();
+            });
+        });
     });
 
-    it('should clear hint', function(done) {
-      driver.run(function*() {
-        yield input.click();
-        yield input.type('mi');
-        expect(yield hint.getValue()).to.equal('michigan');
+    describe('on query change', function () {
+        it('should open dropdown if suggestions', function (done) {
+            driver.run(function* () {
+                yield input.click();
+                yield input.type('mi');
 
-        yield body.click();
-        expect(yield hint.getValue()).to.equal('');
+                expect(yield dropdown.isDisplayed()).to.equal(true);
 
-        done();
-      });
-    });
-  });
+                done();
+            });
+        });
 
-  describe('on query change', function() {
-    it('should open dropdown if suggestions', function(done) {
-      driver.run(function*() {
-        yield input.click();
-        yield input.type('mi');
+        it('should close dropdown if no suggestions', function (done) {
+            driver.run(function* () {
+                yield input.click();
+                yield input.type('huh?');
 
-        expect(yield dropdown.isDisplayed()).to.equal(true);
+                expect(yield dropdown.isDisplayed()).to.equal(false);
 
-        done();
-      });
-    });
+                done();
+            });
+        });
 
-    it('should close dropdown if no suggestions', function(done) {
-      driver.run(function*() {
-        yield input.click();
-        yield input.type('huh?');
+        it('should render suggestions if suggestions', function (done) {
+            driver.run(function* () {
+                var suggestions;
 
-        expect(yield dropdown.isDisplayed()).to.equal(false);
+                yield input.click();
+                yield input.type('mi');
 
-        done();
-      });
-    });
+                suggestions = yield dropdown.elementsByClassName('tt-suggestion');
 
-    it('should render suggestions if suggestions', function(done) {
-      driver.run(function*() {
-        var suggestions;
+                expect(suggestions).to.have.length('4');
+                expect(yield suggestions[0].text()).to.equal('Michigan');
+                expect(yield suggestions[1].text()).to.equal('Minnesota');
+                expect(yield suggestions[2].text()).to.equal('Mississippi');
+                expect(yield suggestions[3].text()).to.equal('Missouri');
 
-        yield input.click();
-        yield input.type('mi');
+                done();
+            });
+        });
 
-        suggestions = yield dropdown.elementsByClassName('tt-suggestion');
+        it('should show hint if top suggestion is a match', function (done) {
+            driver.run(function* () {
+                yield input.click();
+                yield input.type('mi');
 
-        expect(suggestions).to.have.length('4');
-        expect(yield suggestions[0].text()).to.equal('Michigan');
-        expect(yield suggestions[1].text()).to.equal('Minnesota');
-        expect(yield suggestions[2].text()).to.equal('Mississippi');
-        expect(yield suggestions[3].text()).to.equal('Missouri');
+                expect(yield hint.getValue()).to.equal('michigan');
 
-        done();
-      });
-    });
+                done();
+            });
+        });
 
-    it('should show hint if top suggestion is a match', function(done) {
-      driver.run(function*() {
-        yield input.click();
-        yield input.type('mi');
+        it('should match hint to query', function (done) {
+            driver.run(function* () {
+                yield input.click();
+                yield input.type('NeW    JE');
 
-        expect(yield hint.getValue()).to.equal('michigan');
+                expect(yield hint.getValue()).to.equal('NeW    JErsey');
 
-        done();
-      });
-    });
+                done();
+            });
+        });
 
-    it('should match hint to query', function(done) {
-      driver.run(function*() {
-        yield input.click();
-        yield input.type('NeW    JE');
+        it('should not show hint if top suggestion is not a match', function (done) {
+            driver.run(function* () {
+                yield input.click();
+                yield input.type('ham');
 
-        expect(yield hint.getValue()).to.equal('NeW    JErsey');
+                expect(yield hint.getValue()).to.equal('');
 
-        done();
-      });
-    });
+                done();
+            });
+        });
 
-    it('should not show hint if top suggestion is not a match', function(done) {
-      driver.run(function*() {
-        yield input.click();
-        yield input.type('ham');
+        it('should not show hint if there is query overflow', function (done) {
+            driver.run(function* () {
+                yield input.click();
+                yield input.type('this    is    a very long    value     so ');
 
-        expect(yield hint.getValue()).to.equal('');
+                expect(yield hint.getValue()).to.equal('');
 
-        done();
-      });
+                done();
+            });
+        });
     });
 
-    it('should not show hint if there is query overflow', function(done) {
-      driver.run(function*() {
-        yield input.click();
-        yield input.type('this    is    a very long    value     so ');
+    describe('on up arrow', function () {
+        it('should cycle through suggestions', function (done) {
+            driver.run(function* () {
+                var suggestions;
 
-        expect(yield hint.getValue()).to.equal('');
+                yield input.click();
+                yield input.type('mi');
 
-        done();
-      });
-    });
-  });
+                suggestions = yield dropdown.elementsByClassName('tt-suggestion');
 
-  describe('on up arrow', function() {
-    it('should cycle through suggestions', function(done) {
-      driver.run(function*() {
-        var suggestions;
+                yield input.type(wd.SPECIAL_KEYS['Up arrow']);
+                expect(yield input.getValue()).to.equal('Missouri');
+                expect(yield suggestions[3].getAttribute('class')).to.equal('tt-suggestion tt-selectable tt-cursor');
 
-        yield input.click();
-        yield input.type('mi');
+                yield input.type(wd.SPECIAL_KEYS['Up arrow']);
+                expect(yield input.getValue()).to.equal('Mississippi');
+                expect(yield suggestions[2].getAttribute('class')).to.equal('tt-suggestion tt-selectable tt-cursor');
 
-        suggestions = yield dropdown.elementsByClassName('tt-suggestion');
+                yield input.type(wd.SPECIAL_KEYS['Up arrow']);
+                expect(yield input.getValue()).to.equal('Minnesota');
+                expect(yield suggestions[1].getAttribute('class')).to.equal('tt-suggestion tt-selectable tt-cursor');
 
-        yield input.type(wd.SPECIAL_KEYS['Up arrow']);
-        expect(yield input.getValue()).to.equal('Missouri');
-        expect(yield suggestions[3].getAttribute('class')).to.equal('tt-suggestion tt-selectable tt-cursor');
+                yield input.type(wd.SPECIAL_KEYS['Up arrow']);
+                expect(yield input.getValue()).to.equal('Michigan');
+                expect(yield suggestions[0].getAttribute('class')).to.equal('tt-suggestion tt-selectable tt-cursor');
 
-        yield input.type(wd.SPECIAL_KEYS['Up arrow']);
-        expect(yield input.getValue()).to.equal('Mississippi');
-        expect(yield suggestions[2].getAttribute('class')).to.equal('tt-suggestion tt-selectable tt-cursor');
+                yield input.type(wd.SPECIAL_KEYS['Up arrow']);
+                expect(yield input.getValue()).to.equal('mi');
+                expect(yield suggestions[0].getAttribute('class')).to.equal('tt-suggestion tt-selectable');
+                expect(yield suggestions[1].getAttribute('class')).to.equal('tt-suggestion tt-selectable');
+                expect(yield suggestions[2].getAttribute('class')).to.equal('tt-suggestion tt-selectable');
+                expect(yield suggestions[3].getAttribute('class')).to.equal('tt-suggestion tt-selectable');
 
-        yield input.type(wd.SPECIAL_KEYS['Up arrow']);
-        expect(yield input.getValue()).to.equal('Minnesota');
-        expect(yield suggestions[1].getAttribute('class')).to.equal('tt-suggestion tt-selectable tt-cursor');
-
-        yield input.type(wd.SPECIAL_KEYS['Up arrow']);
-        expect(yield input.getValue()).to.equal('Michigan');
-        expect(yield suggestions[0].getAttribute('class')).to.equal('tt-suggestion tt-selectable tt-cursor');
-
-        yield input.type(wd.SPECIAL_KEYS['Up arrow']);
-        expect(yield input.getValue()).to.equal('mi');
-        expect(yield suggestions[0].getAttribute('class')).to.equal('tt-suggestion tt-selectable');
-        expect(yield suggestions[1].getAttribute('class')).to.equal('tt-suggestion tt-selectable');
-        expect(yield suggestions[2].getAttribute('class')).to.equal('tt-suggestion tt-selectable');
-        expect(yield suggestions[3].getAttribute('class')).to.equal('tt-suggestion tt-selectable');
-
-        done();
-      });
-    });
-  });
-
-  describe('on down arrow', function() {
-    it('should cycle through suggestions', function(done) {
-      driver.run(function*() {
-        var suggestions;
-
-        yield input.click();
-        yield input.type('mi');
-
-        suggestions = yield dropdown.elementsByClassName('tt-suggestion');
-
-        yield input.type(wd.SPECIAL_KEYS['Down arrow']);
-        expect(yield input.getValue()).to.equal('Michigan');
-        expect(yield suggestions[0].getAttribute('class')).to.equal('tt-suggestion tt-selectable tt-cursor');
-
-        yield input.type(wd.SPECIAL_KEYS['Down arrow']);
-        expect(yield input.getValue()).to.equal('Minnesota');
-        expect(yield suggestions[1].getAttribute('class')).to.equal('tt-suggestion tt-selectable tt-cursor');
-
-        yield input.type(wd.SPECIAL_KEYS['Down arrow']);
-        expect(yield input.getValue()).to.equal('Mississippi');
-        expect(yield suggestions[2].getAttribute('class')).to.equal('tt-suggestion tt-selectable tt-cursor');
-
-        yield input.type(wd.SPECIAL_KEYS['Down arrow']);
-        expect(yield input.getValue()).to.equal('Missouri');
-        expect(yield suggestions[3].getAttribute('class')).to.equal('tt-suggestion tt-selectable tt-cursor');
-
-        yield input.type(wd.SPECIAL_KEYS['Down arrow']);
-        expect(yield input.getValue()).to.equal('mi');
-        expect(yield suggestions[0].getAttribute('class')).to.equal('tt-suggestion tt-selectable');
-        expect(yield suggestions[1].getAttribute('class')).to.equal('tt-suggestion tt-selectable');
-        expect(yield suggestions[2].getAttribute('class')).to.equal('tt-suggestion tt-selectable');
-        expect(yield suggestions[3].getAttribute('class')).to.equal('tt-suggestion tt-selectable');
-
-        done();
-      });
-    });
-  });
-
-  describe('on escape', function() {
-    it('should close dropdown', function(done) {
-      driver.run(function*() {
-        yield input.click();
-        yield input.type('mi');
-        expect(yield dropdown.isDisplayed()).to.equal(true);
-
-        yield input.type(wd.SPECIAL_KEYS['Escape']);
-        expect(yield dropdown.isDisplayed()).to.equal(false);
-
-        done();
-      });
+                done();
+            });
+        });
     });
 
-    it('should clear hint', function(done) {
-      driver.run(function*() {
-        yield input.click();
-        yield input.type('mi');
-        expect(yield hint.getValue()).to.equal('michigan');
+    describe('on down arrow', function () {
+        it('should cycle through suggestions', function (done) {
+            driver.run(function* () {
+                var suggestions;
 
-        yield input.type(wd.SPECIAL_KEYS['Escape']);
-        expect(yield hint.getValue()).to.equal('');
+                yield input.click();
+                yield input.type('mi');
 
-        done();
-      });
+                suggestions = yield dropdown.elementsByClassName('tt-suggestion');
+
+                yield input.type(wd.SPECIAL_KEYS['Down arrow']);
+                expect(yield input.getValue()).to.equal('Michigan');
+                expect(yield suggestions[0].getAttribute('class')).to.equal('tt-suggestion tt-selectable tt-cursor');
+
+                yield input.type(wd.SPECIAL_KEYS['Down arrow']);
+                expect(yield input.getValue()).to.equal('Minnesota');
+                expect(yield suggestions[1].getAttribute('class')).to.equal('tt-suggestion tt-selectable tt-cursor');
+
+                yield input.type(wd.SPECIAL_KEYS['Down arrow']);
+                expect(yield input.getValue()).to.equal('Mississippi');
+                expect(yield suggestions[2].getAttribute('class')).to.equal('tt-suggestion tt-selectable tt-cursor');
+
+                yield input.type(wd.SPECIAL_KEYS['Down arrow']);
+                expect(yield input.getValue()).to.equal('Missouri');
+                expect(yield suggestions[3].getAttribute('class')).to.equal('tt-suggestion tt-selectable tt-cursor');
+
+                yield input.type(wd.SPECIAL_KEYS['Down arrow']);
+                expect(yield input.getValue()).to.equal('mi');
+                expect(yield suggestions[0].getAttribute('class')).to.equal('tt-suggestion tt-selectable');
+                expect(yield suggestions[1].getAttribute('class')).to.equal('tt-suggestion tt-selectable');
+                expect(yield suggestions[2].getAttribute('class')).to.equal('tt-suggestion tt-selectable');
+                expect(yield suggestions[3].getAttribute('class')).to.equal('tt-suggestion tt-selectable');
+
+                done();
+            });
+        });
     });
-  });
 
-  describe('on tab', function() {
-    it('should autocomplete if hint is present', function(done) {
-      driver.run(function*() {
-        yield input.click();
-        yield input.type('mi');
+    describe('on escape', function () {
+        it('should close dropdown', function (done) {
+            driver.run(function* () {
+                yield input.click();
+                yield input.type('mi');
+                expect(yield dropdown.isDisplayed()).to.equal(true);
 
-        yield input.type(wd.SPECIAL_KEYS['Tab']);
-        expect(yield input.getValue()).to.equal('Michigan');
+                yield input.type(wd.SPECIAL_KEYS['Escape']);
+                expect(yield dropdown.isDisplayed()).to.equal(false);
 
-        done();
-      });
+                done();
+            });
+        });
+
+        it('should clear hint', function (done) {
+            driver.run(function* () {
+                yield input.click();
+                yield input.type('mi');
+                expect(yield hint.getValue()).to.equal('michigan');
+
+                yield input.type(wd.SPECIAL_KEYS['Escape']);
+                expect(yield hint.getValue()).to.equal('');
+
+                done();
+            });
+        });
     });
 
-    it('should select if cursor is on suggestion', function(done) {
-      driver.run(function*() {
-        var suggestions;
+    describe('on tab', function () {
+        it('should autocomplete if hint is present', function (done) {
+            driver.run(function* () {
+                yield input.click();
+                yield input.type('mi');
 
-        yield input.click();
-        yield input.type('mi');
+                yield input.type(wd.SPECIAL_KEYS['Tab']);
+                expect(yield input.getValue()).to.equal('Michigan');
 
-        suggestions = yield dropdown.elementsByClassName('tt-suggestion');
-        yield input.type(wd.SPECIAL_KEYS['Down arrow']);
-        yield input.type(wd.SPECIAL_KEYS['Down arrow']);
-        yield input.type(wd.SPECIAL_KEYS['Tab']);
+                done();
+            });
+        });
 
-        expect(yield dropdown.isDisplayed()).to.equal(false);
-        expect(yield input.getValue()).to.equal('Minnesota');
+        it('should select if cursor is on suggestion', function (done) {
+            driver.run(function* () {
+                var suggestions;
 
-        done();
-      });
+                yield input.click();
+                yield input.type('mi');
+
+                suggestions = yield dropdown.elementsByClassName('tt-suggestion');
+                yield input.type(wd.SPECIAL_KEYS['Down arrow']);
+                yield input.type(wd.SPECIAL_KEYS['Down arrow']);
+                yield input.type(wd.SPECIAL_KEYS['Tab']);
+
+                expect(yield dropdown.isDisplayed()).to.equal(false);
+                expect(yield input.getValue()).to.equal('Minnesota');
+
+                done();
+            });
+        });
     });
-  });
 
-  describe('on right arrow', function() {
-    it('should autocomplete if hint is present', function(done) {
-      driver.run(function*() {
-        yield input.click();
-        yield input.type('mi');
+    describe('on right arrow', function () {
+        it('should autocomplete if hint is present', function (done) {
+            driver.run(function* () {
+                yield input.click();
+                yield input.type('mi');
 
-        yield input.type(wd.SPECIAL_KEYS['Right arrow']);
-        expect(yield input.getValue()).to.equal('Michigan');
+                yield input.type(wd.SPECIAL_KEYS['Right arrow']);
+                expect(yield input.getValue()).to.equal('Michigan');
 
-        done();
-      });
+                done();
+            });
+        });
     });
-  });
 
-  describe('on suggestion click', function() {
-    it('should select suggestion', function(done) {
-      driver.run(function*() {
-        var suggestions;
+    describe('on suggestion click', function () {
+        it('should select suggestion', function (done) {
+            driver.run(function* () {
+                var suggestions;
 
-        yield input.click();
-        yield input.type('mi');
+                yield input.click();
+                yield input.type('mi');
 
-        suggestions = yield dropdown.elementsByClassName('tt-suggestion');
-        yield suggestions[1].click();
+                suggestions = yield dropdown.elementsByClassName('tt-suggestion');
+                yield suggestions[1].click();
 
-        expect(yield dropdown.isDisplayed()).to.equal(false);
-        expect(yield input.getValue()).to.equal('Minnesota');
+                expect(yield dropdown.isDisplayed()).to.equal(false);
+                expect(yield input.getValue()).to.equal('Minnesota');
 
-        done();
-      });
+                done();
+            });
+        });
     });
-  });
 
-  describe('on enter', function() {
-    it('should select if cursor is on suggestion', function(done) {
-      driver.run(function*() {
-        var suggestions;
+    describe('on enter', function () {
+        it('should select if cursor is on suggestion', function (done) {
+            driver.run(function* () {
+                var suggestions;
 
-        yield input.click();
-        yield input.type('mi');
+                yield input.click();
+                yield input.type('mi');
 
-        suggestions = yield dropdown.elementsByClassName('tt-suggestion');
-        yield input.type(wd.SPECIAL_KEYS['Down arrow']);
-        yield input.type(wd.SPECIAL_KEYS['Down arrow']);
-        yield input.type(wd.SPECIAL_KEYS['Return']);
+                suggestions = yield dropdown.elementsByClassName('tt-suggestion');
+                yield input.type(wd.SPECIAL_KEYS['Down arrow']);
+                yield input.type(wd.SPECIAL_KEYS['Down arrow']);
+                yield input.type(wd.SPECIAL_KEYS['Return']);
 
-        expect(yield dropdown.isDisplayed()).to.equal(false);
-        expect(yield input.getValue()).to.equal('Minnesota');
+                expect(yield dropdown.isDisplayed()).to.equal(false);
+                expect(yield input.getValue()).to.equal('Minnesota');
 
-        done();
-      });
+                done();
+            });
+        });
     });
-  });
 });

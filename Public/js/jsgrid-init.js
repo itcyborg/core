@@ -1,47 +1,47 @@
-! function(document, window, $) {
+!function (document, window, $) {
     "use strict";
     var Site = window.Site;
-    $(document).ready(function($) {
-            
-        }), jsGrid.setDefaults({
-            tableClass: "jsgrid-table table table-striped table-hover"
-        }), jsGrid.setDefaults("text", {
-            _createTextBox: function() {
-                return $("<input>").attr("type", "text").attr("class", "form-control input-sm")
-            }
-        }), jsGrid.setDefaults("number", {
-            _createTextBox: function() {
-                return $("<input>").attr("type", "number").attr("class", "form-control input-sm")
-            }
-        }), jsGrid.setDefaults("textarea", {
-            _createTextBox: function() {
-                return $("<input>").attr("type", "textarea").attr("class", "form-control")
-            }
-        }), jsGrid.setDefaults("control", {
-            _createGridButton: function(cls, tooltip, clickHandler) {
-                var grid = this._grid;
-                return $("<button>").addClass(this.buttonClass).addClass(cls).attr({
-                    type: "button",
-                    title: tooltip
-                }).on("click", function(e) {
-                    clickHandler(grid, e)
-                })
-            }
-        }), jsGrid.setDefaults("select", {
-            _createSelect: function() {
-                var $result = $("<select>").attr("class", "form-control input-sm"),
-                    valueField = this.valueField,
-                    textField = this.textField,
-                    selectedIndex = this.selectedIndex;
-                return $.each(this.items, function(index, item) {
-                    var value = valueField ? item[valueField] : index,
-                        text = textField ? item[textField] : item,
-                        $option = $("<option>").attr("value", value).text(text).appendTo($result);
-                    $option.prop("selected", selectedIndex === index)
-                }), $result
-            }
-        }),
-        function() {
+    $(document).ready(function ($) {
+
+    }), jsGrid.setDefaults({
+        tableClass: "jsgrid-table table table-striped table-hover"
+    }), jsGrid.setDefaults("text", {
+        _createTextBox: function () {
+            return $("<input>").attr("type", "text").attr("class", "form-control input-sm")
+        }
+    }), jsGrid.setDefaults("number", {
+        _createTextBox: function () {
+            return $("<input>").attr("type", "number").attr("class", "form-control input-sm")
+        }
+    }), jsGrid.setDefaults("textarea", {
+        _createTextBox: function () {
+            return $("<input>").attr("type", "textarea").attr("class", "form-control")
+        }
+    }), jsGrid.setDefaults("control", {
+        _createGridButton: function (cls, tooltip, clickHandler) {
+            var grid = this._grid;
+            return $("<button>").addClass(this.buttonClass).addClass(cls).attr({
+                type: "button",
+                title: tooltip
+            }).on("click", function (e) {
+                clickHandler(grid, e)
+            })
+        }
+    }), jsGrid.setDefaults("select", {
+        _createSelect: function () {
+            var $result = $("<select>").attr("class", "form-control input-sm"),
+                valueField = this.valueField,
+                textField = this.textField,
+                selectedIndex = this.selectedIndex;
+            return $.each(this.items, function (index, item) {
+                var value = valueField ? item[valueField] : index,
+                    text = textField ? item[textField] : item,
+                    $option = $("<option>").attr("value", value).text(text).appendTo($result);
+                $option.prop("selected", selectedIndex === index)
+            }), $result
+        }
+    }),
+        function () {
             $("#basicgrid").jsGrid({
                 height: "500px",
                 width: "100%",
@@ -82,7 +82,7 @@
                 }]
             })
         }(),
-        function() {
+        function () {
             $("#staticgrid").jsGrid({
                 height: "500px",
                 width: "100%",
@@ -114,8 +114,8 @@
                 }]
             })
         }(),
-        
-        function() {
+
+        function () {
             $("#exampleSorting").jsGrid({
                 height: "500px",
                 width: "100%",
@@ -145,40 +145,40 @@
                     type: "checkbox",
                     title: "Is Married"
                 }]
-            }), $("#sortingField").on("change", function() {
+            }), $("#sortingField").on("change", function () {
                 var field = $(this).val();
                 $("#exampleSorting").jsGrid("sort", field)
             })
         }(),
-        
-        function() {
-            var MyDateField = function(config) {
+
+        function () {
+            var MyDateField = function (config) {
                 jsGrid.Field.call(this, config)
             };
             MyDateField.prototype = new jsGrid.Field({
-                sorter: function(date1, date2) {
+                sorter: function (date1, date2) {
                     return new Date(date1) - new Date(date2)
                 },
-                itemTemplate: function(value) {
+                itemTemplate: function (value) {
                     return new Date(value).toDateString()
                 },
-                insertTemplate: function() {
+                insertTemplate: function () {
                     if (!this.inserting) return "";
                     var $result = this.insertControl = this._createTextBox();
                     return $result
                 },
-                editTemplate: function(value) {
+                editTemplate: function (value) {
                     if (!this.editing) return this.itemTemplate(value);
                     var $result = this.editControl = this._createTextBox();
                     return $result.val(value), $result
                 },
-                insertValue: function() {
+                insertValue: function () {
                     return this.insertControl.datepicker("getDate")
                 },
-                editValue: function() {
+                editValue: function () {
                     return this.editControl.datepicker("getDate")
                 },
-                _createTextBox: function() {
+                _createTextBox: function () {
                     return $("<input>").attr("type", "text").addClass("form-control input-sm").datepicker({
                         autoclose: !0
                     })

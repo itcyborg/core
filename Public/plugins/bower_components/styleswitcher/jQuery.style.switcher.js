@@ -7,6 +7,7 @@ $(document).ready(function () {
             window.alert('Please use a modern browser to properly view this template!');
         }
     }
+
     $("*[data-theme]").click(function (e) {
         e.preventDefault();
         var currentStyle = $(this).attr('data-theme');

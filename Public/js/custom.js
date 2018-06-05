@@ -24,10 +24,12 @@ $(document).ready(function () {
     $(".right-side-toggle").on("click", function () {
         $(".right-sidebar").slideDown(50).toggleClass("shw-rside");
         $(".fxhdr").on("click", function () {
-            body.toggleClass("fix-header"); /* Fix Header JS */
+            body.toggleClass("fix-header");
+            /* Fix Header JS */
         });
         $(".fxsdr").on("click", function () {
-            body.toggleClass("fix-sidebar"); /* Fix Sidebar JS */
+            body.toggleClass("fix-sidebar");
+            /* Fix Sidebar JS */
         });
 
         /* ===== Service Panel JS ===== */
@@ -53,7 +55,8 @@ $(document).ready(function () {
                     height = ((window.innerHeight > 0) ? window.innerHeight : this.screen.height) - 1;
                 if (width < 768) {
                     $('div.navbar-collapse').addClass('collapse');
-                    topOffset = 100; /* 2-row-menu */
+                    topOffset = 100;
+                    /* 2-row-menu */
                 } else {
                     $('div.navbar-collapse').removeClass('collapse');
                 }
@@ -131,6 +134,7 @@ $(document).ready(function () {
                     return ($(this).is('[class*="col-"]') && $(this).children('*').length === 0);
                 }).remove();
             }
+
             removeElement();
         });
     }(jQuery, window, document));
