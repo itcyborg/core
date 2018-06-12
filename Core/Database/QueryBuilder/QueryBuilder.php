@@ -10,6 +10,7 @@ namespace Database\QueryBuilder;
 
 use Core\Database\ConnectionBuilder\Connection;
 use Core\Database\ConnectionBuilder\ConnectionBuilder;
+use Core\Exceptions\ExceptionsHandler;
 
 /**
  * Class QueryBuilder
@@ -122,7 +123,7 @@ class QueryBuilder extends Connection
             $pdo = ConnectionBuilder::getConnection();
             $stmt = $pdo->prepare(self::$query);
             $stmt->execute();
-            return $stmt->fetch();
+            return true;
         } catch (\Throwable $e) {
             dd($e->getMessage());
         }
@@ -166,6 +167,7 @@ class QueryBuilder extends Connection
      * @param $fields
      * @param $values
      * @return mixed
+     * @throws ExceptionsHandler
      */
     public static function add($table, $fields, $values)
     {
@@ -186,7 +188,7 @@ class QueryBuilder extends Connection
             $stmt->execute();
             return $pdo->lastInsertId();
         } catch (\Throwable $e) {
-            dd($e->getMessage());
+            throw new ExceptionsHandler($e->getMessage(),$e->getCode());
         }
     }
 

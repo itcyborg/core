@@ -1,5 +1,6 @@
 <?php
 
+use Core\URL\URL;
 use Core\View\View;
 
 /**
@@ -44,7 +45,12 @@ function toJson($data)
  */
 function asset($asset)
 {
-    echo \Core\Asset\AssetLoader::load($asset);
+
+    if (isset($_SERVER['HTTPS'])) {
+        echo 'https://'.URL::getBase().'/'.\Core\Asset\AssetLoader::load($asset);
+    }else{
+        echo 'http://'.URL::getBase().'/'.\Core\Asset\AssetLoader::load($asset);
+    }
 }
 
 /**

@@ -41,7 +41,7 @@ class TemplateEngine
     public static function render($content)
     {
         $content = self::parse($content);
-        eval(' ?>' . $content . '<?php ');
+        @eval(' ?>' . $content . '<?php ');
         return $content;
     }
 

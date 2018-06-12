@@ -6,4 +6,9 @@ class indexController
     {
         view('dashboard.php');
     }
+
+    public function starter()
+    {
+        view('starter.php');
+    }
 }

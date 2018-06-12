@@ -30,9 +30,12 @@ class caseController{
     {
         //view to edit issue
         try {
+            $request=new Request();
             $id = SanitizeRequest::text($id);
+            $issue=SanitizeRequest::text($request->issue);
+            $status=SanitizeRequest::text(0);
             if($case=DB::find('cases',$id)){
-                dd($case);
+
             }else{
                 dd('No records found');
             }
@@ -85,6 +88,19 @@ class caseController{
     public function update()
     {
         //publish updated record
+        try {
+            $request=new Request();
+            $id = SanitizeRequest::text($request->id);
+            $issue=SanitizeRequest::text($request->issue);
+            $status=SanitizeRequest::text(0);
+            if($case=DB::find('cases',$id)){
+
+            }else{
+                dd('No records found');
+            }
+            view('cases/edit.php');
+        } catch (ExceptionsHandler $e) {
+        }
     }
 
     public function solve()

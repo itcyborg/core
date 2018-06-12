@@ -13,17 +13,32 @@ use Core\Router\Route;
 
 Auth::Routes();
 Route::get('', 'indexController@index');
-Route::get(/**
- * @param $id
- */
-    'hello/{id}',
-    function ($id) {
-//        echo $id;
-        dd(DB::all('users'));
-    }
-);
-Route::get('test', 'AboutController@download');
-Route::get('help/{id}/{page}', 'AboutController@help');
 
-Route::post('file', 'AboutController@file');
-Route::get('index', 'IndexController@index');
+//Customer Relation Routes
+Route::get('crm','crmController@index');
+Route::get('crm/customers','crmController@listCustomers');
+Route::get('crm/customer/add','crmController@add');
+
+Route::post('crm/customer/add','crmController@store');
+Route::post('crm/customer/delete','crmController@delete');
+Route::post('crm/customer/update','crmController@update');
+Route::post('crm/customer/contact/add','crmController@addContact');
+
+//Case Management
+Route::get('case','caseController@index');
+Route::get('case/new','caseController@new');
+Route::get('case/edit/{id}','caseController@edit');
+Route::get('case/reports','caseController@reports');
+
+Route::post('case/delete','caseController@delete');
+Route::post('case/new','caseController@add');
+Route::post('case/edit','caseController@update');
+Route::post('case/solve','caseController@solve');
+
+//Human Resource
+Route::get('hr','hrController@index');
+Route::get('hr/list','hrController@');
+
+
+
+Route::get('starter','indexController@starter');

@@ -13,7 +13,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <meta name="author" content="">
         <!-- Favicon icon -->
         <link rel="icon" type="image/png" sizes="16x16" href="<?php asset('plugins/images/favicon.png'); ?>">
-        <title>Slim ERP- Dashboard</title>
+        <title>Slim ERP- Starter Page</title>
         <!-- Bootstrap Core CSS -->
         <link href="<?php asset('bootstrap/dist/css/bootstrap.min.css"'); ?> rel=" stylesheet
         ">

@@ -43,4 +43,28 @@ class crmController{
             view('crm/addCustomer.php',['status'=>404,'msg'=>'An error occurred. '.$e->getMessage()]);
         }
     }
+
+    public function addContact()
+    {
+        $request=new Request();
+        try {
+            $customerID = SanitizeRequest::text($request->customer);
+            $tel = SanitizeRequest::text($request->tel);
+            $alt_tel = SanitizeRequest::text($request->altTel);
+            DB::add('contacts', [
+                'custID',
+                'phone',
+                'alt_phone'
+            ],
+                [
+                    $customerID,
+                    $tel,
+                    $alt_tel
+                ]
+            );
+            view('crm/addCustomer.php',['status'=>200,'msg'=>'Successfully inserted record']);
+        }catch (Exception $e){
+            view('crm/addCustomer.php',['status'=>404,'msg'=>'An error occurred. '.$e->getMessage()]);
+        }
+    }
 }

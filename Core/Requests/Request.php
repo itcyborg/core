@@ -45,7 +45,6 @@ class Request
                 self::setFile($_FILES);
             }
         }
-
         $this->request = (object)$this->request;
     }
 

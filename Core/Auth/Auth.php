@@ -4,7 +4,9 @@
 namespace Core\Auth;
 
 
+use Core\Requests\Request;
 use Core\Router\Route;
+use Core\URL\URL;
 
 class Auth extends Authenticate implements \AuthInterface
 {
@@ -37,7 +39,8 @@ class Auth extends Authenticate implements \AuthInterface
         if (isset($_SESSION['username'], $_SESSION['email'])) {
             return true;
         } else {
-            header('location:login/required');
+            $url=URL::getURI('login/required');
+            header("location:$url");
         }
     }
 
@@ -102,6 +105,7 @@ class Auth extends Authenticate implements \AuthInterface
          */
 
         Route::get('login', 'LoginController@index');
+        Route::get('login/required', 'LoginController@index');
         Route::post('login', 'LoginController@login');
 
         Route::get('register', 'RegisterController@index');
