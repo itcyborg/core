@@ -21,6 +21,7 @@ class AboutController
     public function hello()
     {
         dd(\Core\Database\Migration\Migration::load());
+        //dd(\PHPMailer\PHPMailer\PHPMailer::$validator);
         dd(DB::all('users'));
     }
 
