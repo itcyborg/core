@@ -22,7 +22,7 @@ class ExceptionsHandler extends \Exception
             die('Page not found');
         }
         if (Config::debug('debug')) {
-            Logger::error($message . PHP_EOL . json_encode($this->getTrace()) . PHP_EOL);
+            Logger::error('[File:(' . $this->getFile() . '), Line: ' . $this->getLine() . ']:' . PHP_EOL . $message . PHP_EOL);
         } else {
             return Logger::error($message, 'Exception');
         }

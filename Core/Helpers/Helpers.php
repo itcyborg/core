@@ -59,3 +59,8 @@ function view($view, $data = null)
         dd($e);
     }
 }
+
+function url($uri)
+{
+    echo \Core\URL\URL::getURI($uri);
+}
