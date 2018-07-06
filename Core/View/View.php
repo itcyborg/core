@@ -11,6 +11,7 @@ namespace Core\View;
 
 use Core\App\Bootstrap\App;
 use Core\Exceptions\ExceptionsHandler;
+use Latte\Engine;
 
 /**
  * Class View
@@ -26,12 +27,14 @@ class View
     public static function loadView($view, $data = null)
     {
         if (is_readable(App::viewsDir() . $view)) {
-            $contents = file_get_contents(App::viewsDir() . $view);
-            if ($data !== null) {
-                foreach ($data as $datum => $item) {
-                    TemplateEngine::assign($datum, $item);
-                }
-            }
+            $latte=new Engine;
+            $latte->render(App::viewsDir() . $view,$data);
+//            $contents = file_get_contents(App::viewsDir() . $view);
+//            if ($data !== null) {
+//                foreach ($data as $datum => $item) {
+//                    TemplateEngine::assign($datum, $item);
+//                }
+//            }
         } else {
             throw new ExceptionsHandler('View not found');
         }

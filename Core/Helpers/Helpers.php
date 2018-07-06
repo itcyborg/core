@@ -60,6 +60,9 @@ function asset($asset)
 function view($view, $data = null)
 {
     try {
+        if($data==null){
+            $data=[];
+        }
         return View::loadView($view, $data);
     } catch (\Core\Exceptions\ExceptionsHandler $e) {
         dd($e);
