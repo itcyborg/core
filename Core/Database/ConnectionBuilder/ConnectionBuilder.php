@@ -41,8 +41,8 @@ class ConnectionBuilder extends GetDatabaseConfig
                 $options = [
                     PDO::ATTR_EMULATE_PREPARES => true, // turn on emulation mode for "real" prepared statements
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, //turn on errors in the form of exceptions
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_GROUP //make the default fetch be both associative array and object
-                ] # database options you need | optional
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC //make the default fetch be both associative array and object
+                ] # database options you need | optionsal
             );
         } catch (\PDOException $e) {
             // If any error, grab the message and code and handle it accordingly

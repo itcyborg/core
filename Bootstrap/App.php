@@ -38,7 +38,7 @@ class App
         @session_start();
 
         //enable error reporting
-        error_reporting(E_ERROR);
+//        error_reporting();
         try {
             $request = new Request();
             //Set the document root

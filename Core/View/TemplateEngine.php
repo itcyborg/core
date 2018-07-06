@@ -41,7 +41,7 @@ class TemplateEngine
     public static function render($content)
     {
         $content = self::parse($content);
-        @eval(' ?>' . $content . '<?php ');
+        eval(' ?>' . $content . '<?php ');
         return $content;
     }
 
@@ -52,13 +52,16 @@ class TemplateEngine
     public static function parse($content)
     {
         foreach (self::$vars as $key => $value) {
-            $content = preg_replace('/\{{\$' . $key . '\}}/', $value, $content);
-            $content = preg_replace('/\{{' . $key . '\}}/', $value, $content);
-            $content = preg_replace('/\{' . $key . '\}/', $value, $content);
-            $content = preg_replace('/\[' . $key . '\]/', $value, $content);
-            $content = preg_replace('/\{{asset(.*)\}}/', '<?php asset($1) ?>', $content);
-            $content = preg_replace('/\{asset(.*)\}/', '<?php asset($1) ?>', $content);
-            $content = preg_replace('/\@asset(.*)\@/', '<?php asset($1) ?>', $content);
+            if(is_array($value)){
+            }else {
+                $content = preg_replace('/\{{\$' . $key . '\}}/', $value, $content);
+                $content = preg_replace('/\{{' . $key . '\}}/', $value, $content);
+                $content = preg_replace('/\{' . $key . '\}/', $value, $content);
+                $content = preg_replace('/\[' . $key . '\]/', $value, $content);
+                $content = preg_replace('/\{{asset(.*)\}}/', '<?php asset($1) ?>', $content);
+                $content = preg_replace('/\{asset(.*)\}/', '<?php asset($1) ?>', $content);
+                $content = preg_replace('/\@asset(.*)\@/', '<?php asset($1) ?>', $content);
+            }
         }
         return $content;
     }

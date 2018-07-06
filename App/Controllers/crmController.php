@@ -12,6 +12,12 @@ class crmController{
 //        $auth->isLoggedIn();
     }
 
+    public function index()
+    {
+        view('crm/index.php');
+    }
+
+    // add customer and contact
     public function add()
     {
         view('crm/addCustomer.php');
@@ -66,5 +72,43 @@ class crmController{
         }catch (Exception $e){
             view('crm/addCustomer.php',['status'=>404,'msg'=>'An error occurred. '.$e->getMessage()]);
         }
+    }
+
+    //list customers
+    public function listCustomers()
+    {
+        $data= DB::all('customer');
+//        dd($data);
+        view('crm/listCustomers.php',['data'=>$data,'f'=>'sdas']);
+    }
+
+    //form to edit a customer
+    public function edit($id)
+    {
+        dd((int) $id);
+    }
+
+    //form to edit a contact
+    public function editContact($id)
+    {
+        dd((int) $id);
+    }
+    
+    //delete customer and related contact
+    public function delete($id)
+    {
+        dd($id);
+    }
+    
+    //update customer
+    public function update()
+    {
+        
+    }
+    
+    //update contact
+    public function updateContact()
+    {
+        
     }
 }

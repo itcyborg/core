@@ -113,6 +113,8 @@ class Auth extends Authenticate implements \AuthInterface
 
         Route::get('reset', 'AuthController@index');
         Route::get('reset/verify/{id}', 'AuthController@verify');
+
         Route::post('reset', 'AuthController@reset');
+        Route::post('recover', 'AuthController@recover');
     }
 }

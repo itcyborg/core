@@ -206,55 +206,40 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav slimscrollsidebar">
             <div class="sidebar-head">
-                <h3>
-                    <span class="fa-fw open-close">
-                        <i class="ti-close ti-menu"></i>
-                    </span>
-                    <span class="hide-menu">Navigation</span>
+                <h3><span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">Navigation</span>
                 </h3>
             </div>
-            <ul class="nav" id="side-menu">
+            <ul class="nav" id="side-menu" style="margin-top:1em;">
                 <li>
-                    <a href="javascript:void(0)" class="waves-effect active">
-                        <i data-icon="7" class="linea-icon linea-basic fa-fw"></i>
-                        <span class="hide-menu">Link type </span>
+                    <a href="<?php url('/'); ?>" class="waves-effect">
+                        <i class="linea-icon linea-basic fa-fw"></i>
+                        <span class="hide-menu">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php url('crm'); ?>" class="waves-effect">
+                        <i class="ti-dashboard fa-fw"></i>
+                        <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
                 <li>
                     <a href="javascript:void(0)" class="waves-effect">
-                        <i data-icon="/" class="linea-icon linea-basic fa-fw"></i>
-                        <span class="hide-menu">Dropdown Link<span class="fa arrow"></span>
+                        <i class="fa fa-users  fa-fw"></i>
+                        <span class="hide-menu">Customers
+                            <span class="fa arrow"></span>
                             <span class="label label-rouded label-purple pull-right">2</span>
                         </span>
                     </a>
                     <ul class="nav nav-second-level">
-                        <li><a href="javascript:void(0)"><i data-icon=")" class="linea-icon linea-basic fa-fw"></i><span
-                                    class="hide-menu">Second Level Item</span></a></li>
-                        <li><a href="javascript:void(0)"><i class="fa-fw">S</i><span class="hide-menu"> Second Level Item</span></a>
+                        <li>
+                            <a href="<?php url('crm/customers/') ?>"><i class="mdi mdi-account-multiple fa-fw"></i>
+                                <span class="hide-menu">List Customers</span>
+                            </a>
                         </li>
-                    </ul>
-                </li>
-                <li><a href="javascript:void(0)" class="waves-effect"><i data-icon=""
-                                                                         class="linea-icon linea-basic fa-fw"></i><span
-                            class="hide-menu">Multi Dropdown<span class="fa arrow"></span></span></a>
-                    <ul class="nav nav-second-level">
-                        <li><a href="javascript:void(0)"><i data-icon="/" class="linea-icon linea-basic fa-fw"></i><span
-                                    class="hide-menu">Second Level Item</span></a></li>
-                        <li><a href="javascript:void(0)"><i data-icon="7" class="linea-icon linea-basic fa-fw"></i><span
-                                    class="hide-menu">Second Level Item</span></a></li>
-                        <li><a href="javascript:void(0)" class="waves-effect"><i data-icon="&#xe008;"
-                                                                                 class="linea-icon linea-basic fa-fw"></i><span
-                                    class="hide-menu">Third Level </span><span class="fa arrow"></span></a>
-                            <ul class="nav nav-third-level">
-                                <li><a href="javascript:void(0)"><i class=" fa-fw">T</i><span class="hide-menu">Third Level Item</span></a>
-                                </li>
-                                <li><a href="javascript:void(0)"><i class=" fa-fw">M</i><span class="hide-menu">Third Level Item</span></a>
-                                </li>
-                                <li><a href="javascript:void(0)"><i class=" fa-fw">R</i><span class="hide-menu">Third Level Item</span></a>
-                                </li>
-                                <li><a href="javascript:void(0)"><i class=" fa-fw">G</i><span class="hide-menu">Third Level Item</span></a>
-                                </li>
-                            </ul>
+                        <li>
+                            <a href="<?php url('crm/customer/add') ?>"><i class="mdi mdi-account-multiple-plus fa-fw"></i>
+                                <span class="hide-menu">Add Customers</span>
+                            </a>
                         </li>
                     </ul>
                 </li>

@@ -80,7 +80,9 @@ $(document).ready(function () {
             },
             url = window.location,
             element = $('ul.nav a').filter(function () {
-                return this.href === url || url.href.indexOf(this.href) === 0;
+                if(this.href===url.href || url.href.indexOf(this.href)===1){
+                    return this.href || url.href;
+                }
             }).addClass('active').parent().parent().addClass('in').parent();
         if (element.is('li')) {
             element.addClass('active');

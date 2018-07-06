@@ -1,10 +1,9 @@
 <?php 
 
- require_once"vendor\autoload.php";
+ require_once "vendor\autoload.php";
 
   Class Email{
   	public function send($to,$subject,$msg,$headers){
-
   		if (!mail($to, $subject,$msg,$headers)) {
   			echo "unable to send mail";
   		}

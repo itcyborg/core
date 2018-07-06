@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -13,7 +9,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="<?php asset('plugins/images/favicon.png'); ?>">
-    <title>Slim ERP- Dashboard</title>
+    <title>Slim ERP- CRM Dashboard</title>
     <!-- Bootstrap Core CSS -->
     <link href="<?php asset('bootstrap/dist/css/bootstrap.min.css"'); ?> rel=" stylesheet
     ">
@@ -52,27 +48,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- Logo -->
                 <a class="logo" href="<?php url('hello/1') ?>">
                     <!-- Logo icon image, you can use font-icon also --><b>
-                        <!--This is dark logo icon--><img src="<?php asset('plugins/images/admin-logo.png') ?>"
-                                                          alt="home" class="dark-logo"/>
-                        <!--This is light logo icon--><img src="<?php asset('plugins/images/admin-logo-dark.png') ?>"
-                                                           alt="home" class="light-logo" /-->
+                        <!--This is dark logo icon-->
+                        <img src="<?php asset('plugins/images/admin-logo.png') ?>" alt="home" class="dark-logo"/>
+                        <!--This is light logo icon-->
+                        <img src="<?php asset('plugins/images/admin-logo-dark.png') ?>" alt="home" class="light-logo" /-->
                     </b>
-                    <!-- Logo text image you can use text also --><span class="hidden-xs">
-                            <!--This is dark logo text--><img src="<?php asset('plugins/images/admin-text.png') ?>"
-                                                              alt="home" class="dark-logo"/>
-                        <!--This is light logo text--><img src="<?php asset('plugins/images/admin-text-dark.png') ?>"
-                                                           alt="home" class="light-logo"/>
-                        </span> </a>
+                    <!-- Logo text image you can use text also -->
+                    <span class="hidden-xs">
+                            <!--This is dark logo text-->
+                        <img src="<?php asset('plugins/images/admin-text.png') ?>" alt="home" class="dark-logo"/>
+                        <!--This is light logo text-->
+                        <img src="<?php asset('plugins/images/admin-text-dark.png') ?>" alt="home" class="light-logo"/>
+                    </span>
+                </a>
             </div>
             <!-- /Logo -->
             <!-- Search input and Toggle icon -->
             <ul class="nav navbar-top-links navbar-left">
-                <li><a href="javascript:void(0)" class="open-close waves-effect waves-light"><i class="ti-menu"></i></a>
+                <li>
+                    <a href="javascript:void(0)" class="open-close waves-effect waves-light">
+                        <i class="ti-menu"></i>
+                    </a>
                 </li>
                 <li class="dropdown">
-                    <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"> <i
-                            class="mdi mdi-gmail"></i>
-                        <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+                    <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#">
+                        <i class="mdi mdi-gmail"></i>
+                        <div class="notify">
+                            <span class="heartbit"></span>
+                            <span class="point"></span>
+                        </div>
                     </a>
                     <ul class="dropdown-menu mailbox animated bounceInDown">
                         <li>
@@ -81,39 +85,46 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <li>
                             <div class="message-center">
                                 <a href="#">
-                                    <div class="user-img"><img
-                                            src="<?php asset('plugins/images/users/pawandeep.jpg') ?>" alt="user"
-                                            class="img-circle"> <span
-                                            class="profile-status online pull-right"></span></div>
+                                    <div class="user-img">
+                                        <img src="<?php asset('plugins/images/users/pawandeep.jpg') ?>" alt="user" class="img-circle">
+                                        <span class="profile-status online pull-right"></span>
+                                    </div>
                                     <div class="mail-contnet">
-                                        <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span
-                                            class="time">9:30 AM</span></div>
+                                        <h5>Pavan kumar</h5>
+                                        <span class="mail-desc">Just see the my admin!</span>
+                                        <span class="time">9:30 AM</span>
+                                    </div>
                                 </a>
                             </div>
                         </li>
                         <li>
-                            <a class="text-center" href="javascript:void(0);"> <strong>See all notifications</strong> <i
-                                    class="fa fa-angle-right"></i> </a>
+                            <a class="text-center" href="javascript:void(0);">
+                                <strong>See all notifications</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         </li>
                     </ul>
                     <!-- /.dropdown-messages -->
                 </li>
                 <!-- .Task dropdown -->
                 <li class="dropdown">
-                    <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"> <i
-                            class="mdi mdi-check-circle"></i>
-                        <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+                    <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#">
+                        <i class="mdi mdi-check-circle"></i>
+                        <div class="notify">
+                            <span class="heartbit"></span>
+                            <span class="point"></span>
+                        </div>
                     </a>
                     <ul class="dropdown-menu dropdown-tasks animated slideInUp">
                         <li>
                             <a href="javascript:void(0)">
                                 <div>
-                                    <p><strong>Task 1</strong> <span class="pull-right text-muted">40% Complete</span>
+                                    <p>
+                                        <strong>Task 1</strong>
+                                        <span class="pull-right text-muted">40% Complete</span>
                                     </p>
                                     <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-success" role="progressbar"
-                                             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-                                             style="width: 40%"><span class="sr-only">40% Complete (success)</span>
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"><span class="sr-only">40% Complete (success)</span>
                                         </div>
                                     </div>
                                 </div>
@@ -121,26 +132,34 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a class="text-center" href="#"> <strong>See All Tasks</strong> <i
-                                    class="fa fa-angle-right"></i> </a>
+                            <a class="text-center" href="#">
+                                <strong>See All Tasks</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         </li>
                     </ul>
                 </li>
                 <!-- .Megamenu -->
-                <li class="mega-dropdown"><a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown"
-                                             href="#"><span class="hidden-xs">Mega</span> <i
-                            class="icon-options-vertical"></i></a>
+                <li class="mega-dropdown">
+                    <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#">
+                        <span class="hidden-xs">Mega</span>
+                        <i class="icon-options-vertical"></i>
+                    </a>
                     <ul class="dropdown-menu mega-dropdown-menu animated bounceInDown">
                         <li class="col-sm-3">
                             <ul>
                                 <li class="dropdown-header">Header Title</li>
-                                <li><a href="javascript:void(0)">Link of page</a></li>
+                                <li>
+                                    <a href="javascript:void(0)">Link of page</a>
+                                </li>
                             </ul>
                         </li>
                         <li class="col-sm-3">
                             <ul>
                                 <li class="dropdown-header">Header Title</li>
-                                <li><a href="javascript:void(0)">Link of page</a></li>
+                                <li>
+                                    <a href="javascript:void(0)">Link of page</a>
+                                </li>
                             </ul>
                         </li>
                         <li class="col-sm-3">
@@ -165,22 +184,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- /.dropdown -->
                 <li>
                     <form role="search" class="app-search hidden-sm hidden-xs m-r-10">
-                        <input type="text" placeholder="Search..." class="form-control"> <a href=""><i
-                                class="fa fa-search"></i></a></form>
+                        <input type="text" placeholder="Search..." class="form-control">
+                        <a href="">
+                            <i class="fa fa-search"></i>
+                        </a>
+                    </form>
                 </li>
                 <li class="dropdown">
-                    <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img
-                            src="<?php asset('plugins/images/users/varun.jpg') ?>" alt="user-img" width="36"
-                            class="img-circle"><b class="hidden-xs">Steave</b><span class="caret"></span> </a>
+                    <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#">
+                        <img src="<?php asset('plugins/images/users/varun.jpg') ?>" alt="user-img" width="36" class="img-circle">
+                        <b class="hidden-xs">Steave</b>
+                        <span class="caret"></span>
+                    </a>
                     <ul class="dropdown-menu dropdown-user animated flipInY">
                         <li>
                             <div class="dw-user-box">
-                                <div class="u-img"><img src="<?php asset('plugins/images/users/varun.jpg') ?>"
-                                                        alt="user"/></div>
+                                <div class="u-img"><img src="<?php asset('plugins/images/users/varun.jpg') ?>" alt="user"/></div>
                                 <div class="u-text"><h4>Steave Jobs</h4>
-                                    <p class="text-muted">varun@gmail.com</p><a href="profile.html"
-                                                                                class="btn btn-rounded btn-danger btn-sm">View
-                                        Profile</a></div>
+                                    <p class="text-muted">varun@gmail.com</p>
+                                    <a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a>
+                                </div>
                             </div>
                         </li>
                         <li role="separator" class="divider"></li>
@@ -207,43 +230,39 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="sidebar-nav slimscrollsidebar">
             <div class="sidebar-head">
                 <h3><span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">Navigation</span>
-                </h3></div>
-            <ul class="nav" id="side-menu">
-                <li><a href="javascript:void(0)" class="waves-effect active"><i data-icon="7"
-                                                                                class="linea-icon linea-basic fa-fw"></i><span
-                            class="hide-menu">Link type </span></a></li>
-                <li><a href="javascript:void(0)" class="waves-effect"><i data-icon="/"
-                                                                         class="linea-icon linea-basic fa-fw"></i><span
-                            class="hide-menu">Dropdown Link<span class="fa arrow"></span><span
-                                class="label label-rouded label-purple pull-right">2</span></span></a>
-                    <ul class="nav nav-second-level">
-                        <li><a href="javascript:void(0)"><i data-icon=")" class="linea-icon linea-basic fa-fw"></i><span
-                                    class="hide-menu">Second Level Item</span></a></li>
-                        <li><a href="javascript:void(0)"><i class="fa-fw">S</i><span class="hide-menu"> Second Level Item</span></a>
-                        </li>
-                    </ul>
+                </h3>
+            </div>
+            <ul class="nav" id="side-menu" style="margin-top:1em;">
+                <li>
+                    <a href="<?php url('/'); ?>" class="waves-effect">
+                        <i class="linea-icon linea-basic fa-fw"></i>
+                        <span class="hide-menu">Home</span>
+                    </a>
                 </li>
-                <li><a href="javascript:void(0)" class="waves-effect"><i data-icon=""
-                                                                         class="linea-icon linea-basic fa-fw"></i><span
-                            class="hide-menu">Multi Dropdown<span class="fa arrow"></span></span></a>
+                <li>
+                    <a href="<?php url('crm'); ?>" class="waves-effect">
+                        <i class="ti-dashboard fa-fw"></i>
+                        <span class="hide-menu">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" class="waves-effect">
+                        <i class="fa fa-users  fa-fw"></i>
+                        <span class="hide-menu">Customers
+                            <span class="fa arrow"></span>
+                            <span class="label label-rouded label-purple pull-right">2</span>
+                        </span>
+                    </a>
                     <ul class="nav nav-second-level">
-                        <li><a href="javascript:void(0)"><i data-icon="/" class="linea-icon linea-basic fa-fw"></i><span
-                                    class="hide-menu">Second Level Item</span></a></li>
-                        <li><a href="javascript:void(0)"><i data-icon="7" class="linea-icon linea-basic fa-fw"></i><span
-                                    class="hide-menu">Second Level Item</span></a></li>
-                        <li><a href="javascript:void(0)" class="waves-effect"><i data-icon="&#xe008;"
-                                                                                 class="linea-icon linea-basic fa-fw"></i><span
-                                    class="hide-menu">Third Level </span><span class="fa arrow"></span></a>
-                            <ul class="nav nav-third-level">
-                                <li><a href="javascript:void(0)"><i class=" fa-fw">T</i><span class="hide-menu">Third Level Item</span></a>
-                                </li>
-                                <li><a href="javascript:void(0)"><i class=" fa-fw">M</i><span class="hide-menu">Third Level Item</span></a>
-                                </li>
-                                <li><a href="javascript:void(0)"><i class=" fa-fw">R</i><span class="hide-menu">Third Level Item</span></a>
-                                </li>
-                                <li><a href="javascript:void(0)"><i class=" fa-fw">G</i><span class="hide-menu">Third Level Item</span></a>
-                                </li>
-                            </ul>
+                        <li>
+                            <a href="<?php url('crm/customers/') ?>"><i class="mdi mdi-account-multiple fa-fw"></i>
+                                <span class="hide-menu">List Customers</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?php url('crm/customer/add') ?>"><i class="mdi mdi-account-multiple-plus fa-fw"></i>
+                                <span class="hide-menu">Add Customers</span>
+                            </a>
                         </li>
                     </ul>
                 </li>
@@ -257,15 +276,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="row bg-title">
                 <!-- .page title -->
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Starter Page</h4></div>
+                    <h4 class="page-title">Starter Page</h4>
+                </div>
                 <!-- /.page title -->
                 <!-- .breadcrumb -->
                 <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                    <button class="right-side-toggle waves-effect waves-light btn-info btn-circle pull-right m-l-20"><i
-                            class="ti-settings text-white"></i></button>
-                    <a href="javascript: void(0);" target="_blank"
-                       class="btn btn-danger pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">Buy Admin
-                        Now</a>
+                    <button class="right-side-toggle waves-effect waves-light btn-info btn-circle pull-right m-l-20">
+                        <i class="ti-settings text-white"></i>
+                    </button>
+                    <a href="javascript: void(0);" target="_blank" class="btn btn-danger pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">Buy Admin Now</a>
                     <ol class="breadcrumb">
                         <li><a href="#">Dashboard</a></li>
                         <li class="active">Starter Page</li>
@@ -277,62 +296,69 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="row">
                 <div class="col-md-12">
                     <div class="white-box">
-                        <h3 class="box-title">Blank Starter page</h3></div>
+                        <h3 class="box-title">Blank Starter page</h3>
+                    </div>
                 </div>
             </div>
             <!-- .row -->
             <!-- .right-sidebar -->
             <div class="right-sidebar">
                 <div class="slimscrollright">
-                    <div class="rpanel-title"> Service Panel <span><i class="ti-close right-side-toggle"></i></span>
+                    <div class="rpanel-title"> Service Panel
+                        <span>
+                            <i class="ti-close right-side-toggle"></i>
+                        </span>
                     </div>
                     <div class="r-panel-body">
                         <ul class="m-t-20 chatonline">
                             <li><b>Chat option</b></li>
                             <li>
-                                <a href="javascript:void(0)"><img src="<?php asset('plugins/images/users/varun.jpg') ?>"
-                                                                  alt="user-img" class="img-circle"> <span>Varun Dhavan <small
-                                            class="text-success">online</small></span></a>
+                                <a href="javascript:void(0)">
+                                    <img src="<?php asset('plugins/images/users/varun.jpg') ?>" alt="user-img" class="img-circle">
+                                    <span>Varun Dhavan <small class="text-success">online</small></span>
+                                </a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)"><img src="<?php asset('plugins/images/users/genu.jpg') ?>"
-                                                                  alt="user-img" class="img-circle"> <span>Genelia Deshmukh <small
-                                            class="text-warning">Away</small></span></a>
+                                <a href="javascript:void(0)">
+                                    <img src="<?php asset('plugins/images/users/genu.jpg') ?>" alt="user-img" class="img-circle">
+                                    <span>Genelia Deshmukh <small class="text-warning">Away</small></span>
+                                </a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)"><img
-                                        src="<?php asset('plugins/images/users/ritesh.jpg') ?>" alt="user-img"
-                                        class="img-circle"> <span>Ritesh Deshmukh <small
-                                            class="text-danger">Busy</small></span></a>
+                                <a href="javascript:void(0)">
+                                    <img src="<?php asset('plugins/images/users/ritesh.jpg') ?>" alt="user-img" class="img-circle">
+                                    <span>Ritesh Deshmukh <small class="text-danger">Busy</small></span>
+                                </a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)"><img
-                                        src="<?php asset('plugins/images/users/arijit.jpg') ?>" alt="user-img"
-                                        class="img-circle"> <span>Arijit Sinh <small
-                                            class="text-muted">Offline</small></span></a>
+                                <a href="javascript:void(0)">
+                                    <img src="<?php asset('plugins/images/users/arijit.jpg') ?>" alt="user-img" class="img-circle">
+                                    <span>Arijit Sinh <small class="text-muted">Offline</small></span>
+                                </a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)"><img
-                                        src="<?php asset('plugins/images/users/govinda.jpg') ?>" alt="user-img"
-                                        class="img-circle"> <span>Govinda Star <small
-                                            class="text-success">online</small></span></a>
+                                <a href="javascript:void(0)">
+                                    <img src="<?php asset('plugins/images/users/govinda.jpg') ?>" alt="user-img" class="img-circle">
+                                    <span>Govinda Star <small class="text-success">online</small></span>
+                                </a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)"><img
-                                        src="<?php asset('plugins/images/users/hritik.jpg') ?>" alt="user-img"
-                                        class="img-circle"> <span>John Abraham<small
-                                            class="text-success">online</small></span></a>
+                                <a href="javascript:void(0)">
+                                    <img src="<?php asset('plugins/images/users/hritik.jpg') ?>" alt="user-img" class="img-circle">
+                                    <span>John Abraham<small class="text-success">online</small></span>
+                                </a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)"><img src="<?php asset('plugins/images/users/john.jpg') ?>"
-                                                                  alt="user-img" class="img-circle"> <span>Hritik Roshan<small
-                                            class="text-success">online</small></span></a>
+                                <a href="javascript:void(0)">
+                                    <img src="<?php asset('plugins/images/users/john.jpg') ?>" alt="user-img" class="img-circle">
+                                    <span>Hritik Roshan<small class="text-success">online</small></span>
+                                </a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)"><img
-                                        src="<?php asset('plugins/images/users/pawandeep.jpg') ?>" alt="user-img"
-                                        class="img-circle"> <span>Pwandeep rajan <small
-                                            class="text-success">online</small></span></a>
+                                <a href="javascript:void(0)">
+                                    <img src="<?php asset('plugins/images/users/pawandeep.jpg') ?>" alt="user-img" class="img-circle">
+                                    <span>Pwandeep rajan <small class="text-success">online</small></span>
+                                </a>
                             </li>
                         </ul>
                     </div>
