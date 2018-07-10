@@ -2,6 +2,7 @@
 
 use Core\Auth\Auth;
 use Core\Database\DB\DB;
+use Core\Exceptions\ExceptionsHandler;
 use Core\Requests\Request;
 use Core\Requests\SanitizeRequest;
 
@@ -20,7 +21,8 @@ class crmController{
     // add customer and contact
     public function add()
     {
-        view('crm/addCustomer.php');
+        $existing=DB::all('customer');
+        view('crm/addCustomer.php',['customers'=>$existing]);
     }
 
     public function store()
@@ -52,6 +54,7 @@ class crmController{
 
     public function addContact()
     {
+        $existing=DB::all('customer');
         $request=new Request();
         try {
             $customerID = SanitizeRequest::text($request->customer);
@@ -68,9 +71,10 @@ class crmController{
                     $alt_tel
                 ]
             );
-            view('crm/addCustomer.php',['status'=>200,'msg'=>'Successfully inserted record']);
-        }catch (Exception $e){
-            view('crm/addCustomer.php',['status'=>404,'msg'=>'An error occurred. '.$e->getMessage()]);
+
+            view('crm/addCustomer.php',['status'=>200,'msg'=>'Successfully inserted record','customers'=>$existing]);
+        }catch (ExceptionsHandler $e){
+            view('crm/addCustomer.php',['status'=>404,'msg'=>'An error occurred. '.$e->getMessage(),'customers'=>$existing]);
         }
     }
 
@@ -78,7 +82,6 @@ class crmController{
     public function listCustomers()
     {
         $data= DB::all('customer');
-//        dd($data);
         view('crm/listCustomers.php',['data'=>$data,'f'=>'sdas']);
     }
 
@@ -97,13 +100,24 @@ class crmController{
     //delete customer and related contact
     public function delete($id)
     {
-        dd($id);
+        try{
+            DB::delete('customer','id',$id);
+            echo "Customer deleted successfully.";
+        }catch (Exception $e){
+            print_r($e);
+            die();
+        }
     }
     
     //update customer
     public function update()
     {
-        
+        $request=new Request();
+        $email=SanitizeRequest::email($request->email);
+        $fname=SanitizeRequest::text($request->first_name);
+        $mname=SanitizeRequest::text($request->middle_name);
+        $lname=SanitizeRequest::text($request->last_name);
+        $id=SanitizeRequest::text($request->id);
     }
     
     //update contact

@@ -270,6 +270,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
             <!-- .row -->
             <div class="row">
+                <div n:if="$status">
+                    {if $status == 404}
+                        <div class="alert alert-danger">{$msg}</div>
+                    {/if}
+                    {if $status == 200}
+                        <div class="alert alert-success">{$msg|capitalize}</div>
+                    {/if}
+                </div>
                 <div class="col-md-6">
                     <div class="white-box p-l-20 p-r-20">
                         <h3 class="box-title">Add Customer</h3>
@@ -317,7 +325,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <form action="<?php url('crm/customer/contact/add')?>" method="post" class="form-horizontal form-material">
                                     <div class="form-body">
                                         <div class="form-group">
-                                            <select name="customer" id="customer" class="form-control"></select>
+                                            <select name="customer" id="customer" class="form-control" n:if="$customers">
+                                                <option n:foreach="$customers as $customer" value="{$customer['id']}">{$customer['email']|upper}</option>
+                                            </select>
                                         </div>
                                         <div class="form-group m-b-40">
                                             <input type="tel" name="tel" id="tel" class="form-control" required placeholder="Telephone Number">

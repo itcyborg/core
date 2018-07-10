@@ -38,7 +38,7 @@ class View
         } else {
             throw new ExceptionsHandler('View not found');
         }
-        self::render($contents);
+//        self::render($contents);
     }
 
     /**

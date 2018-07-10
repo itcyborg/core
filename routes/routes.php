@@ -22,7 +22,7 @@ Route::get('crm/customer/edit/customer/{id}','crmController@edit');
 Route::get('crm/customer/edit/contact/{id}','crmController@editContact');
 
 Route::post('crm/customer/add','crmController@store');
-Route::post('crm/customer/delete/{id}','crmController@delete');
+Route::post('crm/customers/delete/{id}','crmController@delete');
 Route::post('crm/customer/update','crmController@update');
 Route::post('crm/customer/update/contact','crmController@updateContact');
 Route::post('crm/customer/contact/add','crmController@addContact');
