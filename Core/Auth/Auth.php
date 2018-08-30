@@ -50,8 +50,10 @@ class Auth extends Authenticate implements \AuthInterface
      * @return mixed
      */
     public static function setUser($user)
-    {
+    {// takes all the user details from the sessionmanager and puts them in a variable
         // TODO: Implement setUser() method.
+        self::$user=$user;
+        
     }
 
     /**
@@ -60,7 +62,8 @@ class Auth extends Authenticate implements \AuthInterface
      */
     public function id()
     {
-        // TODO: Implement id() method.
+        // TODO:return the id of the logged in user.
+        return self::$user['id'];
     }
 
     /**
@@ -69,6 +72,7 @@ class Auth extends Authenticate implements \AuthInterface
      */
     public function lastLogin()
     {
+        return self::$user;
         // TODO: Implement lastLogin() method.
     }
 
