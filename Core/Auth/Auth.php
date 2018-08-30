@@ -1,11 +1,8 @@
 <?php
-
-
 namespace Core\Auth;
 
-
 use Core\Requests\Request;
-use Core\Router\Route;
+use Core\Router\Routek;
 use Core\URL\URL;
 
 class Auth extends Authenticate implements \AuthInterface
@@ -52,6 +49,13 @@ class Auth extends Authenticate implements \AuthInterface
     public static function setUser($user)
     {
         // TODO: Implement setUser() method.
+        /*
+         * $user->id
+         * $user->name
+         * $user->email
+         * $user->session_id
+         * loggedd in
+         */
     }
 
     /**

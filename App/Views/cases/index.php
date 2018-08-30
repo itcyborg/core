@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="<?php asset('plugins/images/favicon.png'); ?>">
-    <title>Slim ERP- CRM Dashboard</title>
+    <title>Slim ERP- CASES Dashboard</title>
     <!-- Bootstrap Core CSS -->
     <link href="<?php asset('bootstrap/dist/css/bootstrap.min.css'); ?>" rel="stylesheet">
 
@@ -241,7 +241,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?php url('crm'); ?>" class="waves-effect">
+                    <a href="<?php url('cases'); ?>" class="waves-effect">
                         <i class="ti-dashboard fa-fw"></i>
                         <span class="hide-menu">Dashboard</span>
                     </a>
@@ -249,20 +249,20 @@
                 <li>
                     <a href="javascript:void(0)" class="waves-effect">
                         <i class="fa fa-users  fa-fw"></i>
-                        <span class="hide-menu">Customers
+                        <span class="hide-menu">Cases
                             <span class="fa arrow"></span>
-                            <span class="label label-rouded label-purple pull-right">2</span>
+                            <span class="label label-rouded label-purple pull-right">0</span>
                         </span>
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="<?php url('crm/customer/add') ?>"><i class="mdi mdi-account-multiple-plus fa-fw"></i>
-                                <span class="hide-menu">Add Customers</span>
+                            <a href="<?php url('case/new') ?>"><i class="mdi mdi-account-multiple-plus fa-fw"></i>
+                                <span class="hide-menu">New Case</span>
                             </a>
                         </li>
                         <li>
-                            <a href="<?php url('crm/customers/') ?>"><i class="mdi mdi-account-multiple fa-fw"></i>
-                                <span class="hide-menu">List Customers</span>
+                            <a href="<?php url('case/list') ?>"><i class="mdi mdi-account-multiple fa-fw"></i>
+                                <span class="hide-menu">List Cases</span>
                             </a>
                         </li>
                     </ul>
@@ -297,7 +297,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="white-box">
-                        <h3 class="box-title">NEW CUSTOMERS</h3>
+                        <h3 class="box-title">NEW CASES</h3>
                         <ul class="list-inline two-part">
                             <li><i class="icon-people text-info"></i></li>
                             <li class="text-right"><span class="counter">23</span></li>
@@ -307,7 +307,7 @@
 
                 <div class="col-md-3">
                     <div class="white-box">
-                        <h3 class="box-title">NEW MESSAGES</h3>
+                        <h3 class="box-title">PENDING</h3>
                         <ul class="list-inline two-part">
                             <li><i class="fa fa-comments text-inverse"></i></li>
                             <li class="text-right"><span class="counter">23</span></li>
@@ -317,7 +317,7 @@
 
                 <div class="col-md-3">
                     <div class="white-box">
-                        <h3 class="box-title">FEEDBACK</h3>
+                        <h3 class="box-title">IN PROGRESS</h3>
                         <ul class="list-inline two-part">
                             <li><i class="fa fa-bullhorn text-blue"></i></li>
                             <li class="text-right"><span class="counter">23</span></li>
@@ -327,7 +327,7 @@
 
                 <div class="col-md-3">
                     <div class="white-box">
-                        <h3 class="box-title">NEW ISSUES</h3>
+                        <h3 class="box-title">SOLVED</h3>
                         <ul class="list-inline two-part">
                             <li><i class="fa fa-tags text-danger"></i></li>
                             <li class="text-right"><span class="counter">23</span></li>
@@ -339,7 +339,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="white-box">
-                        <h3 class="box-title">Recent Customers</h3>
+                        <h3 class="box-title">Recent Cases</h3>
                         <div class="row sales-report">
                             <div class="col-md-6 col-sm-6 col-xs-6">
                                 <h2>March 2018</h2>

@@ -13,7 +13,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="<?php asset('plugins/images/favicon.png'); ?>">
-    <title>Slim ERP- Dashboard</title>
+    <title>Slim ERP- CASE Dashboard</title>
     <!-- Bootstrap Core CSS -->
     <link href="<?php asset('bootstrap/dist/css/bootstrap.min.css'); ?>" rel="stylesheet">
     <!-- This is Sidebar menu CSS -->
@@ -22,12 +22,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link href="<?php asset('css/animate.css') ?>" rel="stylesheet">
     <!-- This is a Custom CSS -->
     <link href="<?php asset('css/style.css') ?>" rel="stylesheet">
+    <link href="<?php asset('App/css/app.css') ?>" rel="stylesheet">
     <!-- color CSS you can use different color css from css/colors folder -->
     <!-- We have chosen the skin-blue (default.css) for this starter
     page. However, you can choose any other skin from folder css / colors .
     -->
     <link href="<?php asset('css/colors/megna.css') ?>" id="theme" rel="stylesheet">
     <link href="<?php asset('css/colors/megna-dark.css') ?>" id="theme" rel="stylesheet">
+
+<!--    <link href="--><?php //asset('plugins/bower_components/sweetalert2/sweetalert2.min.css') ?><!--" rel="stylesheet">-->
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -216,7 +219,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </a>
                 </li>
                 <li>
-                    <a href="<?php url('crm'); ?>" class="waves-effect">
+                    <a href="<?php url('case'); ?>" class="waves-effect">
                         <i class="ti-dashboard fa-fw"></i>
                         <span class="hide-menu">Dashboard</span>
                     </a>
@@ -224,20 +227,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <li>
                     <a href="javascript:void(0)" class="waves-effect">
                         <i class="fa fa-users  fa-fw"></i>
-                        <span class="hide-menu">Customers
+                        <span class="hide-menu">Cases
                             <span class="fa arrow"></span>
                             <span class="label label-rouded label-purple pull-right">2</span>
                         </span>
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="<?php url('crm/customer/add') ?>"><i class="mdi mdi-account-multiple-plus fa-fw"></i>
-                                <span class="hide-menu">Add Customers</span>
+                            <a href="<?php url('case/new') ?>"><i class="mdi mdi-account-multiple-plus fa-fw"></i>
+                                <span class="hide-menu">New Case</span>
                             </a>
                         </li>
                         <li>
-                            <a href="<?php url('crm/customers/') ?>"><i class="mdi mdi-account-multiple fa-fw"></i>
-                                <span class="hide-menu">List Customers</span>
+                            <a href="<?php url('case/list') ?>"><i class="mdi mdi-account-multiple fa-fw"></i>
+                                <span class="hide-menu">List Cases</span>
                             </a>
                         </li>
                     </ul>
@@ -252,7 +255,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="row bg-title">
                 <!-- .page title -->
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Add Customer</h4></div>
+                    <h4 class="page-title">Customers</h4></div>
                 <!-- /.page title -->
                 <!-- .breadcrumb -->
                 <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
@@ -262,88 +265,42 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <ol class="breadcrumb">
                         <li><a href="<?php url('dashboard')?>">Dashboard</a></li>
                         <li><a href="<?php url('crm')?>">Customer Relation</a></li>
-                        <li class="active">Add Customer</li>
+                        <li class="active">Customers</li>
                     </ol>
                 </div>
                 <!-- /.breadcrumb -->
             </div>
             <!-- .row -->
             <div class="row">
-                <div n:if="$status">
-                    {if $status == 404}
-                        <div class="alert alert-danger">{$msg}</div>
-                    {/if}
-                    {if $status == 200}
-                        <div class="alert alert-success">{$msg|capitalize}</div>
-                    {/if}
-                </div>
-                <div class="col-md-6">
-                    <div class="white-box p-l-20 p-r-20">
-                        <h3 class="box-title">Add Customer</h3>
-                        <div class="p-30">
-                            <form action="<?php url('crm/customer/add')?>" method="post" class="form-horizontal form-material floating-labels">
-                                <div class="form-body">
-                                    <div class="form-group m-b-40">
-                                        <input type="text" name="fname" id="fname" class="form-control" required>
-                                        <span class="highlight"></span>
-                                        <label for="fname">First Name</label>
-                                    </div>
-                                    <div class="form-group m-b-40">
-                                        <input type="text" name="mname" id="mname" class="form-control" required>
-                                        <span class="highlight"></span>
-                                        <span class="bar"></span>
-                                        <label for="mname">Middle Name</label>
-                                    </div>
-                                    <div class="form-group m-b-40">
-                                        <input type="text" name="lname" id="lname" class="form-control" required>
-                                        <span class="highlight"></span>
-                                        <span class="bar"></span>
-                                        <label for="lname">Last Name</label>
-                                    </div>
-                                    <div class="form-group m-b-40">
-                                        <input type="email" name="email" id="email" class="form-control" required>
-                                        <span class="highlight"></span>
-                                        <span class="bar"></span>
-                                        <label for="email">Email</label>
-                                    </div>
-                                </div>
-                                <div class="form-actions">
-                                    <div class="row">
-                                        <button class="btn btn-primary btn-rounded col-lg-12 col-sm-12 col-xs-12">Add Customer</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="white-box">
-                        <div class="container-fluid">
-                            <h3 class="box-title">Add Contact</h3>
-                            <div class="row-fluid">
-                                <form action="<?php url('crm/customer/contact/add')?>" method="post" class="form-horizontal form-material">
-                                    <div class="form-body">
-                                        <div class="form-group">
-                                            <select name="customer" id="customer" class="form-control" n:if="$customers">
-                                                <option n:foreach="$customers as $customer" value="{$customer['id']}">{$customer['email']|lower}</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group m-b-40">
-                                            <input type="tel" name="tel" id="tel" class="form-control" required placeholder="Telephone Number">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="tel" name="altTel" id="altTel" class="form-control" placeholder="Alt Telephone Number">
-                                        </div>
-                                    </div>
-                                    <div class="form-actions">
-                                        <div class="row">
-                                            <button class="btn btn-primary   btn-rounded col-lg-12 col-sm-12 col-xs-12">Add Contact</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-lg-6"></div>
-                        </div>
+                <div class="white-box">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Email</th>
+                                    <th>First Name</th>
+                                    <th>Other Names</th>
+                                    <th>Created</th>
+                                    <th class="text-nowrap">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {foreach $data as $item}
+                                    <tr>
+                                        <td>{$item['id']}</td>
+                                        <td>{$item['email']}</td>
+                                        <td>{$item['first_name']}</td>
+                                        <td>{$item['middle_name']} {$item['last_name']}</td>
+                                        <td>{$item['created_at']}</td>
+                                        <td>
+                                            <a href="#" data-toggle="tooltip" data-original-title="Edit" onclick="Customer.edit({$item['id']})"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                            <a href="#" data-toggle="tooltip" data-original-title="Delete" onclick="Customer.delete({$item['id']})"> <i class="fa fa-trash-o text-warning m-r-10"></i> </a>
+                                        </td>
+                                    </tr>
+                                {/foreach}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -408,12 +365,52 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- /.right-sidebar -->
         </div>
         <!-- /.container-fluid -->
-        <footer class="footer text-center"> 2017 &copy; Ample Admin brought to you by themedesigner.in</footer>
+        <footer class="footer text-center"> 2018 &copy; Slim ERP</footer>
     </div>
     <!-- /#page-wrapper -->
 </div>
 <!-- /#wrapper -->
+
+<!--MODALS-->
+<div class="modal fade" tabindex="-1" id="editCustomer" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myLargeModalLabel">Edit Customer</h4> </div>
+            <div class="modal-body">
+                <div class="form-material">
+                    <div class="row-fluid form-body">
+                        <input type="number" name="id" id="id" hidden>
+                        <div class="form-group">
+                            <input type="email" name="email" id="email" class="form-control" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="fname" id="fname" class="form-control" placeholder="First name">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="mname" id="mname" class="form-control" placeholder="Middle Name">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="lname" id="lname" class="form-control" placeholder="Last Name">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary waves-effect pull-left" type="button" onclick="Customer.update()">Save</button>
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!--END OF MODALS-->
+
 <!-- jQuery -->
+<!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7/dist/sweetalert2.all.min.js"></script>-->
+<script src="<?php asset('plugins/bower_components/sweetalert2/sweetalert2.js') ?>"></script>
 <script src="<?php asset('plugins/bower_components/jquery/dist/jquery.min.js') ?>"></script>
 <!-- Bootstrap Core JavaScript -->
 <script src="<?php asset('bootstrap/dist/js/bootstrap.min.js') ?>"></script>
@@ -425,7 +422,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="<?php asset('js/waves.js') ?>"></script>
 <!-- Custom Theme JavaScript -->
 <script src="<?php asset('js/custom.js') ?>"></script>
-
-<script src="<?php asset('js/jasny-bootstrap.js')?>"></script>
+<script src="<?php asset('plugins/bower_components/peity/jquery.peity.min.js') ?>"></script>
+<script src="<?php asset('plugins/bower_components/peity/jquery.peity.init.js') ?>"></script>
+<script src="<?php asset('js/custom.js') ?>"></script>
+<script src="<?php asset('App/js/app.js')?>"></script>
+<script>
+    let deleteEndpoint="<?php url('crm/customers/delete/')?>/";
+    let editEndpoint="<?php url('crm/customer/update/')?>/";
+    let customers={$data}
+</script>
 </body>
 </html>

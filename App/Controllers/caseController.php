@@ -23,7 +23,12 @@ class caseController{
     public function new()
     {
         //create new issue view
-        view('cases/add.php');
+        view('cases/addCase.php');
+    }
+
+    public function list()
+    {
+        view('cases/listCases.php');
     }
 
     public function edit($id)

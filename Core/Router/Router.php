@@ -48,6 +48,7 @@ class Router
      */
     public static function direct($uri, $requestType)
     {
+//        dd(Router::$route);
         if (!self::match($uri, $requestType)) {
             throw new ExceptionsHandler('Page not Found', 404);
         }

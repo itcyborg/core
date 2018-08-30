@@ -10,11 +10,12 @@ class crmController{
     public function __construct()
     {
         $auth=new Auth();
-//        $auth->isLoggedIn();
+        $auth->isLoggedIn();
     }
 
     public function index()
     {
+        DB::add('user','user_id',Auth::user()['id']);
         view('crm/index.php');
     }
 
