@@ -191,5 +191,21 @@ class QueryBuilder extends Connection
             throw new ExceptionsHandler($e->getMessage(),$e->getCode());
         }
     }
+
+    public static function last($table,$field,$value)
+    {
+        $sql="SELECT * FROM ".$table." WHERE ".$field."= '".$value."' ORDER BY id DESC LIMIT 1";
+        self::$query=$sql;
+        try{
+            $pdo=ConnectionBuilder::getConnection();
+            $stmt=$pdo->prepare(self::$query);
+            //dd(self::$query);
+            $stmt->execute();
+            return $stmt->fetch();
+
+        } catch (\Throwable $e){
+            throw new ExceptionsHandler($e->getMessage(),$e->getCode());
+        }
+    }
 }
 

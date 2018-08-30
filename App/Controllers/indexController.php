@@ -6,18 +6,22 @@ class indexController
 {
     public function __construct()
     {
-//        $auth=new Auth();
-//        $auth->isLoggedIn();
+        $auth=new Auth();
+        Auth::user();
+        $auth->isLoggedIn();
     }
 
     public function index()
     {
-    	 Auth::validate
-         ('erp@erp.com','as');
-         dd(Auth::lastlogin());
+//        $password=new \Core\Auth\PasswordService;
+        // dd($password->hash('as'));
+//    	 Auth::validate
+//         ('rael@erp.com','as');
+
+//         dd(Auth::lastLogin());
 
     	// Auth::validate('');
-        // view('dashboard.php');
+         view('dashboard.php');
     }
 
     public function starter()

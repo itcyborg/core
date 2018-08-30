@@ -1,6 +1,7 @@
 <?php
 namespace Core\Auth;
 
+use Core\Database\DB\DB;
 use Core\Requests\Request;
 use Core\Router\Route;
 use Core\URL\URL;
@@ -49,7 +50,7 @@ class Auth extends Authenticate implements \AuthInterface
     public static function setUser($user)
     {// takes all the user details from the sessionmanager and puts them in a variable
         // TODO: Implement setUser() method.
-        self::$user=$user;
+         self::$user=$user;
 
         /*
          * $user->id
@@ -76,7 +77,7 @@ class Auth extends Authenticate implements \AuthInterface
      */
     public function lastLogin()
     {
-        return self::$user;
+        return DB::last('logins','user_id',Auth::id())['created_at'];
         // TODO: Implement lastLogin() method.
     }
 
@@ -87,6 +88,8 @@ class Auth extends Authenticate implements \AuthInterface
     public function lastUpdated()
     {
         // TODO: Implement lastUpdated() method.
+        return self::$user['updated_at'];
+
     }
 
     /**
@@ -96,6 +99,7 @@ class Auth extends Authenticate implements \AuthInterface
     public function createdAt()
     {
         // TODO: Implement createdAt() method.
+        return self::$user['created_at'];
     }
 
     /**

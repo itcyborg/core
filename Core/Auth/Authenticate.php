@@ -33,6 +33,7 @@ class Authenticate implements \Authenticate
         //dd($db);
         if (count($db) !== 0) {
             if (PasswordService::verify($password, $db['password'])) {
+                DB::add('logins',['user_id'],[$db['id']]);
                /* dd(SessionManager::create([
                         'username' => $db['result'][0]->username,
                         'id' => $db['result'][0]->id,
@@ -45,11 +46,15 @@ class Authenticate implements \Authenticate
                         'username' => $db['username'],
                         'id' => $db['id'],
                         'email' => $email,
+                        'updated_at'=> $db['updated_at'],
+                        'created_at'=>$db['created_at'],
                         'loggedin' => true
                     ]),
                     'username' => $db['username'],
                     'id' => $db['id'],
                     'email' => $email,
+                    'updated_at'=> $db['updated_at'],
+                    'created_at'=>$db['created_at'],
                     'loggedin' => true
                 ]);
                 return true;

@@ -2,6 +2,7 @@
 
 use Core\Requests\Request;
 use Core\Requests\SanitizeRequest;
+use Core\URL\URL;
 
 class LoginController{
     public function index()
@@ -15,5 +16,9 @@ class LoginController{
         $email=SanitizeRequest::email($request->email);
         $password=SanitizeRequest::text($request->password);
         $remember=$request->remember;
+        if(\Core\Auth\Auth::validate($email,$password)){
+            $url=URL::getURI('/');
+            header("location:$url");
+        }
     }
 }
