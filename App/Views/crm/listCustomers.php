@@ -15,8 +15,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="icon" type="image/png" sizes="16x16" href="<?php asset('plugins/images/favicon.png'); ?>">
     <title>Slim ERP- CRM Dashboard</title>
     <!-- Bootstrap Core CSS -->
-    <link href="<?php asset('bootstrap/dist/css/bootstrap.min.css"'); ?> rel=" stylesheet
-    ">
+    <link href="<?php asset('bootstrap/dist/css/bootstrap.min.css'); ?>" rel="stylesheet">
     <!-- This is Sidebar menu CSS -->
     <link href="<?php asset('plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') ?>" rel="stylesheet">
     <!-- This is a Animation CSS -->
@@ -235,13 +234,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="<?php url('crm/customers/') ?>"><i class="mdi mdi-account-multiple fa-fw"></i>
-                                <span class="hide-menu">List Customers</span>
+                            <a href="<?php url('crm/customer/add') ?>"><i class="mdi mdi-account-multiple-plus fa-fw"></i>
+                                <span class="hide-menu">Add Customers</span>
                             </a>
                         </li>
                         <li>
-                            <a href="<?php url('crm/customer/add') ?>"><i class="mdi mdi-account-multiple-plus fa-fw"></i>
-                                <span class="hide-menu">Add Customers</span>
+                            <a href="<?php url('crm/customers/') ?>"><i class="mdi mdi-account-multiple fa-fw"></i>
+                                <span class="hide-menu">List Customers</span>
                             </a>
                         </li>
                     </ul>
@@ -277,14 +276,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Email</th>
-                                <th>First Name</th>
-                                <th>Other Names</th>
-                                <th>Created</th>
-                                <th class="text-nowrap">Action</th>
-                            </tr>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Email</th>
+                                    <th>First Name</th>
+                                    <th>Other Names</th>
+                                    <th>Created</th>
+                                    <th class="text-nowrap">Action</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 {foreach $data as $item}

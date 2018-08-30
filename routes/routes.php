@@ -30,6 +30,7 @@ Route::post('crm/customer/contact/add','crmController@addContact');
 //Case Management
 Route::get('case','caseController@index');
 Route::get('case/new','caseController@new');
+Route::get('case/list','caseController@list');
 Route::get('case/edit/{id}','caseController@edit');
 Route::get('case/reports','caseController@reports');
 
@@ -58,4 +59,6 @@ Route::post('hr/recruitment/adverts/new','recruitmentController@newAdvert');
 Route::post('/hr/recruitment/applications/new','recruitmentController@apply');
 
 Route::get('starter','indexController@starter');
-Route::get('email/test','testEmailController@test');
+Route::get('email/test',function($i){
+    echo 'hello';
+});

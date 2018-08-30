@@ -33,6 +33,7 @@ class Console
          */
         if ($input == null) {
             echo "No input entered.";
+            return;
         }
 
         /**
@@ -89,9 +90,11 @@ class Console
                 }
                 break;
             case 'controller': # Controller is used to create a Controller
-                # Create the controller
-                Controller::make($name);
-                break;
+                {
+                    # Create the controller
+                    Controller::make($name);
+                    break;
+                }
             case 'task':  # Task is used to create a new Task for use in Windows
                 # Create the task
                 JobManager::make($name);

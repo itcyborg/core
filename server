@@ -16,6 +16,7 @@ use Core\Console\Console;
 App::setDocumentRoot(__DIR__);
 
 ## CLEAN THE INPUTS AND REMOVE THE UNWANTED FIRST INPUT
+
 unset($argv[0]);
 
 ## EXECUTE THE CONSOLE APP

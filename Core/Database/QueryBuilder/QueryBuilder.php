@@ -191,6 +191,5 @@ class QueryBuilder extends Connection
             throw new ExceptionsHandler($e->getMessage(),$e->getCode());
         }
     }
-
 }
 

@@ -53,6 +53,16 @@ class Authenticate implements \Authenticate
                     'loggedin' => true
                 ]);
                 return true;
+                /*
+                 *
+                 *session id=>(username,id,email,loggedin)|| return session,
+                 * username,
+                 * id,
+                 * email,
+                 * loggedin
+                 *
+                 */
+
             }
             throw new ExceptionsHandler("Invalid Email/Password combination. Check your details and try again.");
         }

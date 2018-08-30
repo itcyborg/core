@@ -36,9 +36,8 @@ class View
 //                }
 //            }
         } else {
-            throw new ExceptionsHandler('View not found');
+            throw new ExceptionsHandler('View not found',404);
         }
-//        self::render($contents);
     }
 
     /**
