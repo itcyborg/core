@@ -2,7 +2,7 @@
 namespace Core\Auth;
 
 use Core\Requests\Request;
-use Core\Router\Routek;
+use Core\Router\Route;
 use Core\URL\URL;
 
 class Auth extends Authenticate implements \AuthInterface
@@ -49,10 +49,8 @@ class Auth extends Authenticate implements \AuthInterface
     public static function setUser($user)
     {// takes all the user details from the sessionmanager and puts them in a variable
         // TODO: Implement setUser() method.
-<<<<<<< HEAD
         self::$user=$user;
-        
-=======
+
         /*
          * $user->id
          * $user->name
@@ -60,7 +58,6 @@ class Auth extends Authenticate implements \AuthInterface
          * $user->session_id
          * loggedd in
          */
->>>>>>> e8117a283eaacfa116b03048e58c9a77181f3943
     }
 
     /**

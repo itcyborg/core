@@ -2,8 +2,6 @@
 use Core\Auth\Auth;
 use Core\Database\DB\DB;
 
-use Core\Auth\Auth;
-
 class indexController
 {
     public function __construct()
@@ -15,7 +13,7 @@ class indexController
     public function index()
     {
     	 Auth::validate
-         ('user@erp.com','as');
+         ('erp@erp.com','as');
          dd(Auth::lastlogin());
 
     	// Auth::validate('');
