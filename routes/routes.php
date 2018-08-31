@@ -59,6 +59,11 @@ Route::get('hr/recruitment/applications/new','recruitmentController@newApplicati
 Route::post('hr/recruitment/adverts/new','recruitmentController@newAdvert');
 Route::post('/hr/recruitment/applications/new','recruitmentController@apply');
 
+Route::get('sales','salesController@index');
+Route::get('sales/stock','salesController@stock');
+Route::get('sales/addstock','salesController@addstock');
+Route::get('sales/order','salesController@order');
+
 Route::get('starter','indexController@starter');
 Route::get('email/test',function($i){
     echo 'hello';
