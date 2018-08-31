@@ -251,7 +251,6 @@
                         <i class="fa fa-users  fa-fw"></i>
                         <span class="hide-menu">Cases
                             <span class="fa arrow"></span>
-                            <span class="label label-rouded label-purple pull-right">0</span>
                         </span>
                     </a>
                     <ul class="nav nav-second-level">

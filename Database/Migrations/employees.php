@@ -17,7 +17,7 @@ class employees
         $table->varchar('surname', 64);
         $table->date('dateOfBirth');
         $table->integer('idno', 11);
-        $table->integer('jobTitle', 11);
+        $table->text('jobTitle', 254);
         $table->timestamps();
         $table->build();
     }

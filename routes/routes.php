@@ -45,6 +45,7 @@ Route::get('hr/list','hrController@list');
 
 Route::get('hr/payroll','payrollController@index');
 Route::get('hr/payroll/all','payrollController@all');
+Route::get('hr/payroll/payslips','payrollController@payslips');
 Route::get('hr/payroll/list/{month}/{year}','payrollController@list');
 
 Route::post('hr/payroll/process','payrollController@process');

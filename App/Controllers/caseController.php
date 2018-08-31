@@ -23,12 +23,14 @@ class caseController{
     public function new()
     {
         //create new issue view
-        view('cases/addCase.php');
+        $customers=DB::all('customer');
+        view('cases/addCase.php',['customers'=>$customers]);
     }
 
     public function list()
     {
-        view('cases/listCases.php');
+        $cases=DB::all('cases');
+        view('cases/listCases.php',['cases'=>$cases]);
     }
 
     public function edit($id)
@@ -69,10 +71,9 @@ class caseController{
         //save a case
         $request=new Request();
         try {
-            $customerID = SanitizeRequest::text($request->customerID);
+            $customerID = SanitizeRequest::text($request->customer);
             $issue = SanitizeRequest::text($request->issue);
-            $status = SanitizeRequest::text(0);
-            DB::add(
+            if(DB::add(
                 'cases',
                 [
                     'customerId',
@@ -82,9 +83,12 @@ class caseController{
                 [
                     $customerID,
                     $issue,
-                    $status
+                    0
                 ]
-            );
+            )){
+                $customers=DB::all('customer');
+                return view('cases/addCase.php',['customers'=>$customers,'status'=>200,'msg'=>'Successfully inserted record']);
+            }
         }catch (\Throwable $e){
             dd($e->getMessage());
         }

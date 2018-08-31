@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="<?php asset('plugins/images/favicon.png'); ?>">
-    <title>Slim ERP- CRM Dashboard</title>
+    <title>Slim ERP- HR Dashboard</title>
     <!-- Bootstrap Core CSS -->
     <link href="<?php asset('bootstrap/dist/css/bootstrap.min.css'); ?>" rel="stylesheet">
 
@@ -241,7 +241,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?php url('crm'); ?>" class="waves-effect">
+                    <a href="<?php url('hr'); ?>" class="waves-effect">
                         <i class="ti-dashboard fa-fw"></i>
                         <span class="hide-menu">Dashboard</span>
                     </a>
@@ -249,19 +249,69 @@
                 <li>
                     <a href="javascript:void(0)" class="waves-effect">
                         <i class="fa fa-users  fa-fw"></i>
-                        <span class="hide-menu">Customers
+                        <span class="hide-menu">Employees
                             <span class="fa arrow"></span>
                         </span>
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a href="<?php url('crm/customer/add') ?>"><i class="mdi mdi-account-multiple-plus fa-fw"></i>
-                                <span class="hide-menu">Add Customers</span>
+                                <span class="hide-menu">Add Employee</span>
                             </a>
                         </li>
                         <li>
                             <a href="<?php url('crm/customers/') ?>"><i class="mdi mdi-account-multiple fa-fw"></i>
-                                <span class="hide-menu">List Customers</span>
+                                <span class="hide-menu">List Employees</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" class="waves-effect">
+                        <i class="fa fa-users  fa-fw"></i>
+                        <span class="hide-menu">Payroll
+                            <span class="fa arrow"></span>
+                        </span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="<?php url('hr/payroll') ?>"><i class="mdi mdi-account-multiple-plus fa-fw"></i>
+                                <span class="hide-menu">Add</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?php url('hr/payroll/all') ?>"><i class="mdi mdi-account-multiple-plus fa-fw"></i>
+                                <span class="hide-menu">View</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?php url('hr/payroll/all') ?>"><i class="mdi mdi-account-multiple fa-fw"></i>
+                                <span class="hide-menu">Process</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?php url('hr/payroll/payslips') ?>"><i class="mdi mdi-account-multiple fa-fw"></i>
+                                <span class="hide-menu">Payslips</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" class="waves-effect">
+                        <i class="fa fa-users  fa-fw"></i>
+                        <span class="hide-menu">Recruitment
+                            <span class="fa arrow"></span>
+                        </span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="<?php url('hr/payroll') ?>"><i class="mdi mdi-account-multiple-plus fa-fw"></i>
+                                <span class="hide-menu">Add</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?php url('hr/payroll/all') ?>"><i class="mdi mdi-account-multiple-plus fa-fw"></i>
+                                <span class="hide-menu">View</span>
                             </a>
                         </li>
                     </ul>

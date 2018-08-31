@@ -229,7 +229,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <i class="fa fa-users  fa-fw"></i>
                         <span class="hide-menu">Customers
                             <span class="fa arrow"></span>
-                            <span class="label label-rouded label-purple pull-right">2</span>
                         </span>
                     </a>
                     <ul class="nav nav-second-level">

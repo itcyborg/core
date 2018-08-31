@@ -229,7 +229,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <i class="fa fa-users  fa-fw"></i>
                         <span class="hide-menu">Cases
                             <span class="fa arrow"></span>
-                            <span class="label label-rouded label-purple pull-right">2</span>
                         </span>
                     </a>
                     <ul class="nav nav-second-level">
@@ -255,7 +254,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="row bg-title">
                 <!-- .page title -->
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Customers</h4></div>
+                    <h4 class="page-title">Cases</h4></div>
                 <!-- /.page title -->
                 <!-- .breadcrumb -->
                 <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
@@ -264,8 +263,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!--                    </button>-->
                     <ol class="breadcrumb">
                         <li><a href="<?php url('dashboard')?>">Dashboard</a></li>
-                        <li><a href="<?php url('crm')?>">Customer Relation</a></li>
-                        <li class="active">Customers</li>
+                        <li><a href="<?php url('cases')?>">Cases Management</a></li>
+                        <li class="active">List cases</li>
                     </ol>
                 </div>
                 <!-- /.breadcrumb -->
@@ -278,27 +277,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Email</th>
-                                    <th>First Name</th>
-                                    <th>Other Names</th>
+                                    <th>Customer</th>
+                                    <th>Issue</th>
                                     <th>Created</th>
+                                    <th>Status</th>
                                     <th class="text-nowrap">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {foreach $data as $item}
-                                    <tr>
-                                        <td>{$item['id']}</td>
-                                        <td>{$item['email']}</td>
-                                        <td>{$item['first_name']}</td>
-                                        <td>{$item['middle_name']} {$item['last_name']}</td>
-                                        <td>{$item['created_at']}</td>
+                                    <tr n:foreach="$cases as $case">
+                                        <td>{$case['id']}</td>
+                                        <td>{$case['customerId']}</td>
+                                        <td>{$case['issue']|truncate:50}</td>
+                                        <td>{$case['created_at']}</td>
+                                        <td>{$case['status']}</td>
                                         <td>
                                             <a href="#" data-toggle="tooltip" data-original-title="Edit" onclick="Customer.edit({$item['id']})"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
                                             <a href="#" data-toggle="tooltip" data-original-title="Delete" onclick="Customer.delete({$item['id']})"> <i class="fa fa-trash-o text-warning m-r-10"></i> </a>
                                         </td>
                                     </tr>
-                                {/foreach}
                             </tbody>
                         </table>
                     </div>
