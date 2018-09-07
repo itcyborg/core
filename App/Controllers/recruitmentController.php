@@ -1,7 +1,21 @@
-<?php 
+<?php
+
+use Core\Auth\Auth;
+
 class recruitmentController{
+    public function __construct()
+    {
+        $auth=new Auth;
+        $auth->isLoggedIn();
+    }
+
     public function index()
     {
-        return view('hr/addRecruitment.php');
+        view('hr/addRecruitment.php');
+    }
+
+    public function all()
+    {
+        view('hr/allRecruitment.php');
     }
 }

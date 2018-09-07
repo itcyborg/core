@@ -227,98 +227,7 @@
     </nav>
     <!-- End Top Navigation -->
     <!-- Left navbar-header -->
-    <div class="navbar-default sidebar" role="navigation">
-        <div class="sidebar-nav slimscrollsidebar">
-            <div class="sidebar-head">
-                <h3><span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">Navigation</span>
-                </h3>
-            </div>
-            <ul class="nav" id="side-menu" style="margin-top:1em;">
-                <li>
-                    <a href="<?php url('/'); ?>" class="waves-effect">
-                        <i class="linea-icon linea-basic fa-fw"></i>
-                        <span class="hide-menu">Home</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?php url('hr'); ?>" class="waves-effect">
-                        <i class="ti-dashboard fa-fw"></i>
-                        <span class="hide-menu">Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)" class="waves-effect">
-                        <i class="fa fa-users  fa-fw"></i>
-                        <span class="hide-menu">Employees
-                            <span class="fa arrow"></span>
-                        </span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="<?php url('hr/employee/add') ?>"><i class="mdi mdi-account-multiple-plus fa-fw"></i>
-                                <span class="hide-menu">Add Employee</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?php url('hr/employee/view') ?>"><i class="mdi mdi-account-multiple fa-fw"></i>
-                                <span class="hide-menu">List Employees</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:void(0)" class="waves-effect">
-                        <i class="fa fa-users  fa-fw"></i>
-                        <span class="hide-menu">Payroll
-                            <span class="fa arrow"></span>
-                        </span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="<?php url('hr/payroll') ?>"><i class="mdi mdi-account-multiple-plus fa-fw"></i>
-                                <span class="hide-menu">Add</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?php url('hr/payroll/all') ?>"><i class="mdi mdi-account-multiple-plus fa-fw"></i>
-                                <span class="hide-menu">View</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?php url('hr/payroll/all') ?>"><i class="mdi mdi-account-multiple fa-fw"></i>
-                                <span class="hide-menu">Process</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?php url('hr/payroll/payslips') ?>"><i class="mdi mdi-account-multiple fa-fw"></i>
-                                <span class="hide-menu">Payslips</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:void(0)" class="waves-effect">
-                        <i class="fa fa-users  fa-fw"></i>
-                        <span class="hide-menu">Recruitment
-                            <span class="fa arrow"></span>
-                        </span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="<?php url('hr/recruitment') ?>"><i class="mdi mdi-account-multiple-plus fa-fw"></i>
-                                <span class="hide-menu">Add</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?php url('hr/recruitment/all') ?>"><i class="mdi mdi-account-multiple-plus fa-fw"></i>
-                                <span class="hide-menu">View</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
+    <?php view('hr/sidebar.php') ?>
     <!-- Left navbar-header end -->
     <!-- Page Content -->
     <div id="page-wrapper">
@@ -326,7 +235,7 @@
             <div class="row bg-title">
                 <!-- .page title -->
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Starter Page</h4>
+                    <h4 class="page-title">ADD EMPLOYEE</h4>
                 </div>
                 <!-- /.page title -->
                 <!-- .breadcrumb -->
@@ -334,164 +243,82 @@
                     <button class="right-side-toggle waves-effect waves-light btn-info btn-circle pull-right m-l-20">
                         <i class="ti-settings text-white"></i>
                     </button>
-                    <a href="javascript: void(0);" target="_blank" class="btn btn-danger pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">Buy Admin Now</a>
                     <ol class="breadcrumb">
                         <li><a href="#">Dashboard</a></li>
-                        <li class="active">Starter Page</li>
+                        <li><a href="#">HR</a></li>
+                        <li class="active">Add Employee</li>
                     </ol>
                 </div>
                 <!-- /.breadcrumb -->
             </div>
             <!-- .row -->
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-12">
                     <div class="white-box">
-                        <h3 class="box-title">NEW CUSTOMERS</h3>
-                        <ul class="list-inline two-part">
-                            <li><i class="icon-people text-info"></i></li>
-                            <li class="text-right"><span class="counter">23</span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="white-box">
-                        <h3 class="box-title">NEW MESSAGES</h3>
-                        <ul class="list-inline two-part">
-                            <li><i class="fa fa-comments text-inverse"></i></li>
-                            <li class="text-right"><span class="counter">23</span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="white-box">
-                        <h3 class="box-title">FEEDBACK</h3>
-                        <ul class="list-inline two-part">
-                            <li><i class="fa fa-bullhorn text-blue"></i></li>
-                            <li class="text-right"><span class="counter">23</span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="white-box">
-                        <h3 class="box-title">NEW ISSUES</h3>
-                        <ul class="list-inline two-part">
-                            <li><i class="fa fa-tags text-danger"></i></li>
-                            <li class="text-right"><span class="counter">23</span></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="white-box">
-                        <h3 class="box-title">Recent Customers</h3>
-                        <div class="row sales-report">
-                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                <h2>March 2018</h2>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-6 ">
-                                <h1 class="text-right text-info m-t-20"><i class="fa fa-users"></i> 345</h1> </div>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>NAME</th>
-                                    <th>STATUS</th>
-                                    <th>DATE</th>
-                                    <th>PRICE</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td class="txt-oflo">Elite admin</td>
-                                    <td><span class="label label-success label-rouded">SALE</span> </td>
-                                    <td class="txt-oflo">April 18, 2017</td>
-                                    <td><span class="text-success">$24</span></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td class="txt-oflo">Real Homes WP Theme</td>
-                                    <td><span class="label label-info label-rouded">EXTENDED</span></td>
-                                    <td class="txt-oflo">April 19, 2017</td>
-                                    <td><span class="text-info">$1250</span></td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td class="txt-oflo">Ample Admin</td>
-                                    <td><span class="label label-info label-rouded">EXTENDED</span></td>
-                                    <td class="txt-oflo">April 19, 2017</td>
-                                    <td><span class="text-info">$1250</span></td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td class="txt-oflo">Medical Pro WP Theme</td>
-                                    <td><span class="label label-danger label-rouded">TAX</span></td>
-                                    <td class="txt-oflo">April 20, 2017</td>
-                                    <td><span class="text-danger">-$24</span></td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td class="txt-oflo">Hosting press html</td>
-                                    <td><span class="label label-warning label-rouded">SALE</span></td>
-                                    <td class="txt-oflo">April 21, 2017</td>
-                                    <td><span class="text-success">$24</span></td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td class="txt-oflo">Digital Agency PSD</td>
-                                    <td><span class="label label-success label-rouded">SALE</span> </td>
-                                    <td class="txt-oflo">April 23, 2017</td>
-                                    <td><span class="text-danger">-$14</span></td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td class="txt-oflo">Helping Hands WP Theme</td>
-                                    <td><span class="label label-warning label-rouded">member</span></td>
-                                    <td class="txt-oflo">April 22, 2017</td>
-                                    <td><span class="text-success">$64</span></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 col-lg-6 col-sm-12">
-                    <div class="white-box">
-                        <h3 class="box-title">Recent Comments</h3>
-                        <div class="comment-center p-t-10">
-                            <div class="comment-body">
-                                <div class="user-img"> <img src="../plugins/images/users/pawandeep.jpg" alt="user" class="img-circle"></div>
-                                <div class="mail-contnet">
-                                    <h5>Pavan kumar</h5>
-                                    <span class="time">10:20 AM   20  may 2016</span>
-                                    <span class="label label-rouded label-info">PENDING</span>
-                                    <br>
-                                    <span class="mail-desc">Donec ac condimentum massa. Etiam pellentesque pretium lacus. Phasellus ultricies dictum suscipit. Aenean commodo dui pellentesque molestie feugiat. Aenean commodo dui pellentesque molestie feugiat</span>
-                                    <a href="javacript:void(0)" class="btn btn btn-rounded btn-default btn-outline m-r-5">
-                                        <i class="ti-check text-success m-r-5"></i>Approve</a>
-                                    <a href="javacript:void(0)" class="btn-rounded btn btn-default btn-outline"><i class="ti-close text-danger m-r-5"></i> Reject</a>
+                        <h3 class="box-title">ADD EMPLOYEE</h3>
+                        <form action="<?php url('hr/employee/add') ?>" method="post">
+                            <div class="row p-20">
+                                <h4>Employee Details</h4>
+                                <div class="row p-20">
+                                    <div class="col-md-4">
+                                        <label for="fname">First Name</label>
+                                        <input type="text" class="form-control" name="fname">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="sirname">Sirname Name</label>
+                                        <input type="text" class="form-control" name="sirname">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="lname">Last Name</label>
+                                        <input type="text" class="form-control" name="lname">
+                                    </div>
+                                </div>
+                                <div class="row p-20">
+                                    <div class="col-md-4">
+                                        <label for="dob">Date of Birth</label>
+                                        <input type="date" name="dob" id="" class="form-control" placeholder="Date of Birth">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="id">ID Number</label>
+                                        <input type="text" name="id" class="form-control">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="title">Job Title</label>
+                                        <input type="text" class="form-control" name="title">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="comment-body">
-                                <div class="user-img"> <img src="../plugins/images/users/sonu.jpg" alt="user" class="img-circle"> </div>
-                                <div class="mail-contnet">
-                                    <h5>Sonu Nigam</h5><span class="time">10:20 AM   20  may 2016</span> <span class="label label-rouded label-success">APPROVED</span>
-                                    <br><span class="mail-desc">Donec ac condimentum massa. Etiam pellentesque pretium lacus. Phasellus ultricies dictum suscipit. Aenean commodo dui pellentesque molestie feugiat. Aenean commodo dui pellentesque molestie feugiat</span> </div>
+                            <div class="row b-t p-20">
+                                <h4>Contact Information</h4>
+                                <div class="row p-20">
+                                    <div class="col-md-4">
+                                        <label for="email">Email</label>
+                                        <input type="email" name="email" id="email" class="form-control">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="address">Address</label>
+                                        <input type="text" class="form-control" name="address">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="alt_address">Alt. Address</label>
+                                        <input type="text" class="form-control" name="alt_address">
+                                    </div>
+                                </div>
+                                <div class="row p-20">
+                                    <div class="col-md-4">
+                                        <label for="contact">Tel. Number</label>
+                                        <input type="number" class="form-control" name="contact">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="alt_contact">Alt. Tel. Number</label>
+                                        <input type="number" class="form-control" name="alt_contact">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="comment-body b-none">
-                                <div class="user-img"> <img src="../plugins/images/users/arijit.jpg" alt="user" class="img-circle"> </div>
-                                <div class="mail-contnet">
-                                    <h5>Arijit singh</h5><span class="time">10:20 AM   20  may 2016</span> <span class="label label-rouded label-danger">REJECTED</span>
-                                    <br><span class="mail-desc">Donec ac condimentum massa. Etiam pellentesque pretium lacus. Phasellus ultricies dictum suscipit. Aenean commodo dui pellentesque molestie feugiat. Aenean commodo dui pellentesque molestie feugiat</span> </div>
+                            <div class="row p-30">
+                                <button class="btn btn-primary pull-right"><i class="fa fa-check-circle-o"></i> Save</button>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

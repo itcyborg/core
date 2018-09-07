@@ -13,7 +13,6 @@
     <!-- Bootstrap Core CSS -->
     <link href="<?php asset('bootstrap/dist/css/bootstrap.min.css'); ?>" rel="stylesheet">
 
-
     <!-- This is Sidebar menu CSS -->
     <link href="<?php asset('plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') ?>" rel="stylesheet">
     <!-- This is a Animation CSS -->
@@ -235,7 +234,7 @@
             <div class="row bg-title">
                 <!-- .page title -->
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Payslips</h4>
+                    <h4 class="page-title">Payroll</h4>
                 </div>
                 <!-- /.page title -->
                 <!-- .breadcrumb -->
@@ -243,57 +242,47 @@
                     <button class="right-side-toggle waves-effect waves-light btn-info btn-circle pull-right m-l-20">
                         <i class="ti-settings text-white"></i>
                     </button>
-                    <a href="javascript: void(0);" target="_blank" class="btn btn-danger pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">Buy Admin Now</a>
                     <ol class="breadcrumb">
                         <li><a href="#">Dashboard</a></li>
-                        <li class="active">Starter Page</li>
+                        <li><a href="#">hr</a></li>
+                        <li class="active">View Payroll</li>
                     </ol>
                 </div>
                 <!-- /.breadcrumb -->
             </div>
             <!-- .row -->
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="white-box">
-                        <h3 class="box-title">PAYSLIPS</h3>
-                        <div class="row p-20">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-hover table-primary table-condensed">
-                                    <thead>
-                                        <th>#</th>
-                                        <th>Name</th>
-                                        <th>Month</th>
-                                        <th>Year</th>
-                                        <th>Basic</th>
-                                        <th>Tax</th>
-                                        <th>Deductions</th>
-                                        <th>Net</th>
-                                        <th>Updated On</th>
-                                        <th>Actions</th>
-                                    </thead>
-                                    <tbody>
-                                        {foreach $payslips as $payslip}
-                                            <tr class="advance-table-row">
-                                                <td>{$payslip['id']}</td>
-                                                <td>{$payslip['name']}</td>
-                                                <td>{$payslip['month']}</td>
-                                                <td>{$payslip['year']}</td>
-                                                <td>{$payslip['basic']}</td>
-                                                <td>{$payslip['tax']}</td>
-                                                <td>{$payslip['deductions']}</td>
-                                                <td>{$payslip['net']}</td>
-                                                <td>{$payslip['updated_at']}</td>
-                                                <td>
-                                                    <button class="btn btn-outline btn-rounded btn-info">
-                                                        <i class="fa fa-file-o"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                                        {/foreach}
-                                    </tbody>
-                                </table>
-                            </div>
+                        <h4 class="page-title">PROCESS INDIVIDUAL</h4>
+                        <ul class="list-inline two-part">
+                            <li><i class="icon-people text-info"></i></li>
+                            <li class="text-right"><span class="counter">23</span></li>
+                        </ul>
+                        <div class="row p-10">
+                            <div class="pull-left">5123165</div>
+                            <button class="btn btn-primary btn-rounded btn-outline pull-right">
+                                <i class="fa fa-check"></i>
+                                Process
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="white-box">
+                        <h4 class="page-title">PROCESS ALL</h4>
+                        <div class="row">
+                        <ul class="list-inline two-part">
+                            <li><i class="icon-people text-info"></i></li>
+                            <li class="text-right"><span class="counter">23</span></li>
+                        </ul>
+                        </div>
+                        <div class="row p-10">
+                            <div class="pull-left">011231</div>
+                            <button class="btn btn-warning btn-rounded btn-outline pull-right" onclick="processAll()">
+                                <i class="fa fa-check"></i>
+                                Process
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -382,5 +371,19 @@
 <script src="<?php asset('js/waves.js') ?>"></script>
 <!-- Custom Theme JavaScript -->
 <script src="<?php asset('js/custom.js') ?>"></script>
+<script>
+    $(document).ready(function(){
+    });
+    
+    function processAll() {
+        $.ajax({
+            url: "<?php url('hr/payroll/process/all') ?>",
+            type:'post',
+            success:function(data){
+                alert(data);
+            }
+        });
+    }
+</script>
 </body>
 </html>

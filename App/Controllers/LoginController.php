@@ -16,8 +16,16 @@ class LoginController{
         $email=SanitizeRequest::email($request->email);
         $password=SanitizeRequest::text($request->password);
         $remember=$request->remember;
-        if(\Core\Auth\Auth::validate($email,$password)){
-            $url=URL::getURI('/');
+        try {
+            if (\Core\Auth\Auth::validate($email, $password)) {
+                $url = URL::getURI('/');
+                header("location:$url");
+            } else {
+                $url = URL::getURI('/');
+                header("location$url");
+            }
+        }catch (\Core\Exceptions\ExceptionsHandler $e){
+            $url = URL::getURI('/');
             header("location:$url");
         }
     }

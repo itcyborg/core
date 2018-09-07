@@ -6,8 +6,6 @@
  * Time: 9:56 AM
  */
 
-use Core\Auth\Auth;
-use Core\Database\DB\DB;
 use Core\Router\Route;
 
 
@@ -18,8 +16,8 @@ Route::get('', 'indexController@index');
 Route::get('crm','crmController@index');
 Route::get('crm/customers','crmController@listCustomers');
 Route::get('crm/customer/add','crmController@add');
-Route::get('crm/customer/edit/customer/{id}','crmController@edit');
-Route::get('crm/customer/edit/contact/{id}','crmController@editContact');
+//Route::get('crm/customer/edit/customer/{id}','crmController@edit');
+//Route::get('crm/customer/edit/contact/{id}','crmController@editContact');
 
 Route::post('crm/customer/add','crmController@store');
 Route::post('crm/customers/delete/{id}','crmController@delete');
@@ -41,14 +39,20 @@ Route::post('case/solve','caseController@solve');
 
 //Human Resource
 Route::get('hr','hrController@index');
-Route::get('hr/list','hrController@list');
+
+Route::get("hr/employee/add",'hrController@employeeForm');
+Route::get("hr/employee/view",'hrController@listEmployees');
+Route::post("hr/employee/add",'hrController@addEmployee');
 
 Route::get('hr/payroll','payrollController@index');
 Route::get('hr/payroll/all','payrollController@all');
 Route::get('hr/payroll/payslips','payrollController@payslips');
 Route::get('hr/payroll/list/{month}/{year}','payrollController@list');
+Route::get('hr/payroll/process','payrollController@processIndex');
 
 Route::post('hr/payroll/process','payrollController@process');
+Route::post('hr/payroll/process/all','payrollController@processall');
+Route::post("hr/payroll/add",'payrollController@add');
 
 Route::get('hr/recruitment','recruitmentController@index');
 Route::get('hr/recruitment/all','recruitmentController@all');
