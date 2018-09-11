@@ -259,6 +259,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="<?php url('sales'); ?>" class="waves-effect">
+                        <i class="fa fa-money fa-fw"></i>
+                        <span class="hide-menu">Sales Dashboard</span>
+                    </a>
+                </li>
+                <li>
                     <a href="javascript:void(0)" class="waves-effect">
                         <i data-icon="/" lass="linea-icon linea-basic fa-fw"></i>
                         <span class="hide-menu">Dropdown Link

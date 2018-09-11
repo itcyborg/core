@@ -80,7 +80,7 @@ class QueryBuilder extends Connection
      */
     public static function one($table, $field, $value, $data)
     {
-        self::$query = "SELECT " . $value . " FROM " . $table . " WHERE " . $field . "=" . $data;
+        self::$query = "SELECT " . $value . " FROM " . $table . " WHERE " . $field . "='" . $data."'";
         try {
             $pdo = ConnectionBuilder::getConnection();
             $stmt = $pdo->prepare(self::$query);
@@ -199,11 +199,22 @@ class QueryBuilder extends Connection
         try{
             $pdo=ConnectionBuilder::getConnection();
             $stmt=$pdo->prepare(self::$query);
-            //dd(self::$query);
             $stmt->execute();
             return $stmt->fetch();
-
         } catch (\Throwable $e){
+            throw new ExceptionsHandler($e->getMessage(),$e->getCode());
+        }
+    }
+
+    public static function raw($query)
+    {
+        self::$query=$query;
+        try{
+            $pdo=ConnectionBuilder::getConnection();
+            $stmt=$pdo->prepare(self::$query);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        }catch (\Throwable $e){
             throw new ExceptionsHandler($e->getMessage(),$e->getCode());
         }
     }

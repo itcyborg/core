@@ -226,7 +226,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <i class="fa fa-users  fa-fw"></i>
                         <span class="hide-menu">Cases
                             <span class="fa arrow"></span>
-                            <span class="label label-rouded label-purple pull-right">2</span>
                         </span>
                     </a>
                     <ul class="nav nav-second-level">
@@ -252,7 +251,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="row bg-title">
                 <!-- .page title -->
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Add Customer</h4></div>
+                    <h4 class="page-title">Add Case</h4></div>
                 <!-- /.page title -->
                 <!-- .breadcrumb -->
                 <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
@@ -261,8 +260,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!--                    </button>-->
                     <ol class="breadcrumb">
                         <li><a href="<?php url('dashboard')?>">Dashboard</a></li>
-                        <li><a href="<?php url('crm')?>">Customer Relation</a></li>
-                        <li class="active">Add Customer</li>
+                        <li><a href="<?php url('crm')?>">Case Management</a></li>
+                        <li class="active">Add Case</li>
                     </ol>
                 </div>
                 <!-- /.breadcrumb -->
@@ -277,72 +276,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="alert alert-success">{$msg|capitalize}</div>
                     {/if}
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="white-box p-l-20 p-r-20">
-                        <h3 class="box-title">Add Customer</h3>
+                        <h3 class="box-title">Add Case</h3>
                         <div class="p-30">
-                            <form action="<?php url('crm/customer/add')?>" method="post" class="form-horizontal form-material floating-labels">
+                            <form action="<?php url('case/new')?>" method="post" class="form-horizontal">
                                 <div class="form-body">
-                                    <div class="form-group m-b-40">
-                                        <input type="text" name="fname" id="fname" class="form-control" required>
-                                        <span class="highlight"></span>
-                                        <label for="fname">First Name</label>
+                                    <div class="form-group">
+                                        <select name="customer" id="customer" class="form-control m-10" n:if="$customers">
+                                            <option value="">Select Customer</option>
+                                            <option n:foreach="$customers as $customer" value="{$customer['id']}">
+                                                {$customer['email']|lower}
+                                            </option>
+                                        </select>
                                     </div>
                                     <div class="form-group m-b-40">
-                                        <input type="text" name="mname" id="mname" class="form-control" required>
-                                        <span class="highlight"></span>
-                                        <span class="bar"></span>
-                                        <label for="mname">Middle Name</label>
-                                    </div>
-                                    <div class="form-group m-b-40">
-                                        <input type="text" name="lname" id="lname" class="form-control" required>
-                                        <span class="highlight"></span>
-                                        <span class="bar"></span>
-                                        <label for="lname">Last Name</label>
-                                    </div>
-                                    <div class="form-group m-b-40">
-                                        <input type="email" name="email" id="email" class="form-control" required>
-                                        <span class="highlight"></span>
-                                        <span class="bar"></span>
-                                        <label for="email">Email</label>
+                                        <label for="mname">Issue</label>
+                                        <textarea name="issue" id="issue" class="form-control" required></textarea>
                                     </div>
                                 </div>
                                 <div class="form-actions">
-                                    <div class="row">
-                                        <button class="btn btn-primary btn-rounded col-lg-12 col-sm-12 col-xs-12">Add Customer</button>
+                                    <div class="row pull-right">
+                                        <button class="btn btn-primary btn-rounded">Add Case</button>
                                     </div>
                                 </div>
                             </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="white-box">
-                        <div class="container-fluid">
-                            <h3 class="box-title">Add Contact</h3>
-                            <div class="row-fluid">
-                                <form action="<?php url('crm/customer/contact/add')?>" method="post" class="form-horizontal form-material">
-                                    <div class="form-body">
-                                        <div class="form-group">
-                                            <select name="customer" id="customer" class="form-control" n:if="$customers">
-                                                <option n:foreach="$customers as $customer" value="{$customer['id']}">{$customer['email']|lower}</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group m-b-40">
-                                            <input type="tel" name="tel" id="tel" class="form-control" required placeholder="Telephone Number">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="tel" name="altTel" id="altTel" class="form-control" placeholder="Alt Telephone Number">
-                                        </div>
-                                    </div>
-                                    <div class="form-actions">
-                                        <div class="row">
-                                            <button class="btn btn-primary   btn-rounded col-lg-12 col-sm-12 col-xs-12">Add Contact</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-lg-6"></div>
                         </div>
                     </div>
                 </div>

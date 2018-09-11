@@ -17,6 +17,7 @@ class salary
     {
         $table = new Schema($tablename);
         $table->increments();
+        $table->integer('employee_id',11);
         $table->integer('job_group', 11);
         $table->integer('salaries', 11);
         $table->integer('tax', 11);

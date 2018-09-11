@@ -4,7 +4,7 @@ namespace App\Migrations;
 
 use Core\Database\SchemaBuilder\Schema;
 
-class employees
+class ordersTbl
 {
 
 
@@ -12,12 +12,10 @@ class employees
     {
         $table = new Schema($tablename);
         $table->increments();
-        $table->varchar('first_name', 64);
-        $table->varchar('last_name', 64);
-        $table->varchar('surname', 64);
-        $table->date('dateOfBirth');
-        $table->integer('idno', 11);
-        $table->text('jobTitle', 254);
+        $table->integer('orderId', 11);
+        $table->integer('amount', 11);
+        $table->varchar('status', 64);
+        $table->varchar('order_Item', 64);
         $table->timestamps();
         $table->build();
     }

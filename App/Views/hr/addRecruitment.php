@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="<?php asset('plugins/images/favicon.png'); ?>">
-    <title>Slim ERP- CRM Dashboard</title>
+    <title>Slim ERP- HR Dashboard</title>
     <!-- Bootstrap Core CSS -->
     <link href="<?php asset('bootstrap/dist/css/bootstrap.min.css'); ?>" rel="stylesheet">
 
@@ -227,48 +227,7 @@
     </nav>
     <!-- End Top Navigation -->
     <!-- Left navbar-header -->
-    <div class="navbar-default sidebar" role="navigation">
-        <div class="sidebar-nav slimscrollsidebar">
-            <div class="sidebar-head">
-                <h3><span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">Navigation</span>
-                </h3>
-            </div>
-            <ul class="nav" id="side-menu" style="margin-top:1em;">
-                <li>
-                    <a href="<?php url('/'); ?>" class="waves-effect">
-                        <i class="linea-icon linea-basic fa-fw"></i>
-                        <span class="hide-menu">Home</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?php url('crm'); ?>" class="waves-effect">
-                        <i class="ti-dashboard fa-fw"></i>
-                        <span class="hide-menu">Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)" class="waves-effect">
-                        <i class="fa fa-users  fa-fw"></i>
-                        <span class="hide-menu">Customers
-                            <span class="fa arrow"></span>
-                        </span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="<?php url('crm/customer/add') ?>"><i class="mdi mdi-account-multiple-plus fa-fw"></i>
-                                <span class="hide-menu">Add Customers</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?php url('crm/customers/') ?>"><i class="mdi mdi-account-multiple fa-fw"></i>
-                                <span class="hide-menu">List Customers</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
+    <?php view('hr/sidebar.php') ?>
     <!-- Left navbar-header end -->
     <!-- Page Content -->
     <div id="page-wrapper">

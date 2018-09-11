@@ -13,14 +13,6 @@ class indexController
 
     public function index()
     {
-//        $password=new \Core\Auth\PasswordService;
-        // dd($password->hash('as'));
-//    	 Auth::validate
-//         ('rael@erp.com','as');
-
-//         dd(Auth::lastLogin());
-
-    	// Auth::validate('');
          view('dashboard.php');
     }
 

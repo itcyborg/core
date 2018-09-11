@@ -3,6 +3,8 @@
 
 Storage/
 
+Config/
+
 vendor/
 
 *.bat

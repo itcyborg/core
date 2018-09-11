@@ -9,10 +9,9 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="<?php asset('plugins/images/favicon.png'); ?>">
-    <title>Slim ERP- CRM Dashboard</title>
+    <title>Slim ERP- HR Dashboard</title>
     <!-- Bootstrap Core CSS -->
     <link href="<?php asset('bootstrap/dist/css/bootstrap.min.css'); ?>" rel="stylesheet">
-
 
     <!-- This is Sidebar menu CSS -->
     <link href="<?php asset('plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') ?>" rel="stylesheet">
@@ -227,48 +226,7 @@
     </nav>
     <!-- End Top Navigation -->
     <!-- Left navbar-header -->
-    <div class="navbar-default sidebar" role="navigation">
-        <div class="sidebar-nav slimscrollsidebar">
-            <div class="sidebar-head">
-                <h3><span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">Navigation</span>
-                </h3>
-            </div>
-            <ul class="nav" id="side-menu" style="margin-top:1em;">
-                <li>
-                    <a href="<?php url('/'); ?>" class="waves-effect">
-                        <i class="linea-icon linea-basic fa-fw"></i>
-                        <span class="hide-menu">Home</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?php url('crm'); ?>" class="waves-effect">
-                        <i class="ti-dashboard fa-fw"></i>
-                        <span class="hide-menu">Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)" class="waves-effect">
-                        <i class="fa fa-users  fa-fw"></i>
-                        <span class="hide-menu">Customers
-                            <span class="fa arrow"></span>
-                        </span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="<?php url('crm/customer/add') ?>"><i class="mdi mdi-account-multiple-plus fa-fw"></i>
-                                <span class="hide-menu">Add Customers</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?php url('crm/customers/') ?>"><i class="mdi mdi-account-multiple fa-fw"></i>
-                                <span class="hide-menu">List Customers</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
+    <?php view('hr/sidebar.php') ?>
     <!-- Left navbar-header end -->
     <!-- Page Content -->
     <div id="page-wrapper">
@@ -276,7 +234,7 @@
             <div class="row bg-title">
                 <!-- .page title -->
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Starter Page</h4>
+                    <h4 class="page-title">Payroll</h4>
                 </div>
                 <!-- /.page title -->
                 <!-- .breadcrumb -->
@@ -284,162 +242,48 @@
                     <button class="right-side-toggle waves-effect waves-light btn-info btn-circle pull-right m-l-20">
                         <i class="ti-settings text-white"></i>
                     </button>
-                    <a href="javascript: void(0);" target="_blank" class="btn btn-danger pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">Buy Admin Now</a>
                     <ol class="breadcrumb">
                         <li><a href="#">Dashboard</a></li>
-                        <li class="active">Starter Page</li>
+                        <li><a href="#">hr</a></li>
+                        <li class="active">View Payroll</li>
                     </ol>
                 </div>
                 <!-- /.breadcrumb -->
             </div>
             <!-- .row -->
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-12">
                     <div class="white-box">
-                        <h3 class="box-title">NEW CUSTOMERS</h3>
-                        <ul class="list-inline two-part">
-                            <li><i class="icon-people text-info"></i></li>
-                            <li class="text-right"><span class="counter">23</span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="white-box">
-                        <h3 class="box-title">NEW MESSAGES</h3>
-                        <ul class="list-inline two-part">
-                            <li><i class="fa fa-comments text-inverse"></i></li>
-                            <li class="text-right"><span class="counter">23</span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="white-box">
-                        <h3 class="box-title">FEEDBACK</h3>
-                        <ul class="list-inline two-part">
-                            <li><i class="fa fa-bullhorn text-blue"></i></li>
-                            <li class="text-right"><span class="counter">23</span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="white-box">
-                        <h3 class="box-title">NEW ISSUES</h3>
-                        <ul class="list-inline two-part">
-                            <li><i class="fa fa-tags text-danger"></i></li>
-                            <li class="text-right"><span class="counter">23</span></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="white-box">
-                        <h3 class="box-title">Recent Customers</h3>
-                        <div class="row sales-report">
-                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                <h2>March 2018</h2>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-6 ">
-                                <h1 class="text-right text-info m-t-20"><i class="fa fa-users"></i> 345</h1> </div>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>NAME</th>
-                                    <th>STATUS</th>
-                                    <th>DATE</th>
-                                    <th>PRICE</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td class="txt-oflo">Elite admin</td>
-                                    <td><span class="label label-success label-rouded">SALE</span> </td>
-                                    <td class="txt-oflo">April 18, 2017</td>
-                                    <td><span class="text-success">$24</span></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td class="txt-oflo">Real Homes WP Theme</td>
-                                    <td><span class="label label-info label-rouded">EXTENDED</span></td>
-                                    <td class="txt-oflo">April 19, 2017</td>
-                                    <td><span class="text-info">$1250</span></td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td class="txt-oflo">Ample Admin</td>
-                                    <td><span class="label label-info label-rouded">EXTENDED</span></td>
-                                    <td class="txt-oflo">April 19, 2017</td>
-                                    <td><span class="text-info">$1250</span></td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td class="txt-oflo">Medical Pro WP Theme</td>
-                                    <td><span class="label label-danger label-rouded">TAX</span></td>
-                                    <td class="txt-oflo">April 20, 2017</td>
-                                    <td><span class="text-danger">-$24</span></td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td class="txt-oflo">Hosting press html</td>
-                                    <td><span class="label label-warning label-rouded">SALE</span></td>
-                                    <td class="txt-oflo">April 21, 2017</td>
-                                    <td><span class="text-success">$24</span></td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td class="txt-oflo">Digital Agency PSD</td>
-                                    <td><span class="label label-success label-rouded">SALE</span> </td>
-                                    <td class="txt-oflo">April 23, 2017</td>
-                                    <td><span class="text-danger">-$14</span></td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td class="txt-oflo">Helping Hands WP Theme</td>
-                                    <td><span class="label label-warning label-rouded">member</span></td>
-                                    <td class="txt-oflo">April 22, 2017</td>
-                                    <td><span class="text-success">$64</span></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 col-lg-6 col-sm-12">
-                    <div class="white-box">
-                        <h3 class="box-title">Recent Comments</h3>
-                        <div class="comment-center p-t-10">
-                            <div class="comment-body">
-                                <div class="user-img"> <img src="../plugins/images/users/pawandeep.jpg" alt="user" class="img-circle"></div>
-                                <div class="mail-contnet">
-                                    <h5>Pavan kumar</h5>
-                                    <span class="time">10:20 AM   20  may 2016</span>
-                                    <span class="label label-rouded label-info">PENDING</span>
-                                    <br>
-                                    <span class="mail-desc">Donec ac condimentum massa. Etiam pellentesque pretium lacus. Phasellus ultricies dictum suscipit. Aenean commodo dui pellentesque molestie feugiat. Aenean commodo dui pellentesque molestie feugiat</span>
-                                    <a href="javacript:void(0)" class="btn btn btn-rounded btn-default btn-outline m-r-5">
-                                        <i class="ti-check text-success m-r-5"></i>Approve</a>
-                                    <a href="javacript:void(0)" class="btn-rounded btn btn-default btn-outline"><i class="ti-close text-danger m-r-5"></i> Reject</a>
-                                </div>
-                            </div>
-                            <div class="comment-body">
-                                <div class="user-img"> <img src="../plugins/images/users/sonu.jpg" alt="user" class="img-circle"> </div>
-                                <div class="mail-contnet">
-                                    <h5>Sonu Nigam</h5><span class="time">10:20 AM   20  may 2016</span> <span class="label label-rouded label-success">APPROVED</span>
-                                    <br><span class="mail-desc">Donec ac condimentum massa. Etiam pellentesque pretium lacus. Phasellus ultricies dictum suscipit. Aenean commodo dui pellentesque molestie feugiat. Aenean commodo dui pellentesque molestie feugiat</span> </div>
-                            </div>
-                            <div class="comment-body b-none">
-                                <div class="user-img"> <img src="../plugins/images/users/arijit.jpg" alt="user" class="img-circle"> </div>
-                                <div class="mail-contnet">
-                                    <h5>Arijit singh</h5><span class="time">10:20 AM   20  may 2016</span> <span class="label label-rouded label-danger">REJECTED</span>
-                                    <br><span class="mail-desc">Donec ac condimentum massa. Etiam pellentesque pretium lacus. Phasellus ultricies dictum suscipit. Aenean commodo dui pellentesque molestie feugiat. Aenean commodo dui pellentesque molestie feugiat</span> </div>
+                        <h4 class="page-title">VIEW PAYROLL</h4>
+                        <p>The table shows the monthly salary and total deductions before tax.</p>
+                        <div class="row p-20">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-condensed table-striped">
+                                    <thead>
+                                        <th># ID</th>
+                                        <th>NAME</th>
+                                        <th>ID NUMBER</th>
+                                        <th>AMOUNT</th>
+                                        <th>DEDUCTIONS</th>
+                                        <th>CREATED ON</th>
+                                        <th>UPDATED ON</th>
+                                        <th>ACTIONS</th>
+                                    </thead>
+                                    <tbody>
+                                    {foreach $payrolls as $payroll}
+                                    <tr>
+                                        <td>{$payroll['id']}</td>
+                                        <td>{$payroll['name']}</td>
+                                        <td>{$payroll['idnumber']}</td>
+                                        <td>{$payroll['amount']}</td>
+                                        <td>{$payroll['deductions']}</td>
+                                        <td>{$payroll['created_at']}</td>
+                                        <td>{$payroll['updated_at']}</td>
+                                        <td></td>
+                                    </tr>
+                                    {/foreach}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

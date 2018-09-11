@@ -1,5 +1,6 @@
 <?php
 
+use Core\Exceptions\ExceptionsHandler;
 use Core\URL\URL;
 use Core\View\View;
 
@@ -72,4 +73,15 @@ function view($view, $data = null)
 function url($uri)
 {
     echo \Core\URL\URL::getURI($uri);
+}
+
+function str_random($length=null,bool $secure=false){
+    $str_length=8;
+    ($length>0)? $str_length=$length:$str_length=$str_length;
+    $random_string=openssl_random_pseudo_bytes($str_length,$secure);
+    return str_shuffle(bin2hex($random_string));
+}
+
+function toObject($array){
+    return json_decode(json_encode($array));
 }
