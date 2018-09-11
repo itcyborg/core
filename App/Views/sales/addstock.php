@@ -134,7 +134,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="white-box p-l-20 p-r-20">
                         <h3 class="box-title">Add Item</h3>
                         <div class="p-30">
-                            <form action="<?php url('crm/customer/add')?>" method="post" class="form-horizontal form-material floating-labels">
+                            <form action="<?php url('sales/stock/add')?>" method="post" class="form-horizontal form-material floating-labels">
                                 <div class="form-body">
                                     <div class="form-group m-b-40">
                                         <input type="number" name="itemid" id="itemid" class="form-control" required>

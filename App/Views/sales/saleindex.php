@@ -83,7 +83,7 @@
                         <i data-icon="/" lass="linea-icon linea-basic fa-fw"></i>
                         <span class="hide-menu">Sales Management
                             <span class="fa arrow"></span>
-                            <span class="label label-rouded label-purple pull-right">2</span>
+                            <span class="label label-rouded label-purple pull-right">3</span>
                         </span>
                     </a>
                     <ul class="nav nav-second-level">
@@ -96,6 +96,12 @@
                             <a href="<?php url('sales/order')?>">
 <!--                                <i class="fa-fw">S</i>-->
                                 <span class="hide-menu"> Orders</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?php url('sales/genledger')?>">
+                                <!--                                <i class="fa-fw">S</i>-->
+                                <span class="hide-menu"> General ledger</span>
                             </a>
                         </li>
                     </ul>

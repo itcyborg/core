@@ -150,8 +150,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <td>{$item['cost']} {$item['last_name']}</td>
                                 <td>{$item['status']}</td>
                                 <td>
-                                    <a href="#" data-toggle="tooltip" data-original-title="Edit" onclick="Customer.edit({$item['id']})"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
-                                    <a href="#" data-toggle="tooltip" data-original-title="Delete" onclick="Customer.delete({$item['id']})"> <i class="fa fa-trash-o text-warning m-r-10"></i> </a>
+<!--                                    <a href="#" data-toggle="tooltip" data-original-title="Edit" onclick="Customer.edit({$item['id']})"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>-->
+                                   <a href="#" data-toggle="tooltip" data-original-title="Delete" onclick="<?php url('sales/stock/delete')?>"> <i class="fa fa-trash-o text-warning m-r-10"></i> </a>
                                 </td>
                             </tr>
                             {/foreach}

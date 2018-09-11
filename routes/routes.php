@@ -62,8 +62,15 @@ Route::get('sales','salesController@index');
 Route::get('sales/stock','salesController@stock');
 Route::get('sales/addstock','salesController@addstock');
 Route::get('sales/order','salesController@order');
+Route::get('sales/placeorder','salesController@placeorder');
+Route::get('sales/genledger','salesController@genledger');
+
+Route::post('sales/stock/add','salesController@add');
+Route::post('sales/stock/addorder','salesController@addorder');
+Route::post('sales/stock/deletestock','salesController@deletestock');
 
 Route::get('starter','indexController@starter');
-Route::get('email/test',function($i){
-    echo 'hello';
+Route::get('email',function($i){
+//    $password=new \Core\Auth\PasswordService();
+//    dd($password->hash('rael'));
 });

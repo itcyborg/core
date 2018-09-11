@@ -3,7 +3,7 @@ namespace App\Migrations;
 
 use Core\Database\SchemaBuilder\Schema;
 
-class order{
+class ordertbl{
 
 
  public static function run($tablename)

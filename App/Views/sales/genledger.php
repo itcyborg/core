@@ -13,7 +13,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="<?php asset('plugins/images/favicon.png'); ?>">
-    <title>Slim ERP- Orders</title>
+    <title>Slim ERP- Stock</title>
     <!-- Bootstrap Core CSS -->
     <link href="<?php asset('bootstrap/dist/css/bootstrap.min.css'); ?>" rel="stylesheet">
     <!-- This is Sidebar menu CSS -->
@@ -94,27 +94,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
-                <li>
-                    <a href="javascript:void(0)" class="waves-effect">
-                        <i class="fa fa-users  fa-fw"></i>
-                        <span class="hide-menu">Orders
-                            <span class="fa arrow"></span>
-                            <!--                            <span class="label label-rouded label-purple pull-right">2</span>-->
-                        </span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="<?php url('sales/placeorder') ?>"><i class="mdi mdi-account-multiple-plus fa-fw"></i>
-                                <span class="hide-menu">Place Order</span>
-                            </a>
-                        </li>
-                        <!--                        <li>-->
-                        <!--                            <a href="--><?php //url('crm/customers/') ?><!--"><i class="mdi mdi-account-multiple fa-fw"></i>-->
-                        <!--                                <span class="hide-menu">List Customers</span>-->
-                        <!--                            </a>-->
-                        <!--                        </li>-->
-                    </ul>
-                </li>
+<!--                -->
             </ul>
         </div>
     </div>
@@ -135,23 +115,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Order ID</th>
-                                <th>Item Name</th>
-                                <th>Amount</th>
-                                <th>Status</th>
+                                <th>Asset ID</th>
+                                <th>Asset Name</th>
+                                <th>Value</th>
+                                <th>Year acquired</th>
                             </tr>
                             </thead>
                             <tbody>
                             {foreach $data as $item}
                             <tr>
                                 <td>{$item['id']}</td>
-                                <td>{$item['orderId']}</td>
-                                <td>{$item['order_Item']}</td>
-                                <td>{$item['amount']}</td>
-                                <td>{$item['status']}</td>
+                                <td>{$item['asset_id']}</td>
+                                <td>{$item['asset_name']}</td>
+                                <td>{$item['asset_value']}</td>
+                                <td>{$item['year']}</td>
                                 <td>
-<!--                                    <a href="#" data-toggle="tooltip" data-original-title="Edit" onclick="Customer.edit({$item['id']})"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>-->
-                                    <a href="#" data-toggle="tooltip" data-original-title="Delete" onclick=" "> <i class="fa fa-trash-o text-warning m-r-10"></i> </a>
+                                    <!--                                    <a href="#" data-toggle="tooltip" data-original-title="Edit" onclick="Customer.edit({$item['id']})"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>-->
+                                    <!--                                    <a href="#" data-toggle="tooltip" data-original-title="Delete" onclick="Customer.delete({$item['id']})"> <i class="fa fa-trash-o text-warning m-r-10"></i> </a>-->
                                 </td>
                             </tr>
                             {/foreach}
