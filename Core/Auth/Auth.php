@@ -1,10 +1,10 @@
 <?php
-
-
 namespace Core\Auth;
 
-
+use Core\Database\DB\DB;
+use Core\Requests\Request;
 use Core\Router\Route;
+use Core\URL\URL;
 
 class Auth extends Authenticate implements \AuthInterface
 {
@@ -37,7 +37,8 @@ class Auth extends Authenticate implements \AuthInterface
         if (isset($_SESSION['username'], $_SESSION['email'])) {
             return true;
         } else {
-            header('location:login/required');
+            $url=URL::getURI('login/required');
+            header("location:$url");
         }
     }
 
@@ -47,8 +48,17 @@ class Auth extends Authenticate implements \AuthInterface
      * @return mixed
      */
     public static function setUser($user)
-    {
+    {// takes all the user details from the sessionmanager and puts them in a variable
         // TODO: Implement setUser() method.
+         self::$user=$user;
+
+        /*
+         * $user->id
+         * $user->name
+         * $user->email
+         * $user->session_id
+         * loggedd in
+         */
     }
 
     /**
@@ -57,7 +67,8 @@ class Auth extends Authenticate implements \AuthInterface
      */
     public function id()
     {
-        // TODO: Implement id() method.
+        // TODO:return the id of the logged in user.
+        return self::$user['id'];
     }
 
     /**
@@ -66,6 +77,7 @@ class Auth extends Authenticate implements \AuthInterface
      */
     public function lastLogin()
     {
+        return DB::last('logins','user_id',Auth::id())['created_at'];
         // TODO: Implement lastLogin() method.
     }
 
@@ -76,6 +88,8 @@ class Auth extends Authenticate implements \AuthInterface
     public function lastUpdated()
     {
         // TODO: Implement lastUpdated() method.
+        return self::$user['updated_at'];
+
     }
 
     /**
@@ -85,6 +99,7 @@ class Auth extends Authenticate implements \AuthInterface
     public function createdAt()
     {
         // TODO: Implement createdAt() method.
+        return self::$user['created_at'];
     }
 
     /**
@@ -102,6 +117,7 @@ class Auth extends Authenticate implements \AuthInterface
          */
 
         Route::get('login', 'LoginController@index');
+        Route::get('login/required', 'LoginController@index');
         Route::post('login', 'LoginController@login');
 
         Route::get('register', 'RegisterController@index');
@@ -109,6 +125,8 @@ class Auth extends Authenticate implements \AuthInterface
 
         Route::get('reset', 'AuthController@index');
         Route::get('reset/verify/{id}', 'AuthController@verify');
+
         Route::post('reset', 'AuthController@reset');
+        Route::post('recover', 'AuthController@recover');
     }
 }

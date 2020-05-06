@@ -16,6 +16,7 @@ use Core\App\Bootstrap\App;
 /**
  * Class AssetLoader
  * @package Core\Asset
+ * This class is used to load assets like css, fonts and scripts to the template engine
  */
 class AssetLoader
 {
@@ -49,6 +50,7 @@ class AssetLoader
          * Check if we are using the public folder or not, then load the necessary paths to the file
          * If we can't find the file or lack permission to read, then display an error
          */
+
         if (is_readable(self::$root . self::$assetDir . self::$asset)) {
             if (App::isPublic()) {
                 return (string)self::$asset;
@@ -56,7 +58,7 @@ class AssetLoader
                 return 'Public/' . (string)self::$asset;
             }
         } else {
-            die('Asset not found');
+            echo 'Asset not found';
         }
     }
 }

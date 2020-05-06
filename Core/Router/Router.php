@@ -11,12 +11,29 @@ namespace Core\Router;
 use Core\Controller\Controller;
 use Core\Exceptions\ExceptionsHandler;
 
+/**
+ * Class Router
+ * @package Core\Router
+ */
 class Router
 {
+    /**
+     * @var
+     */
     public static $route;
+    /**
+     * @var
+     */
     public static $controller;
+    /**
+     * @var
+     */
     private static $action;
 
+    /**
+     * @param $file
+     * @return Router
+     */
     public static function load($file)
     {
         $router = new static;
@@ -24,13 +41,24 @@ class Router
         return $router;
     }
 
+    /**
+     * @param $uri
+     * @param $requestType
+     * @throws ExceptionsHandler
+     */
     public static function direct($uri, $requestType)
     {
+//        dd(Router::$route);
         if (!self::match($uri, $requestType)) {
             throw new ExceptionsHandler('Page not Found', 404);
         }
     }
 
+    /**
+     * @param $uri
+     * @param $requestType
+     * @return bool|mixed
+     */
     protected static function match($uri, $requestType)
     {
         foreach (array_keys(self::$route[$requestType]) as $route) {
@@ -44,16 +72,22 @@ class Router
                     }
                 } else {
                     if ($params = RoutePattern::getParams($route, $uri)) {
-                        new Controller(
-                            self::$route[$requestType][$route],
-                            self::$action[$requestType][$route][self::$route[$requestType][$route]],
-                            $params
-                        );
+                        try {
+                            new Controller(
+                                self::$route[$requestType][$route],
+                                self::$action[$requestType][$route][self::$route[$requestType][$route]],
+                                $params
+                            );
+                        } catch (ExceptionsHandler $e) {
+                        }
                     } else {
-                        new Controller(
-                            self::$route[$requestType][$route],
-                            self::$action[$requestType][$route][self::$route[$requestType][$route]]
-                        );
+                        try {
+                            new Controller(
+                                self::$route[$requestType][$route],
+                                self::$action[$requestType][$route][self::$route[$requestType][$route]]
+                            );
+                        } catch (ExceptionsHandler $e) {
+                        }
                     }
                     return true;
                 }
@@ -84,6 +118,10 @@ class Router
         }
     }
 
+    /**
+     * @param $pattern
+     * @param $controller
+     */
     public static function post($pattern, $controller)
     {
         $regex = RoutePattern::getRegex($pattern);

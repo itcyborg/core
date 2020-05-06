@@ -8,8 +8,16 @@
 
 namespace Core\Router;
 
+/**
+ * Class RoutePattern
+ * @package Core\Router
+ */
 class RoutePattern
 {
+    /**
+     * @param $pattern
+     * @return bool|string
+     */
     public static function getRegex($pattern)
     {
         if (preg_match('/[^-:\/_{}()a-zA-Z\d]/', $pattern))
@@ -38,6 +46,11 @@ class RoutePattern
         return $patternAsRegex;
     }
 
+    /**
+     * @param $pattern
+     * @param $uri
+     * @return array|bool
+     */
     public static function getParams($pattern, $uri)
     {
         if ($ok = preg_match($pattern, $uri, $matches)) {

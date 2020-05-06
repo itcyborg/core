@@ -12,8 +12,10 @@ class sales
     {
         $table = new Schema($tablename);
         $table->increments();
-        $table->integer('stockid', 11);
+        $table->integer('item_id', 11);
+        $table->varchar('item_name',11);
         $table->double('cost');
+        $table->varchar('status','11');
         $table->date('arrival_date');
         $table->timestamps();
         $table->build();

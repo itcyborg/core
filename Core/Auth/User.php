@@ -9,6 +9,9 @@
 namespace Core\Auth;
 
 
+use Core\Database\DB\DB;
+use Core\Exceptions\ExceptionsHandler;
+
 class User extends GenericUser implements \User
 {
 
@@ -18,6 +21,7 @@ class User extends GenericUser implements \User
      * @param $password
      * @param null $username [optional]
      * @return mixed
+     * @throws ExceptionsHandler
      */
     public function create($email, $password, $username = null)
     {
@@ -36,21 +40,20 @@ class User extends GenericUser implements \User
      * @param $email
      * @param $username
      * @return mixed
+     * @throws ExceptionsHandler
      */
     public function isUnique($email, $username)
     {
         $isUnique = true;
-        $username_check = DB::FindColumn('users', ['username' => $username]);
-        if ($username_check['count'] > 0) {
+        $username_check = DB::one('users', 'username','username',$username);
+        if ($username_check) {
             $isUnique = false;
-            Notifications::addError("Username Exists", Request::uri());
-            throw new Exception("Username Exists");
+            throw new ExceptionsHandler("Username Exists");
         }
-        $email_check = DB::FindColumn('users', ['email' => $email]);
-        if ($email_check['count'] > 0) {
+        $email_check =  DB::one('users', 'email','email',$email);
+        if ($email_check) {
             $isUnique = false;
-            Notifications::addError("Error registering using this email. Try another.", Request::uri());
-            throw new Exception("Error registering using this email. Try another.");
+            throw new ExceptionsHandler("Error registering using this email. Try another.");
         }
         return $isUnique;
     }

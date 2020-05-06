@@ -10,10 +10,12 @@ namespace Database\QueryBuilder;
 
 use Core\Database\ConnectionBuilder\Connection;
 use Core\Database\ConnectionBuilder\ConnectionBuilder;
+use Core\Exceptions\ExceptionsHandler;
 
 /**
  * Class QueryBuilder
  * @package Database\QueryBuilder
+ * Build a query from the parameters we receive and execute it. Return the results.
  */
 class QueryBuilder extends Connection
 {
@@ -26,15 +28,17 @@ class QueryBuilder extends Connection
      * @param $table
      * @param array|null $columns
      * @return mixed
+     * Query the database for all records from a table
+     * TODO Add a limit if the table has a lot of records
      */
     public static function all($table, array $columns = null)
     {
         try {
-            $pdo = ConnectionBuilder::getConnection();
-            self::$query = sprintf('select * from %s', $table);
-            $stmt = $pdo->prepare(self::$query);
-            $stmt->execute();
-            return $stmt->fetchAll();
+            $pdo = ConnectionBuilder::getConnection(); // Get a connection from the builder
+            self::$query = sprintf('select * from %s', $table); // build the query
+            $stmt = $pdo->prepare(self::$query); // prepare the query to prevent sql injection
+            $stmt->execute(); // execute the query
+            return $stmt->fetchAll(); // fetch and return the results
         } catch (\Throwable $e) {
             dd($e->getMessage());
         }
@@ -66,6 +70,7 @@ class QueryBuilder extends Connection
         }
     }
 
+    // @Rachael: make sure you comment this section of the code.
     /**
      * @param $table
      * @param $field
@@ -75,7 +80,7 @@ class QueryBuilder extends Connection
      */
     public static function one($table, $field, $value, $data)
     {
-        self::$query = "SELECT " . $value . " FROM " . $table . " WHERE " . $field . "=" . $data;
+        self::$query = "SELECT " . $value . " FROM " . $table . " WHERE " . $field . "='" . $data."'";
         try {
             $pdo = ConnectionBuilder::getConnection();
             $stmt = $pdo->prepare(self::$query);
@@ -118,7 +123,7 @@ class QueryBuilder extends Connection
             $pdo = ConnectionBuilder::getConnection();
             $stmt = $pdo->prepare(self::$query);
             $stmt->execute();
-            return $stmt->fetch();
+            return true;
         } catch (\Throwable $e) {
             dd($e->getMessage());
         }
@@ -162,6 +167,7 @@ class QueryBuilder extends Connection
      * @param $fields
      * @param $values
      * @return mixed
+     * @throws ExceptionsHandler
      */
     public static function add($table, $fields, $values)
     {
@@ -182,9 +188,35 @@ class QueryBuilder extends Connection
             $stmt->execute();
             return $pdo->lastInsertId();
         } catch (\Throwable $e) {
-            dd($e->getMessage());
+            throw new ExceptionsHandler($e->getMessage(),$e->getCode());
         }
     }
 
+    public static function last($table,$field,$value)
+    {
+        $sql="SELECT * FROM ".$table." WHERE ".$field."= '".$value."' ORDER BY id DESC LIMIT 1";
+        self::$query=$sql;
+        try{
+            $pdo=ConnectionBuilder::getConnection();
+            $stmt=$pdo->prepare(self::$query);
+            $stmt->execute();
+            return $stmt->fetch();
+        } catch (\Throwable $e){
+            throw new ExceptionsHandler($e->getMessage(),$e->getCode());
+        }
+    }
+
+    public static function raw($query)
+    {
+        self::$query=$query;
+        try{
+            $pdo=ConnectionBuilder::getConnection();
+            $stmt=$pdo->prepare(self::$query);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        }catch (\Throwable $e){
+            throw new ExceptionsHandler($e->getMessage(),$e->getCode());
+        }
+    }
 }
 

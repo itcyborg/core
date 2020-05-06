@@ -46,24 +46,27 @@ class Controller
          * if the controller has an action, then instantiate the controller and do the action
          * else just instantiate the controller
          */
-
         if (is_dir(App::controllerDir())) { # Check if it is a directory
             if (is_readable(App::controllerDir() . $controller . '.php')) { # Check if the file exists and is readable
                 require App::controllerDir() . $controller . '.php'; # Require/add the file(Controller)
                 if ($action !== null) { # If an action is specified
                     # Call the function in the controller and pass the parameters
                     ## This, '...' , is the splat/scatter operator. Visit https://lornajane.net/posts/2014/php-5-6-and-the-splat-operator for more info
-                    call_user_func([$controller, $action], ...array_values($params));
+                    if(method_exists(new $controller,$action)){
+                        call_user_func([$controller, $action], ...array_values($params));
+                    }else{
+                        throw new ExceptionsHandler('Function: '.$action.'does not exist.',500);
+                    }
                 } else {# If no action is specified, then take the controller to be a single action
                     if (class_exists($controller)) {
                         new $controller(); // Launch the action
                     }
                 }
             } else {
-                throw new ExceptionsHandler('Controller not found/Controller not readable.');
+                throw new ExceptionsHandler('Controller not found/Controller not readable.',500);
             }
         } else {
-            throw new ExceptionsHandler('Controller Directory not found');
+            throw new ExceptionsHandler('Controller Directory not found',500);
         }
     }
 

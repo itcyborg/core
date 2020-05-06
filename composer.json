@@ -7,5 +7,9 @@
     "files": [
       "Core/Helpers/Helpers.php"
     ]
+  },
+  "require": {
+    "phpmailer/phpmailer": "^6.0",
+    "latte/latte": "^2.4"
   }
 }

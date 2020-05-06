@@ -11,24 +11,38 @@ namespace Core\View;
 
 use Core\App\Bootstrap\App;
 use Core\Exceptions\ExceptionsHandler;
+use Latte\Engine;
 
+/**
+ * Class View
+ * @package Core\View
+ */
 class View
 {
+    /**
+     * @param $view
+     * @param null $data
+     * @throws ExceptionsHandler
+     */
     public static function loadView($view, $data = null)
     {
         if (is_readable(App::viewsDir() . $view)) {
-            $contents = file_get_contents(App::viewsDir() . $view);
-            if ($data !== null) {
-                foreach ($data as $datum => $item) {
-                    TemplateEngine::assign($datum, $item);
-                }
-            }
+            $latte=new Engine;
+            $latte->render(App::viewsDir() . $view,$data);
+//            $contents = file_get_contents(App::viewsDir() . $view);
+//            if ($data !== null) {
+//                foreach ($data as $datum => $item) {
+//                    TemplateEngine::assign($datum, $item);
+//                }
+//            }
         } else {
-            throw new ExceptionsHandler('View not found');
+            throw new ExceptionsHandler('View not found',404);
         }
-        self::render($contents);
     }
 
+    /**
+     * @param $content
+     */
     public static function render($content)
     {
         TemplateEngine::render($content);

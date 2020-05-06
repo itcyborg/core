@@ -9,9 +9,15 @@
 namespace Core\Auth;
 
 
+use Core\Database\DB\DB;
+use Core\Exceptions\ExceptionsHandler;
+
 class GenericUser implements \GenericUser
 {
-
+    private static $email;
+    private static $username;
+    private static $password;
+    private static $confirm_password;
     /**
      * set email
      * @param $email
@@ -20,6 +26,7 @@ class GenericUser implements \GenericUser
     public function email($email)
     {
         // TODO: Implement email() method.
+        self::$email = $email;
     }
 
     /**
@@ -30,6 +37,7 @@ class GenericUser implements \GenericUser
     public function password($password)
     {
         // TODO: Implement password() method.
+        self::$password=$password;
     }
 
     /**
@@ -40,6 +48,7 @@ class GenericUser implements \GenericUser
     public function confirmPassword($confirmPassword)
     {
         // TODO: Implement confirmPassword() method.
+        self::$confirm_password=$confirmPassword;
     }
 
     /**
@@ -59,6 +68,7 @@ class GenericUser implements \GenericUser
     public function username($username)
     {
         // TODO: Implement username() method.
+        self::$username=$username;
     }
 
     /**
@@ -68,5 +78,10 @@ class GenericUser implements \GenericUser
     public function save()
     {
         // TODO: Implement save() method.
+        try{
+            return DB::add('users',['username','email','password'],[self::$username,self::$email,self::$password]);
+        }catch (\Throwable $e){
+            return false;
+        }
     }
 }

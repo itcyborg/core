@@ -9,6 +9,8 @@
 namespace Core\Requests;
 
 
+use Core\Exceptions\ExceptionsHandler;
+
 /**
  * Class Request
  * @package Core\Requests
@@ -45,7 +47,6 @@ class Request
                 self::setFile($_FILES);
             }
         }
-
         $this->request = (object)$this->request;
     }
 
@@ -135,6 +136,7 @@ class Request
     /**
      * @param $name
      * @return mixed
+     * @throws ExceptionsHandler
      */
     public function __get($name)
     {
